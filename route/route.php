@@ -427,6 +427,11 @@ Route::rule('demo/delete' , 'demo/index/delete', 'GET|POST')->allowCrossDomain()
 Route::rule('cloudapi/get_token', 		'api/urlmgmt/get_token_for_rest', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/add_url', 		'api/urlmgmt/add_url_for_rest', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/config', 		'api/urlmgmt/config_url_for_rest', 	'GET|POST')->allowCrossDomain();
+
+Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/editip', 		'admin/system/editip', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/deleteip', 		'admin/system/deleteip', 	'GET|POST')->allowCrossDomain();
 return [
 
 ];

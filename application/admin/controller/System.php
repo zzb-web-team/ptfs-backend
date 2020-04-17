@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Validate;
+use think\facade\Cache;
 
 class System extends Common
 { 
@@ -801,6 +802,127 @@ class System extends Common
             "where" => "id='".intval($data['id'])."'",
         );
         return  self::loadApiData("store/update_table", $param);
+    }
+
+    public function iplist()
+    {
+        $data = input('post.');
+        //表单验证规则
+        $page = isset($data['page']) ? $data['page'] : 1;
+        $size = isset($data['size']) ? $data['size'] : 10;
+        $list = Cache::store('redis')->get('ipfs:ip:list', json_encode([]));
+        $list = json_decode($list, true);
+        $return_data = [];
+        $rowindex = ($page -1) * $size;
+        for ($i = $rowindex;$i < $size; $i ++) {
+            if (!isset($list[$i])) {
+                continue;
+            }
+            $return_data[] = $list[$i];
+        }
+        return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success', 'page' => $page, 'size' => $size, 'data'=>$return_data, 'total' => count($list)]); 
+    }
+
+    public function addip()
+    {
+        $data = input('post.');
+        //表单验证规则
+        $validation = new Validate([
+            'ip'  =>  'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $list = Cache::store('redis')->get('ipfs:ip:list', json_encode([]));
+        $list = json_decode($list, true);
+        $column = array_column($list, 'ip');
+        $res = array_search($data['ip'], $column);
+        if($res === false){
+            $id = Cache::store('redis')->get('ipfs:ip:id', 0) + 1;
+            Cache::store('redis')->set('ipfs:ip:id', $id);
+            $list[] = [
+                "id" => $id,
+                "ip" => $data['ip']
+            ];
+            Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
+            return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success']); 
+        }
+        return json(['status' => -900, 'err_code' => -900,  'msg' => '该ip已经添加过了']);
+        //
+
+    }
+
+    public function editip()
+    {
+        $data = input('post.');
+        //表单验证规则
+        $validation = new Validate([
+            'id'  =>  'require',
+            'ip'  =>  'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $list = Cache::store('redis')->get('ipfs:ip:list', json_encode([]));
+        $list = json_decode($list, true);
+        $column = array_column($list, 'ip');
+        $res = array_search($data['ip'], $column);
+        if ($res === false) {
+            $column = array_column($list, 'id');
+            $res = array_search($data['id'], $column);
+            if($res === false){
+                return json(['status' => -900, 'err_code' => -900,  'msg' => '该id不存在']);
+            }
+            $info = [
+                "id" => $data['id'],
+                "ip" => $data['ip']
+            ];
+            $list[$res] = $info;
+            Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
+            return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success']); 
+        }
+        if ($list[$res]['id'] != $data['id']) {
+            return json(['status' => -900, 'err_code' => -900,  'msg' => '该ip已存在']);
+        }
+        $column = array_column($list, 'id');
+        $res = array_search($data['id'], $column);
+        if($res === false){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => '该id不存在']);
+        }
+        $info = [
+            "id" => $data['id'],
+            "ip" => $data['ip']
+        ];
+        $list[$res] = $info;
+        Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
+        return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success']); 
+
+    }
+
+    public function deleteip()
+    {
+        $data = input('post.');
+        //表单验证规则
+        $validation = new Validate([
+            'id'  =>  'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $list = Cache::store('redis')->get('ipfs:ip:list', json_encode([]));
+        $list = json_decode($list, true);
+        $column = array_column($list, 'id');
+        $res = array_search($data['id'], $column);
+        if ($res === false) {
+            return json(['status' => -900, 'err_code' => -900,  'msg' => '该id不存在']);
+        }
+        unset($list[$res]);
+        Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
+        return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success']); 
+
     }
 
 }
