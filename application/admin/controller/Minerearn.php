@@ -74,14 +74,7 @@ class Minerearn extends Common
     public function ptfs_set_earn_param()
     {
         $data = input('post.');
-        $param = array(
-            "param_type" => empty($data['param_type']) ? 0 : $data['param_type'],
-            "store_radio"  => empty($data['store_radio']) ? "" : $data['store_radio'],
-            "ip_radio"  => empty($data['ip_radio']) ? "" : $data['ip_radio'],
-        );
-        $return_data = self::loadApiData("miner_earn/ptfs_set_earn_param", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("miner_earn/ptfs_set_earn_param", $data);
     }
 
     //查询设备地域分布 
