@@ -563,4 +563,10 @@ class Minerearn extends Common
         return self::loadApiData("miner_ctrl/web_change_device_state", $data);
     }
 
+    public function move_help_item()
+    {
+        $data = input('post.');
+        return self::loadApiData("miner_ctrl/move_help_item", $data);
+    }
+
 }

@@ -74,7 +74,7 @@ class Appmarket extends Common
 
     public function update_app()
     {
-        $data = input('request.');
+        $data = input('post.');
         //表单验证规则
         // $validation = new Validate([
         //      'token'  => 'require',

@@ -214,6 +214,7 @@ Route::post('miner_ctrl/app_query_help_cat_info', 					'api/minerearn/app_query_
 Route::post('miner_ctrl/app_query_help_item_info', 					'api/minerearn/app_query_help_item_info')->allowCrossDomain();
 Route::post('miner_ctrl/query_node_address_info', 					'api/minerearn/query_node_address_info')->allowCrossDomain();
 Route::post('miner_ctrl/web_change_device_state', 					'api/minerearn/web_change_device_state')->allowCrossDomain();
+Route::post('miner_ctrl/move_help_item', 					'api/minerearn/move_help_item')->allowCrossDomain();
 
 Route::post('miner_earn/ptfs_total_profit_info', 					'admin/minerearn/ptfs_total_profit_info')->allowCrossDomain();
 Route::post('miner_earn/ptfs_query_user_store_list', 					'admin/minerearn/ptfs_query_user_store_list')->allowCrossDomain();
