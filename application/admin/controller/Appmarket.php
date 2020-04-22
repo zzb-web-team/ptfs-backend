@@ -175,10 +175,8 @@ class Appmarket extends Common
 
     public function get_recommend()
     {
-        $param = array(
-            "time" => time(),
-        );
-        return self::loadApiData("appmarket/get_recommend", $param);
+        $data = input('post.');
+        return self::loadApiData("appmarket/get_recommend", $data);
     }
 
     public function download()

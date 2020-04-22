@@ -158,7 +158,7 @@ class Upload extends Common{
                 $appObj  = new Apkparser(); 
                 $targetFile = './downloadapk/'.$name;//apk所在的路径地址
                 $res   = $appObj->open($targetFile);
-                return json(['status' => 0, 'msg' => '上传成功', 'url' => request()->domain().'/downloadapk/'. $name, 'version' => $appObj->getVersionName(), 'size' => filesize('./downloadapk/'. $name), 'name' => $appObj->getPackage(), 'md5' => md5_file('./downloadapk/'. $name)]);
+                return json(['status' => 1, 'msg' => '上传成功', 'url' => request()->domain().'/downloadapk/'. $name, 'version' => $appObj->getVersionName(), 'size' => filesize('./downloadapk/'. $name), 'name' => $appObj->getPackage(), 'md5' => md5_file('./downloadapk/'. $name)]);
             } else {
                 return json(['status' => 0, 'err_code' => 0,  'msg' => '上传成功']);
             }
