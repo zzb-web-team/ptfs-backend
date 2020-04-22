@@ -15,6 +15,7 @@
 //后台
 Route::rule('admin/upload', 									'admin/upload/index', 								'GET|POST')->allowCrossDomain();
 Route::rule('admin/uploadapk', 									'admin/upload/apk', 								'GET|POST')->allowCrossDomain();
+Route::rule('admin/uploadapk2', 									'admin/upload/uploadapk', 								'GET|POST')->allowCrossDomain();
 Route::rule('admin/uploadzip', 									'admin/upload/zip', 								'GET|POST')->allowCrossDomain();
 Route::rule('admin/uploadtest', 									'admin/upload/test', 								'GET|POST')->allowCrossDomain();
 Route::rule('admin/uploadipfs', 									'admin/upload/uploadipfs', 								'GET|POST')->allowCrossDomain();
@@ -215,6 +216,7 @@ Route::post('miner_ctrl/app_query_help_item_info', 					'api/minerearn/app_query
 Route::post('miner_ctrl/query_node_address_info', 					'api/minerearn/query_node_address_info')->allowCrossDomain();
 Route::post('miner_ctrl/web_change_device_state', 					'api/minerearn/web_change_device_state')->allowCrossDomain();
 Route::post('miner_ctrl/move_help_item', 					'api/minerearn/move_help_item')->allowCrossDomain();
+Route::post('miner_ctrl/batch_import_devices', 					'api/minerearn/batch_import_devices')->allowCrossDomain();
 
 Route::post('miner_earn/ptfs_total_profit_info', 					'admin/minerearn/ptfs_total_profit_info')->allowCrossDomain();
 Route::post('miner_earn/ptfs_query_user_store_list', 					'admin/minerearn/ptfs_query_user_store_list')->allowCrossDomain();
@@ -292,6 +294,7 @@ Route::rule('appmarket/del_group', 		'admin/appmarket/del_group', 	'GET|POST')->
 Route::rule('appmarket/query_all_group', 		'admin/appmarket/query_all_group', 	'GET|POST')->allowCrossDomain();
 Route::rule('appmarket/query_group', 		'admin/appmarket/query_group', 	'GET|POST')->allowCrossDomain();
 Route::rule('appmarket/get_app_by_appid', 		'admin/appmarket/get_app_by_appid', 	'GET|POST')->allowCrossDomain();
+Route::rule('appmarket/del_app', 		'admin/appmarket/del_app', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('noticepush/get_tag', 		'api/noticepush/get_tag', 	'GET|POST')->allowCrossDomain();
 Route::rule('noticepush/push_immediate', 		'api/noticepush/push_immediate', 	'GET|POST')->allowCrossDomain();

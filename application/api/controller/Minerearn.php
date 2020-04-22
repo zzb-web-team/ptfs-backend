@@ -569,4 +569,10 @@ class Minerearn extends Common
         return self::loadApiData("miner_ctrl/move_help_item", $data);
     }
 
+    public function batch_import_devices()
+    {
+        $data = input('post.');
+        return self::loadApiData("miner_ctrl/batch_import_devices", $data);
+    }
+
 }

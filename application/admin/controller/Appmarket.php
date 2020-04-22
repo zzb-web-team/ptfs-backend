@@ -270,4 +270,10 @@ class Appmarket extends Common
         return self::loadApiData("appmarket/get_app_by_appid", $data);
     }
 
+    public function del_app()
+    {
+        $data = input('post.');
+        return self::loadApiData("appmarket/del_app", $data);
+    }
+
 }

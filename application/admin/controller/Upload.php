@@ -127,6 +127,48 @@ class Upload extends Common{
         exit;
     }
 
+    public function uploadapk()
+    {
+        $data = input('post.');
+        //表单验证规则
+        $validation = new Validate([
+            'num'=>'require',
+            'total'=>'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -1, 'msg' => $validation->getError()]);
+        }
+        $file = request()->file('file');
+        $name = $data['fileName'];
+        $filename = $name."_".$data['num'];
+        $rs = $file->move('./downloadapk', $filename);//图片保存路径
+        if ($rs) {
+            if ($data['total'] == $data['num']) {
+                //合并处理
+                for($i= 1;$i<=$data['total'];$i++){
+                    $path = './downloadapk/'. $name . "_". $i;
+                    if ($i == 1) {
+                        file_put_contents('./downloadapk/'. $name, file_get_contents($path));
+                    } else {
+                        file_put_contents('./downloadapk/'. $name, file_get_contents($path), FILE_APPEND);
+                    }
+                    unlink($path);//删除合并过的文件
+                }
+                $appObj  = new Apkparser(); 
+                $targetFile = './downloadapk/'.$name;//apk所在的路径地址
+                $res   = $appObj->open($targetFile);
+                return json(['status' => 0, 'msg' => '上传成功', 'url' => request()->domain().'/downloadapk/'. $name, 'version' => $appObj->getVersionName(), 'size' => filesize('./downloadapk/'. $name), 'name' => $appObj->getPackage(), 'md5' => md5_file('./downloadapk/'. $name)]);
+            } else {
+                return json(['status' => 0, 'err_code' => 0,  'msg' => '上传成功']);
+            }
+            
+        }else{
+            return json(['status' => -900, 'err_code' => -900,  'msg' => '上传失败']);
+        }
+        exit;
+    }
+
     public function is_json($data = '', $assoc = false) {
         $data = json_decode($data, $assoc);
         if (($data && (is_object($data))) || (is_array($data) && !empty($data))) {
