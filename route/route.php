@@ -9,6 +9,7 @@
 // | Author: demon <327414964@qq.com>
 // +----------------------------------------------------------------------
 
+use think\facade\Route;
 //官网
 
 
@@ -122,6 +123,7 @@ Route::rule('account/ptfs_forbid_users', 		'admin/account/ptfs_forbid_users', 	'
 Route::rule('account/ptfs_query_total_users', 		'admin/account/ptfs_query_total_users', 	'GET|POST')->allowCrossDomain();
 Route::rule('account/ptfs_query_user_list', 		'admin/account/ptfs_query_user_list', 	'GET|POST')->allowCrossDomain();
 Route::post('account/ptfs_query_user_trend_list', 		'admin/account/ptfs_query_user_trend_list')->allowCrossDomain();
+Route::post('account/test',           'admin/account/test')->allowCrossDomain();//测试使用
 
 Route::post('account/sign', 					'api/minerearn/sign')->allowCrossDomain();
 
@@ -169,7 +171,7 @@ Route::rule('admin/system/rolelist', 										'admin/system/rolelist', 							'
 Route::rule('admin/system/getrolebyid', 										'admin/system/getrolebyid', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/rolelistfortop', 										'admin/system/rolelistfortop', 							'GET|POST')->allowCrossDomain();
 //ptfs接口
-Route::post('ptfs_user_server/get_code', 						'api/ptfsstorageuser/getcode')->allowCrossDomain();
+Route::rule('ptfs_user_server/get_code', 						'api/ptfsstorageuser/getcode' ,  'GET|POST')->allowCrossDomain();
 Route::post('ptfs_user_server/login', 							'api/ptfsstorageuser/login')->allowCrossDomain();
 Route::post('ptfs_user_server/logout', 							'api/ptfsstorageuser/logout')->allowCrossDomain();
 Route::post('ptfs_user_server/get_user_info', 					'api/ptfsstorageuser/getuserinfo')->allowCrossDomain();
@@ -312,6 +314,7 @@ Route::rule('cloud/uploadsdk', 		'cloud/filehtml/uploadsdk', 	'GET|POST')->allow
 Route::rule('cloud/savesdk', 		'cloud/filehtml/savesdk', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloud/sdklist', 		'cloud/filehtml/sdklist', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloud/editsdk', 		'cloud/filehtml/editsdk', 	'GET|POST')->allowCrossDomain();
+Route::post('cloud/back_data',      'cloud/filehtml/back_data')->allowCrossDomain();
 
 Route::rule('url_mgmt/add_url', 		'cloud/urlmgmt/add_url', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/excel_url', 		'cloud/urlmgmt/excelurl', 	'GET|POST')->allowCrossDomain();

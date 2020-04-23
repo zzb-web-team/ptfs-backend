@@ -95,6 +95,18 @@ class Filehtml extends Common
         return json(['status' => 0, 'err_code' => 0,  'msg' => request()->domain().'/html/'.$filename.".html"]);
     }
 
+    public function back_data(){
+        $data = input('post.');
+        $validation = new Validate([
+            'data'  => 'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        return file_get_contents($data['data']);
+    }
+
     //查询设备地域分布 
     public function ptfs_query_user_list()
     {
@@ -114,8 +126,8 @@ class Filehtml extends Common
             "bind_end_time"  => empty($data['bind_end_time']) ? "" : $data['bind_end_time'],
         );
         return self::loadApiData("account/ptfs_query_user_list", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        // $return_data = json_decode($return_data, true);
+        // return json($return_data);
     }
 
     public function uploadsdk()
