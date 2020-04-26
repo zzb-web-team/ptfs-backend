@@ -124,6 +124,7 @@ Route::rule('account/ptfs_query_total_users', 		'admin/account/ptfs_query_total_
 Route::rule('account/ptfs_query_user_list', 		'admin/account/ptfs_query_user_list', 	'GET|POST')->allowCrossDomain();
 Route::post('account/ptfs_query_user_trend_list', 		'admin/account/ptfs_query_user_trend_list')->allowCrossDomain();
 Route::post('account/test',           'admin/account/test')->allowCrossDomain();//测试使用
+Route::post('account/test1',           'admin/account/test1')->allowCrossDomain();
 
 Route::post('account/sign', 					'api/minerearn/sign')->allowCrossDomain();
 
@@ -328,6 +329,12 @@ Route::rule('url_mgmt/delete_url', 		'cloud/urlmgmt/delete_url', 	'GET|POST')->a
 Route::rule('url_mgmt/query_urllabel', 		'cloud/urlmgmt/query_urllabel', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/excelurluser', 		'cloud/urlmgmt/excelurluser', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/getvideo', 		'cloud/urlmgmt/getvideo', 	'GET|POST')->allowCrossDomain();
+Route::post('url_mgmt/check_urlname',     'cloud/urlmgmt/check_urlname')->allowCrossDomain();
+Route::post('url_mgmt/add_domain',      'cloud/urlmgmt/add_domain')->allowCrossDomain();
+Route::post('url_mgmt/modify_domain',      'cloud/urlmgmt/modify_domain')->allowCrossDomain();
+Route::post('url_mgmt/change_domainstate',    'cloud/urlmgmt/change_domainstate')->allowCrossDomain();
+Route::post('url_mgmt/del_domain',           'cloud/urlmgmt/del_domain')->allowCrossDomain();
+Route::post('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain')->allowCrossDomain();
 
 
 Route::rule('node_mgmt/node_distribute', 		'cloud/nodemgmt/node_distribute', 	'GET|POST')->allowCrossDomain();

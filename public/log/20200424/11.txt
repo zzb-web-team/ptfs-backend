@@ -1,0 +1,9 @@
+-----11:00:31-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+store/find_table
+---------------------------
+{"page":0,"page_size":10,"tb_name":"cloud_action_log","col_name":"*","where":"utype = 'ipfs'","order":"id desc"}
+---------------------------
+{"status":0,"msg":"find_table success\r\n","result":{"cols":[{"id":273,"action":"修改","description":"启用账号","beforevalue":"-","aftervalue":"-","status":0,"utype":"ipfs","uid":6,"username":"admin","time_create":1584972758,"time_update":1584972758},{"id":204,"action":"修改","description":"批量启用账号","beforevalue":"-","aftervalue":"-","status":1,"utype":"ipfs","uid":6,"username":"admin","time_create":1584072437,"time_update":1584072437},{"id":203,"action":"新增","description":"添加账号","beforevalue":"-","aftervalue":"demon","status":1,"utype":"ipfs","uid":6,"username":"admin","time_create":1584072424,"time_update":1584072424},{"id":176,"action":"新增","description":"添加账号","beforevalue":"-","aftervalue":"demon","status":0,"utype":"ipfs","uid":6,"username":"admin","time_create":1584010840,"time_update":1584010840},{"id":171,"action":"新增","description":"添加账号","beforevalue":"-","aftervalue":"miaomiao","status":1,"utype":"ipfs","uid":6,"username":"admin","time_create":1583996145,"time_update":1583996145}],"les_count":0,"page":0}}
+---------------------------
+
