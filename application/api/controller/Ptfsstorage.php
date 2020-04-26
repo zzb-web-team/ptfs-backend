@@ -534,23 +534,23 @@ class PtfsStorage extends Common
     public function query_devinfo_by_conditions_grapefruit()
     {
         $data = input('post.');
-        $param = array(
-            "page_no"  => empty($data['page_no']) ? 0 : $data['page_no'],
-            "page_size"  => empty($data['page_size']) ? 10 : $data['page_size'],
-            "dev_sn"  => empty($data['dev_sn']) ? "" : $data['dev_sn'],
-            "ipfs_id"  => empty($data['ipfs_id']) ? "" : $data['ipfs_id'],
-            "dev_name"  => empty($data['dev_name']) ? "" : $data['dev_name'],
-            "dev_type"  => empty($data['dev_type']) ? "" : $data['dev_type'],
-            "online_state"  => empty($data['online_state']) ? 0 : $data['online_state'],
-            "dev_mac"  => empty($data['dev_mac']) ? "" : $data['dev_mac'],
-            "dev_ip"  => empty($data['dev_ip']) ? "" : $data['dev_ip'],
-            "rom_version"  => empty($data['rom_version']) ? "" : $data['rom_version'],
-            "bind_flag"  => empty($data['bind_flag']) ? 0 : $data['bind_flag'],
-            "bind_start_ts"  => empty($data['bind_start_ts']) ? 0 : $data['bind_start_ts'],
-            "bind_end_ts"  => empty($data['bind_end_ts']) ? 0 : $data['bind_end_ts'],
-            "bind_user_id" => empty($data['bind_user_id']) ? 0 : $data['bind_user_id'],
-        );
-        return self::loadApiData("miner_ctrl/query_devinfo_by_conditions_grapefruit", $param);
+        // $param = array(
+        //     "page_no"  => empty($data['page_no']) ? 0 : $data['page_no'],
+        //     "page_size"  => empty($data['page_size']) ? 10 : $data['page_size'],
+        //     "dev_sn"  => empty($data['dev_sn']) ? "" : $data['dev_sn'],
+        //     "ipfs_id"  => empty($data['ipfs_id']) ? "" : $data['ipfs_id'],
+        //     "dev_name"  => empty($data['dev_name']) ? "" : $data['dev_name'],
+        //     "dev_type"  => empty($data['dev_type']) ? "" : $data['dev_type'],
+        //     "online_state"  => empty($data['online_state']) ? 0 : $data['online_state'],
+        //     "dev_mac"  => empty($data['dev_mac']) ? "" : $data['dev_mac'],
+        //     "dev_ip"  => empty($data['dev_ip']) ? "" : $data['dev_ip'],
+        //     "rom_version"  => empty($data['rom_version']) ? "" : $data['rom_version'],
+        //     "bind_flag"  => empty($data['bind_flag']) ? 0 : $data['bind_flag'],
+        //     "bind_start_ts"  => empty($data['bind_start_ts']) ? 0 : $data['bind_start_ts'],
+        //     "bind_end_ts"  => empty($data['bind_end_ts']) ? 0 : $data['bind_end_ts'],
+        //     "bind_user_id" => empty($data['bind_user_id']) ? 0 : $data['bind_user_id'],
+        // );
+        return self::loadApiData("miner_ctrl/query_devinfo_by_conditions_grapefruit", $data);
     }
 
     public function edit_device_basicinfo()
