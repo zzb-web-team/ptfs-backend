@@ -507,18 +507,18 @@ class PtfsStorage extends Common
     public function query_devinfo_by_conditions()
     {
         $data = input('post.');
-        $param = array(
-            "page_no"  => empty($data['page_no']) ? 0 : $data['page_no'],
-            "page_size"  => empty($data['page_size']) ? 10 : $data['page_size'],
-            "dev_sn"  => empty($data['dev_sn']) ? "" : $data['dev_sn'],
-            "cpu_id"  => empty($data['cpu_id']) ? "" : $data['cpu_id'],
-            "is_activated"  => empty($data['is_activated']) ? 0 : $data['is_activated'],
-            "import_start_ts"  => empty($data['import_start_ts']) ? 0 : $data['import_start_ts'],
-            "import_end_ts"  => empty($data['import_end_ts']) ? 0 : $data['import_end_ts'],
-            "activate_start_ts"  => empty($data['activate_start_ts']) ? 0 : $data['activate_start_ts'],
-            "activate_end_ts"  => empty($data['activate_end_ts']) ? 0 : $data['activate_end_ts'],
-        );
-        return self::loadApiData("miner_ctrl/query_devinfo_by_conditions", $param);
+        // $param = array(
+        //     "page_no"  => empty($data['page_no']) ? 0 : $data['page_no'],
+        //     "page_size"  => empty($data['page_size']) ? 10 : $data['page_size'],
+        //     "dev_sn"  => empty($data['dev_sn']) ? "" : $data['dev_sn'],
+        //     "cpu_id"  => empty($data['cpu_id']) ? "" : $data['cpu_id'],
+        //     "is_activated"  => empty($data['is_activated']) ? 0 : $data['is_activated'],
+        //     "import_start_ts"  => empty($data['import_start_ts']) ? 0 : $data['import_start_ts'],
+        //     "import_end_ts"  => empty($data['import_end_ts']) ? 0 : $data['import_end_ts'],
+        //     "activate_start_ts"  => empty($data['activate_start_ts']) ? 0 : $data['activate_start_ts'],
+        //     "activate_end_ts"  => empty($data['activate_end_ts']) ? 0 : $data['activate_end_ts'],
+        // );
+        return self::loadApiData("miner_ctrl/query_devinfo_by_conditions", $data);
     }
 
     public function query_miscell_devinfo()
