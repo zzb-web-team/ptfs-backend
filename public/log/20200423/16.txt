@@ -1,0 +1,81 @@
+-----16:00:10-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/get_code
+---------------------------
+{"user_tel":"13476939367","change_telnum_flag":0}
+---------------------------
+{"status":0,"err_code":499,"err_msg":"get code success","data":{"user_code":"123456"}}
+---------------------------
+
+-----16:02:12-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":0,"err_code":1,"err_msg":"success,not first time","data":{"login_token":"5PAmfX19fX3+NtwjfX19fQ=="}}
+---------------------------
+
+-----16:05:50-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":416,"err_code":416,"err_msg":"account  code is timeout","data":{}}
+---------------------------
+
+-----16:11:07-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/get_code
+---------------------------
+{"user_tel":"13476939367","change_telnum_flag":0}
+---------------------------
+{"status":0,"err_code":499,"err_msg":"get code success","data":{"user_code":"123456"}}
+---------------------------
+
+-----16:11:18-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":0,"err_code":1,"err_msg":"success,not first time","data":{"login_token":"5PAmfX19fX3YMNwjfX19fQ=="}}
+---------------------------
+
+-----16:14:15-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":-15,"err_code":405,"err_msg":"account password error","data":{}}
+---------------------------
+
+-----16:14:49-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":-15,"err_code":405,"err_msg":"account password error","data":{}}
+---------------------------
+
+-----16:15:02-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/get_code
+---------------------------
+{"user_tel":"13476939367","change_telnum_flag":0}
+---------------------------
+{"status":0,"err_code":499,"err_msg":"get code success","data":{"user_code":"123456"}}
+---------------------------
+
+-----16:15:08-----POST----http://39.100.128.74:1357/api/ptfs
+---------------------------
+account/login
+---------------------------
+{"login_type":1,"user_name":"13476939367","user_passwd":"123456"}
+---------------------------
+{"status":0,"err_code":1,"err_msg":"success,not first time","data":{"login_token":"5PAmfX19fX32M9wjfX19fQ=="}}
+---------------------------
+

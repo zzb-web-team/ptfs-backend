@@ -72,44 +72,14 @@ class Account extends Common
 
 
     public function test(){
-
-        $curl = curl_init();
-        //设置抓取的url
-        curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl"));
-        //设置头文件的信息作为数据流输出
-        curl_setopt($curl, CURLOPT_HEADER, 1);
-        //设置获取的信息以文件流的形式返回，而不是直接输出。
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        //设置post方式提交
-        curl_setopt($curl, CURLOPT_POST, 1);
-        //设置post数据
-        $post_data = ['s' => '1'];
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($post_data));
-        //执行命令
-        $response = curl_exec($curl);
-        //显示获得的数据
-        if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == '200') {
-            $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $headerSize);
-            $body = substr($response, $headerSize);
-        } else {
-            $body = $response;
-        }
-        //关闭URL请求
-        curl_close($curl);
-        var_dump($body);exit;
         $data = input('post.');
-        var_dump($data);
-        $validation = new Validate([
-            'data1' => 'require',
-        ]);
-        $result = $validation->check($data);
-        $validation -> message([
-        'data1.require'=>'不能为空'
-        ]);
-        if(!$result){
-            return json(['status' => -900, 'msg' => $validation->getError()]);
-        }
+        session('key', $data['data']);
+        exit;
+    }
+
+    public function test1(){
+        echo session('key');
+        exit;
     }
 
 }
