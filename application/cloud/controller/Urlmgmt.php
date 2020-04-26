@@ -10,8 +10,6 @@ class Urlmgmt extends Common
     public function add_url()
     {
         $data = input('post.');
-        var_dump($data);
-        exit;
         $validation = new Validate([
             'data_count'  => 'require',
             'data_array'  => 'require',
