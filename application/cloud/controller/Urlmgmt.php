@@ -511,13 +511,13 @@ class Urlmgmt extends Common
     public function query_domain(){
         $data = input('post.');
         $validation = new Validate([
-            'buser_id' => 'require',
-            'domain' => 'require',
-            'state' => 'require',
-            'start_time' => 'require',
-            'end_time' => 'require',
-            'page' => 'require',
-            'order' => 'require'
+            'buser_id' => 'require'
+            // 'domain' => 'require',
+            // 'state' => 'require',
+            // 'start_time' => 'require',
+            // 'end_time' => 'require',
+            // 'page' => 'require',
+            // 'order' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -525,12 +525,12 @@ class Urlmgmt extends Common
         }
         $param = [
             'buser_id' => $data['buser_id'],
-            'domain' => $data['domain'],
-            'state' => $data['state'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
-            'page' => $data['page'],
-            'order' => $data['order']
+            'domain' => isset($data['domain']) ? $data['domain'] : "",
+            'state' => isset($data['state']) ? $data['state'] : "",
+            'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
+            'end_time' => isset($data['end_time']) ? $data['end_time'] : 0,
+            'page' => isset($data['page']) ? $data['page'] : 0,
+            'order' => isset($data['order']) ? $data['order'] : 0
         ];
         return self::loadApiData("url_mgmt/query_domain",$param);
     }
