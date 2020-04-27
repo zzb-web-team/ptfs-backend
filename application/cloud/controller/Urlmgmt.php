@@ -511,7 +511,7 @@ class Urlmgmt extends Common
     public function query_domain(){
         $data = input('post.');
         $validation = new Validate([
-            'buser_id' => 'require'
+            // 'buser_id' => 'require'
             // 'domain' => 'require',
             // 'state' => 'require',
             // 'start_time' => 'require',
@@ -524,7 +524,7 @@ class Urlmgmt extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = [
-            'buser_id' => $data['buser_id'],
+            'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
             'domain' => isset($data['domain']) ? $data['domain'] : "",
             'state' => isset($data['state']) ? $data['state'] : "",
             'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
