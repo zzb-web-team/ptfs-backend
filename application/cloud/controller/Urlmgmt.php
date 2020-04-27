@@ -516,6 +516,7 @@ class Urlmgmt extends Common
             'state' => 'require',
             'start_time' => 'require',
             'end_time' => 'require',
+            'page' => 'require',
             'order' => 'require'
         ]);
         //验证表单
@@ -528,6 +529,7 @@ class Urlmgmt extends Common
             'state' => $data['state'],
             'start_time' => $data['start_time'],
             'end_time' => $data['end_time'],
+            'page' => $data['page'],
             'order' => $data['order']
         ];
         return self::loadApiData("url_mgmt/query_domain",$param);
