@@ -317,7 +317,7 @@ class Urlmgmt extends Common
         $param = array(
             "page" => isset($data['page']) ? $data['page'] : 0,
             "buser_id" => isset($data['buser_id']) ? $data['buser_id'] : "",
-            "url" => isset($data['url']) ? $data['url'] : "",
+            "url_name" => isset($data['url_name']) ? $data['url_name'] : "",
             "start_time" => isset($data['start_time']) ? $data['start_time'] : "",
             "end_time" => isset($data['end_time']) ? $data['end_time'] : "",
             "state" => isset($data['state']) ? $data['state'] : "",
