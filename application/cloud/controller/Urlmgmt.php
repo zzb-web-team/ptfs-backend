@@ -330,7 +330,7 @@ class Urlmgmt extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'url'  => 'require',
+            'url_name'  => 'require',
             'type'  => 'require',
         ]);
         //验证表单
@@ -338,7 +338,7 @@ class Urlmgmt extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "url" => isset($data['url']) ? $data['url'] : "",
+            "url_name" => isset($data['url_name']) ? $data['url_name'] : "",
             "type" => isset($data['type']) ? $data['type'] : 0,
         );
         return self::loadApiData("url_mgmt/query_config", $param);
