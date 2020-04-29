@@ -91,7 +91,7 @@ class Urlmgmt extends Common
         if (count($title) != 5) {
             return json(['status' => -900, 'msg' => '文件列数不正确，请检查后再上传']);
         }
-        $title = ['url_type', 'url', 'url_name', 'label', 'label2'];
+        $title = ['url_type','domain','url_name','host_url','url'];
         $total = count($exdata);
         $data = [];
         for ($i= 1;$i<= $total;$i++) {
@@ -150,7 +150,8 @@ class Urlmgmt extends Common
         if (count($title) != 6) {
             return json(['status' => -900, 'msg' => '文件列数不正确，请检查后再上传']);
         }
-        $title = ['url_type', 'url_name', 'url', 'buser_id', 'label', 'label2'];
+        // $title = ['url_type', 'url_name', 'url', 'buser_id', 'label', 'label2'];
+        $title = ['url_type','domain','url_name','host_url','url','buser_id'];
         $total = count($exdata);
         $data = [];
         for ($i= 1;$i<= $total;$i++) {
@@ -276,6 +277,7 @@ class Urlmgmt extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
+            'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
@@ -286,20 +288,20 @@ class Urlmgmt extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'buser_id' => 'require',
-            'state' => 'require',
-            'data_count'  => 'require',
-            'data_array'  => 'require',
+            // 'buser_id' => 'require',
+            // 'state' => 'require',
+            // 'data_count'  => 'require',
+            // 'data_array'  => 'require',
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "buser_id" => $data['buser_id'],
-            "state" => $data['state'],
-            "data_count" => $data['data_count'],
-            "data_array"  => $data['data_array'],
+            "buser_id" => isset($data['buser_id']) ? $data['buser_id'] : "",
+            "state" => isset($data['state']) ? $data['state'] : "",
+            "data_count" => isset($data['data_count']) ? $data['data_count'] :0,
+            "data_array"  => isset($data['data_array']) ? $data['data_array'] : "",
         );
         return self::loadApiData("url_mgmt/change_state", $param);
     }
@@ -338,6 +340,7 @@ class Urlmgmt extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
+            "buser_id" =>isset($data['buser_id']) ? $data['buser_id'] : "",
             "url_name" => isset($data['url_name']) ? $data['url_name'] : "",
             "type" => isset($data['type']) ? $data['type'] : 0,
         );

@@ -274,4 +274,45 @@ class Appmarket extends Common
         return self::loadApiData("appmarket/del_app", $data);
     }
 
+    public function get_apptype(){
+        $data = [
+            'token' => "123"
+        ];
+        return self::loadApiData("appmarket/get_apptype",$data);
+    }
+
+    public function get_appcover(){
+        $data = input('post.');
+        return self::loadApiData("appmarket_client/get_appcover",$data);
+    }
+
+    public function getapp_by_id(){
+        $data = input('post.');
+        return self::loadApiData("appmarket_client/getapp_by_id",$data);
+    }
+
+    public function getapp_by_name(){
+        $data = input('post.');
+        return self::loadApiData("appmarket_client/getapp_by_name",$data);
+    }
+
+    public function check_appversion(){
+        $data = input('post.');
+        return self::loadApiData("appmarket_client/check_appversion",$data);
+    }
+
+    public function getapp_by_pkgname(){
+        $data = input('post.');
+        return self::loadApiData("appmarket_client/getapp_by_pkgname",$data);
+    }
+
+    public function client_get_recommend(){
+        $data = ['token' => '123'];
+        return self::loadApiData("appmarket_client/get_recommend",$data);
+    }
+
+    public function get_apptype_forclient(){
+        $data = ['token' => '123'];
+        return self::loadApiData("appmarket_client/get_apptype_forclient",$data);
+    }
 }

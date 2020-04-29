@@ -298,6 +298,15 @@ Route::rule('appmarket/query_all_group', 		'admin/appmarket/query_all_group', 	'
 Route::rule('appmarket/query_group', 		'admin/appmarket/query_group', 	'GET|POST')->allowCrossDomain();
 Route::rule('appmarket/get_app_by_appid', 		'admin/appmarket/get_app_by_appid', 	'GET|POST')->allowCrossDomain();
 Route::rule('appmarket/del_app', 		'admin/appmarket/del_app', 	'GET|POST')->allowCrossDomain();
+Route::rule('appmarket/get_apptype',     'admin/appmarket/get_apptype',   'GET|POST')->allowCrossDomain();
+Route::rule('appmarket_client/get_appcover',     'admin/appmarket/get_appcover',    'GET|POST')->allowCrossDomain(); 
+Route::rule('appmarket_client/getapp_by_id',     'admin/appmarket/getapp_by_id',    'GET|POST')->allowCrossDomain();
+Route::rule('appmarket_client/getapp_by_name',     'admin/appmarket/getapp_by_name',    'GET|POST')->allowCrossDomain(); 
+Route::rule('appmarket_client/check_appversion',     'admin/appmarket/check_appversion',    'GET|POST')->allowCrossDomain(); 
+Route::rule('appmarket_client/getapp_by_pkgname',     'admin/appmarket/getapp_by_pkgname',    'GET|POST')->allowCrossDomain(); 
+Route::rule('appmarket_client/get_recommend', 		'admin/appmarket/client_get_recommend', 	'GET|POST')->allowCrossDomain();
+Route::rule('appmarket_client/get_apptype_forclient',     'admin/appmarket/get_apptype_forclient',    'GET|POST')->allowCrossDomain(); 
+
 
 Route::rule('noticepush/get_tag', 		'api/noticepush/get_tag', 	'GET|POST')->allowCrossDomain();
 Route::rule('noticepush/push_immediate', 		'api/noticepush/push_immediate', 	'GET|POST')->allowCrossDomain();

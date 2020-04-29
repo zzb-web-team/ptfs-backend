@@ -48,33 +48,33 @@ class Nodemgmt extends Common
     public function query_resource()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'type' => 'require',
-            'url_label' => 'require',
-            'user_id' => 'require',
-            'token' => 'require',
-            'p2pID' => 'require',
-            'localIP' => 'require',
-            'localPort' => 'require',
-            'natIP' => 'require',
-            'natPort' => 'require'
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = [
-            'type' => $data['type'],
-            'url_label' => $data['url_label'],
-            'user_id' => $data['user_id'],
-            'token' => $data['token'],
-            'p2pID' => $data['p2pID'],
-            'localIP' => $data['localIP'],
-            'localPort' => $data['localPort'],
-            'natIP' => $data['natIP'],
-            'natPort' => $data['natPort']
-        ];
-        return self::loadApiData("node_mgmt/query_resource", $param);
+        // $validation = new Validate([
+        //     'type' => 'require',
+        //     'url_label' => 'require',
+        //     'user_id' => 'require',
+        //     'token' => 'require',
+        //     'p2pID' => 'require',
+        //     'localIP' => 'require',
+        //     'localPort' => 'require',
+        //     'natIP' => 'require',
+        //     'natPort' => 'require'
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = [
+        //     'type' => $data['type'],
+        //     'url_label' => $data['url_label'],
+        //     'user_id' => $data['user_id'],
+        //     'token' => $data['token'],
+        //     'p2pID' => $data['p2pID'],
+        //     'localIP' => $data['localIP'],
+        //     'localPort' => $data['localPort'],
+        //     'natIP' => $data['natIP'],
+        //     'natPort' => $data['natPort']
+        // ];
+        return self::loadApiData("node_mgmt/query_resource", $data);
     }
 
     public function query_rootnode()
@@ -102,7 +102,7 @@ class Nodemgmt extends Common
             'buser_id' => 'require',
             'type' => 'require',
             'area' => 'require',
-            'url' => 'require'
+            'url_name' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -112,7 +112,7 @@ class Nodemgmt extends Common
             'buser_id' => $data['buser_id'],
             'type' => $data['type'],
             'area' => $data['area'],
-            'url' => $data['url'],
+            'url_name' => $data['url_name'],
         ];
         return self::loadApiData("node_mgmt/resource_refresh", $param);
     }
@@ -129,27 +129,27 @@ class Nodemgmt extends Common
      public function refresh_state()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'url' => 'require',
-            'buser_id' => 'require',
-            'refresh_type' => 'require',
-            'state' => 'require',
-            'start_time' => 'require',
-            'end_time' => 'require'
-        ]);
+        // $validation = new Validate([
+        //     'url' => 'require',
+        //     'buser_id' => 'require',
+        //     'refresh_type' => 'require',
+        //     'state' => 'require',
+        //     'start_time' => 'require',
+        //     'end_time' => 'require'
+        // ]);
         //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = [
-            'url' => $data['url'],
-            'buser_id' => $data['buser_id'],
-            'refresh_type' => $data['refresh_type'],
-            'state' => $data['state'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
-        ];
-        return self::loadApiData("node_mgmt/refresh_state", $param);
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = [
+        //     'url_name' => $data['url_name'],
+        //     'buser_id' => $data['buser_id'],
+        //     'refresh_type' => $data['refresh_type'],
+        //     'state' => $data['state'],
+        //     'start_time' => $data['start_time'],
+        //     'end_time' => $data['end_time'],
+        // ];
+        return self::loadApiData("node_mgmt/refresh_state", $data);
     }
 
      public function uploadpfts()
