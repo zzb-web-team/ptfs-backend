@@ -180,6 +180,8 @@ class Terminal extends Common
         //表单验证规则
         $validation = new Validate([
             'id'  =>  'require',
+            'chanid'  =>  'require',
+            'token'  =>  'require',
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -198,7 +200,8 @@ class Terminal extends Common
             return json($return_data);
         }
         $param = array(
-            "id" => $data['id']."",
+            "chanid" => $data['chanid']."",
+            "token" => $data['token']."",
         );
         return self::loadApiData("url_mgmt/del_terminal", $param);
     }

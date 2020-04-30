@@ -70,16 +70,19 @@ class Account extends Common
         return self::loadApiData("account/ptfs_query_user_trend_list", $param);
     }
 
-
-    public function test(){
+    public function query_daily_sign(){
         $data = input('post.');
-        session('key', $data['data']);
-        exit;
-    }
-
-    public function test1(){
-        echo session('key');
-        exit;
+        $validation = new Validate([
+            'login_token'  => 'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'msg' => $validation->getError()]);
+        }
+        $param = [
+            'login_token' => $data['login_token']
+        ];
+        return self::loadApiData('account/query_daily_sign',$param);
     }
 
 }

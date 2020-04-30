@@ -123,8 +123,7 @@ Route::rule('account/ptfs_forbid_users', 		'admin/account/ptfs_forbid_users', 	'
 Route::rule('account/ptfs_query_total_users', 		'admin/account/ptfs_query_total_users', 	'GET|POST')->allowCrossDomain();
 Route::rule('account/ptfs_query_user_list', 		'admin/account/ptfs_query_user_list', 	'GET|POST')->allowCrossDomain();
 Route::post('account/ptfs_query_user_trend_list', 		'admin/account/ptfs_query_user_trend_list')->allowCrossDomain();
-Route::post('account/test',           'admin/account/test')->allowCrossDomain();//测试使用
-Route::post('account/test1',           'admin/account/test1')->allowCrossDomain();
+Route::post('account/query_daily_sign', 		'admin/account/query_daily_sign')->allowCrossDomain();
 
 Route::post('account/sign', 					'api/minerearn/sign')->allowCrossDomain();
 
@@ -171,6 +170,25 @@ Route::rule('admin/system/roledelete', 										'admin/system/roledelete', 				
 Route::rule('admin/system/rolelist', 										'admin/system/rolelist', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/getrolebyid', 										'admin/system/getrolebyid', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/rolelistfortop', 										'admin/system/rolelistfortop', 							'GET|POST')->allowCrossDomain();
+
+Route::rule('admin/ipfssystem/login', 										'admin/ipfssystem/login', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/userctrl', 										'admin/ipfssystem/userctrl', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/userinsert', 										'admin/ipfssystem/userinsert', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/userdelete', 										'admin/ipfssystem/userdelete', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/userlist', 										'admin/ipfssystem/userlist', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/userupdate', 										'admin/ipfssystem/userupdate', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menuinsert', 										'admin/ipfssystem/menuinsert', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menudelete', 										'admin/ipfssystem/menudelete', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menulist', 										'admin/ipfssystem/menulist', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menuupdate', 										'admin/ipfssystem/menuupdate', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menulistfortree', 										'admin/ipfssystem/menulistfortree', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/menulistfortop', 										'admin/ipfssystem/menulistfortop', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/roleinsert', 										'admin/ipfssystem/roleinsert', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/roleupdate', 										'admin/ipfssystem/roleedit', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/roledelete', 										'admin/ipfssystem/roledelete', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/rolelist', 										'admin/ipfssystem/rolelist', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/getrolebyid', 										'admin/ipfssystem/getrolebyid', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/rolelistfortop', 										'admin/ipfssystem/rolelistfortop', 							'GET|POST')->allowCrossDomain();
 //ptfs接口
 Route::rule('ptfs_user_server/get_code', 						'api/ptfsstorageuser/getcode' ,  'GET|POST')->allowCrossDomain();
 Route::post('ptfs_user_server/login', 							'api/ptfsstorageuser/login')->allowCrossDomain();
@@ -421,6 +439,7 @@ Route::rule('cloud/system/userinsert', 										'cloud/system/userinsert', 				
 Route::rule('cloud/system/userdelete', 										'cloud/system/userdelete', 							'GET|POST')->allowCrossDomain();
 Route::rule('cloud/system/userlist', 										'cloud/system/userlist', 							'GET|POST')->allowCrossDomain();
 Route::rule('cloud/system/userupdate', 										'cloud/system/userupdate', 							'GET|POST')->allowCrossDomain();
+
 
 Route::rule('ipfs_node_ip_data/ipfs_dataflow_query_conditions' , 'cloud/ipfs/ipfs_dataflow_query_conditions', 'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_ip_data/query_ip_usage_table' , 'cloud/ipfs/query_ip_usage_table', 'GET|POST')->allowCrossDomain();
