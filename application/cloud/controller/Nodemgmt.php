@@ -27,22 +27,22 @@ class Nodemgmt extends Common
     public function query_node()
     {
         $data = input('post.');
-       $validation = new Validate([
-           'page'  => 'require',
-       ]);
-        //验证表单
-       if(!$validation->check($data)){
-           return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-       }
-       $param = array(
-           "page" => isset($data['page']) ? $data['page'] : 0,
-           "nodeId" => isset($data['nodeId']) ? $data['nodeId'] : "",
-           "ip" => isset($data['ip']) ? $data['ip'] : "",
-           "state" => isset($data['state']) ? $data['state'] : "",
-           "province" => isset($data['province']) ? $data['province'] : "",
-           "city" => isset($data['city']) ? $data['city'] : "",
-        );
-        return self::loadApiData("node_mgmt/query_node", $param);
+       // $validation = new Validate([
+       //     'page'  => 'require',
+       // ]);
+       //  //验证表单
+       // if(!$validation->check($data)){
+       //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+       // }
+       // $param = array(
+       //     "page" => isset($data['page']) ? $data['page'] : 0,
+       //     "nodeId" => isset($data['nodeId']) ? $data['nodeId'] : "",
+       //     "ip" => isset($data['ip']) ? $data['ip'] : "",
+       //     "state" => isset($data['state']) ? $data['state'] : "",
+       //     "province" => isset($data['province']) ? $data['province'] : "",
+       //     "city" => isset($data['city']) ? $data['city'] : "",
+       //  );
+        return self::loadApiData("node_mgmt/query_node", $data);
     }
 
     public function query_resource()
