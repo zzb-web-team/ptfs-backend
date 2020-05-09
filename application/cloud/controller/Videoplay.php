@@ -74,19 +74,19 @@ class Videoplay extends Common
     public function app_usage_region_dist()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
-        );
-        $rs = self::testApiData("grapefruit_analyse/app_usage_region_dist", $param);
+        // $validation = new Validate([
+        //     'start_ts'  => 'require',
+        //     'end_ts'  => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        // );
+        $rs = self::testApiData("grapefruit_analyse/app_usage_region_dist", $data);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
         }
@@ -302,6 +302,36 @@ class Videoplay extends Common
             "fileName"  => $data['fileName'],
         );
         return json(['status' => 0, 'err_code' => 0,  'msg' => 'http://39.100.131.247:8090/videoplay_accelerate/export_videoplay_file?'.http_build_query($param)]);
+    }
+
+    public function device_version(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_version",$data);
+    }
+
+    public function device_version_day(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_version_day",$data);
+    }
+
+    public function device_offline(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_offline",$data);
+    }
+
+    public function device_online(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_online",$data);
+    }
+
+    public function device_rom(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_rom",$data);
+    }
+
+    public function device_type(){
+        $data = input('post.');
+        return self::testApiData("grapefruit_analyse/device_type",$data);
     }
 
 }

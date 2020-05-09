@@ -362,6 +362,10 @@ Route::post('url_mgmt/modify_domain',      'cloud/urlmgmt/modify_domain')->allow
 Route::post('url_mgmt/change_domainstate',    'cloud/urlmgmt/change_domainstate')->allowCrossDomain();
 Route::post('url_mgmt/del_domain',           'cloud/urlmgmt/del_domain')->allowCrossDomain();
 Route::post('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain')->allowCrossDomain();
+Route::post('url_mgmt/query_url_for_admin',       'cloud/urlmgmt/query_url_for_admin')->allowCrossDomain();
+Route::post('url_mgmt/query_domain_for_admin',       'cloud/urlmgmt/query_domain_for_admin')->allowCrossDomain();
+Route::post('url_mgmt/url_export',       'cloud/urlmgmt/url_export')->allowCrossDomain();
+Route::post('url_mgmt/url_export_for_amdin',       'cloud/urlmgmt/url_export_for_amdin')->allowCrossDomain();
 
 
 Route::rule('node_mgmt/node_distribute', 		'cloud/nodemgmt/node_distribute', 	'GET|POST')->allowCrossDomain();
@@ -407,6 +411,12 @@ Route::rule('grapefruit_analyse/app_version_dist_table', 		'cloud/videoplay/app_
 Route::rule('grapefruit_analyse/device_online_curve', 		'cloud/videoplay/device_online_curve', 	'GET|POST')->allowCrossDomain();
 Route::rule('grapefruit_analyse/device_online_table', 		'cloud/videoplay/device_online_table', 	'GET|POST')->allowCrossDomain();
 Route::rule('grapefruit_analyse/app_version_online_dist', 		'cloud/videoplay/app_version_online_dist', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_version', 		'cloud/videoplay/device_version', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_version_day', 		'cloud/videoplay/device_version_day', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_offline', 		'cloud/videoplay/device_offline', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_online', 		'cloud/videoplay/device_online', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_rom', 		'cloud/videoplay/device_rom', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_type', 		'cloud/videoplay/device_type', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('clouduser/getcode', 		'cloud/user/getcode', 	'GET|POST')->allowCrossDomain();

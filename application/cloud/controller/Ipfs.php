@@ -354,7 +354,7 @@ class Ipfs extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "chanId" => $data['chanId'],
+            "chanId" => $data['chanId']=='*' ? $data['chanId']=[] : $data['chanId'],
         );
         $rs = self::testApiData("channel_details/query_total_dataflow", $param);
         if (!$rs) {
