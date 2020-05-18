@@ -253,7 +253,7 @@ class Videoplay extends Common
             "fileName"  => $data['fileName'],
             "chanId"  => $data['chanId'],
         );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => 'http://39.100.131.247:8090/logfile_download/download_logfile?'.http_build_query($param)]);
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'logfile_download/download_logfile?'.http_build_query($param)]);
     }
 
     public function export_videoaccel_file()
@@ -277,7 +277,7 @@ class Videoplay extends Common
             "fileUrl"  => $data['fileUrl'],
             "userIp"  => $data['userIp'],
         );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => 'http://39.100.131.247:8090/videoplay_accelerate/export_videoaccel_file?'.http_build_query($param)]);
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'videoplay_accelerate/export_videoaccel_file?'.http_build_query($param)]);
     }
 
     public function export_videoplay_file()
@@ -301,37 +301,108 @@ class Videoplay extends Common
             "fileId"  => $data['fileId'],
             "fileName"  => $data['fileName'],
         );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => 'http://39.100.131.247:8090/videoplay_accelerate/export_videoplay_file?'.http_build_query($param)]);
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'videoplay_accelerate/export_videoplay_file?'.http_build_query($param)]);
     }
 
     public function device_version(){
         $data = input('post.');
-        return self::testApiData("grapefruit_analyse/device_version",$data);
+        $validation = new Validate([
+            'start_ts'  => 'require',
+            'end_ts'  => 'require',    
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "start_ts" => $data['start_ts'],
+            "end_ts"  => $data['end_ts'],
+            "version"  => isset($data['version']) ? $data['version'] : 0
+        );
+        return self::testApiData("grapefruit_analyse/device_version",$param);
     }
 
     public function device_version_day(){
         $data = input('post.');
-        return self::testApiData("grapefruit_analyse/device_version_day",$data);
+        $param = [
+            "day_type" => isset($data['day_type']) ? $data['day_type'] : 1,
+            "version" => isset($data['version']) ? $data['version'] : 0
+        ];
+        return self::testApiData("grapefruit_analyse/device_version_day",$param);
     }
 
     public function device_offline(){
         $data = input('post.');
+        // $validation = new Validate([
+        //     'dayList'  => 'require',
+        //     'end_ts'  => 'require',
+        //     'start_ts' => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        //     "dayList"  => isset($data['dayList']) ? $data['dayList'] : 0,
+        //     'type' => isset($data['type']) ? $data['type'] : 0,
+        //     "version" => isset($data['version']) ? $data['version'] : 0
+        // );
         return self::testApiData("grapefruit_analyse/device_offline",$data);
     }
 
     public function device_online(){
         $data = input('post.');
+        // $validation = new Validate([
+        //     'dayList' => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = [
+        //     "dayList" => $data['dayList'],
+        //     "version" => isset($data['version']) ? $data['version'] : 0,
+        //     "type" => isset($data['type']) ? $data['type'] : 0
+        // ];
         return self::testApiData("grapefruit_analyse/device_online",$data);
     }
 
     public function device_rom(){
         $data = input('post.');
-        return self::testApiData("grapefruit_analyse/device_rom",$data);
+        $validation = new Validate([
+            'dev_type'  => 'require',
+            'end_ts'  => 'require',
+            'start_ts' => 'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "start_ts" => $data['start_ts'],
+            "end_ts"  => $data['end_ts'],
+            "dev_type"  => isset($data['dayList']) ? $data['dayList'] : 0,
+        );
+        return self::testApiData("grapefruit_analyse/device_rom",$param);
     }
 
     public function device_type(){
         $data = input('post.');
-        return self::testApiData("grapefruit_analyse/device_type",$data);
+        $validation = new Validate([
+            'start_ts'  => 'require',
+            'end_ts'  => 'require',    
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "start_ts" => $data['start_ts'],
+            "end_ts"  => $data['end_ts'],
+        );
+        return self::testApiData("grapefruit_analyse/device_type",$param);
     }
 
 }

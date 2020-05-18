@@ -262,6 +262,7 @@ class Packet extends Common
 
     public function getversion()
     {
+        $data = input('post.');
         $param = array(
             "page" => 0,
             "page_size" => 10,
@@ -421,6 +422,7 @@ class Packet extends Common
 
     public function versionlist()
     {
+        $data = input('post.');
         $param = array(
             "page" => isset($data['page']) ? $data['page'] : 0,
             "page_size" => 10,

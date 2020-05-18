@@ -153,6 +153,8 @@ Route::rule('app/publishdist', 										'admin/app/publishdist', 							'GET|PO
 Route::rule('ptfs/report', 										'admin/report/api', 							'GET|POST')->allowCrossDomain();
 
 Route::rule('admin/system/login', 										'admin/system/login', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/check_login',                                   'admin/system/check_login',                     'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/bind_login',                                       'admin/system/bind_login',                       'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userctrl', 										'admin/system/userctrl', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userinsert', 										'admin/system/userinsert', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userdelete', 										'admin/system/userdelete', 							'GET|POST')->allowCrossDomain();
@@ -365,7 +367,7 @@ Route::post('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain')->allowC
 Route::post('url_mgmt/query_url_for_admin',       'cloud/urlmgmt/query_url_for_admin')->allowCrossDomain();
 Route::post('url_mgmt/query_domain_for_admin',       'cloud/urlmgmt/query_domain_for_admin')->allowCrossDomain();
 Route::post('url_mgmt/url_export',       'cloud/urlmgmt/url_export')->allowCrossDomain();
-Route::post('url_mgmt/url_export_for_amdin',       'cloud/urlmgmt/url_export_for_amdin')->allowCrossDomain();
+Route::post('url_mgmt/url_export_for_admin',       'cloud/urlmgmt/url_export_for_admin')->allowCrossDomain();
 
 
 Route::rule('node_mgmt/node_distribute', 		'cloud/nodemgmt/node_distribute', 	'GET|POST')->allowCrossDomain();
@@ -375,6 +377,7 @@ Route::rule('node_mgmt/query_rootnode', 		'cloud/nodemgmt/query_rootnode', 	'GET
 Route::rule('node_mgmt/resource_refresh', 		'cloud/nodemgmt/resource_refresh', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_relaysrv', 		'cloud/nodemgmt/query_relaysrv', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/refresh_state', 		'cloud/nodemgmt/refresh_state', 	'GET|POST')->allowCrossDomain();
+Route::rule('node_mgmt/refresh_state_admin', 		'cloud/nodemgmt/refresh_state_admin', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/uploadpfts', 		'cloud/nodemgmt/uploadpfts', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_nodefilter', 		'cloud/nodemgmt/query_nodefilter', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/filter_node', 		'cloud/nodemgmt/filter_node', 	'GET|POST')->allowCrossDomain();

@@ -278,7 +278,7 @@ class File extends Common
                     "result" => "ok",
                     "msg"    => "上传配置文件成功",
                     "data"   => null,
-                );
+                ); 
                 return json($data);
             }
             return json($return_data);

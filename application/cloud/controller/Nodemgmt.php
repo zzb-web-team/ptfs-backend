@@ -152,6 +152,11 @@ class Nodemgmt extends Common
         return self::loadApiData("node_mgmt/refresh_state", $data);
     }
 
+    public function refresh_state_admin(){
+        $data = input('post.');
+        return self::loadApiData("node_mgmt/refresh_state_admin",$data);
+    }
+
      public function uploadpfts()
     {
         $data = input('post.');
