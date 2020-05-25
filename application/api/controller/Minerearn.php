@@ -575,4 +575,9 @@ class Minerearn extends Common
         return self::loadApiData("miner_ctrl/batch_import_devices", $data);
     }
 
+    public function get_sign_value(){
+        $data = input('post.');
+        return self::loadApiData("miner_earn/get_sign_value",$data);
+    }
+
 }

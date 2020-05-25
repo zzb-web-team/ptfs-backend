@@ -48,11 +48,13 @@ class System extends Common
                     $column = array_column($list, 'ip');
                     $ip = self::getIp();
                     $res = array_search($ip, $column);
-                    if (!$res) {
-                        return json(['status' => -900, 'msg' => '非法ip']);
-                    }
+                    // if (!$res) {
+                    //     return json(['status' => -900, 'msg' => '非法ip']);
+                    // }
                 } else if (Cache::store('redis')->get('ipfs:admin_status:' . $user['id'])) {
-                    return json(['status' => 1, 'usermsg' => $user, 'msg' => '请输入code','passlv' => $result['lv'], 'lvmsg' => $result['lvmsg']]);
+                    $token = md5(time().'_jkhgasdgjkdsa');
+                    Cache::store('redis')->set('ipfs:admin_token:' . $token, $user['id'], 60);
+                    return json(['status' => 1, 'token' => $token, 'msg' => '请输入code','passlv' => $result['lv'], 'lvmsg' => $result['lvmsg']]);
                 } else {
                     return json(['status' => 0, 'msg' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg']]);
                 }
@@ -67,19 +69,38 @@ class System extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'id' => 'require',
+            'token' => 'require',
             'code' => 'require',
         ]);
         //验证表单
         if (!$validation->check($data)) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
         }
+        $id = Cache::store('redis')->get('ipfs:admin_token:'.$data['token']);
+        if(empty($id)){
+            return json(['status' => -900, 'msg'=> 'token无效']);
+        }
+        $param = array(
+            "page" => 0,
+            "page_size" => 10,
+            "tb_name" => 'system_user',
+            "col_name" => "*",
+            "where" => "id=" . $id,
+            "order" => 'id desc',
+        );
+        $return_data = self::loadApiData("store/find_table", $param);
+        if (!$return_data) {
+            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        $return_data = json_decode($return_data, true);
+        $user = $return_data['result']['cols'][0];
+
         $secret = Cache::store('redis')->get('ipfs:admin_login:' . $data['id']);
         $google_auth = new \PHPGangsta_GoogleAuthenticator();
         $code = $google_auth->getCode($secret);
         $check_result = $google_auth->verifyCode($secret, $data['code'], 2);
         if ($check_result) {
-            return json(['status' => 0, 'msg' => '登陆成功']);
+            return json(['status' => 0,'usermsg' => $user, 'msg' => '登陆成功']);
         } else {
             return json(['status' => -900, 'msg' => 'code错误']);
         }
@@ -930,7 +951,6 @@ class System extends Common
             return json(['status' => 0, 'err_code' => 0, 'err_msg' => 'success']);
         }
         return json(['status' => -900, 'err_code' => -900, 'msg' => '该ip已经添加过了']);
-        //
 
     }
 
@@ -1004,6 +1024,14 @@ class System extends Common
         Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
         return json(['status' => 0, 'err_code' => 0, 'err_msg' => 'success']);
 
+    }
+
+    public function qrcode(){
+        $auth = new \PHPGangsta_GoogleAuthenticator();
+        $secret = $auth->createSecret();
+        $qrcode = $auth->getQRCodeGoogleUrl('ipfs',$secret);
+        $qrcode = urldecode($qrcode);
+        return json(['secret'=>$secret,'qrcode'=>$qrcode]);
     }
 
 }
