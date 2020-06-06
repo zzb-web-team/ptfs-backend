@@ -172,9 +172,11 @@ Route::rule('admin/system/roledelete', 										'admin/system/roledelete', 				
 Route::rule('admin/system/rolelist', 										'admin/system/rolelist', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/getrolebyid', 										'admin/system/getrolebyid', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/rolelistfortop', 										'admin/system/rolelistfortop', 							'GET|POST')->allowCrossDomain();
-Route::rule('admin/system/qrcode',                                             'admin/system/qrcode',                                         'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/qrcode',                                             'admin/system/qrcode',                                         'GET|POST')->allowCrossDomain();//test
 
 Route::rule('admin/ipfssystem/login', 										'admin/ipfssystem/login', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/check_login', 										'admin/ipfssystem/check_login', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/ipfssystem/bind_login', 										'admin/ipfssystem/bind_login', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/ipfssystem/userctrl', 										'admin/ipfssystem/userctrl', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/ipfssystem/userinsert', 										'admin/ipfssystem/userinsert', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/ipfssystem/userdelete', 										'admin/ipfssystem/userdelete', 							'GET|POST')->allowCrossDomain();
@@ -384,6 +386,8 @@ Route::rule('node_mgmt/refresh_state_admin', 		'cloud/nodemgmt/refresh_state_adm
 Route::rule('node_mgmt/uploadpfts', 		'cloud/nodemgmt/uploadpfts', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_nodefilter', 		'cloud/nodemgmt/query_nodefilter', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/filter_node', 		'cloud/nodemgmt/filter_node', 	'GET|POST')->allowCrossDomain();
+Route::rule('node_mgmt/query_for_ssh', 		'cloud/nodemgmt/query_for_ssh', 	'GET|POST')->allowCrossDomain();
+Route::rule('node_mgmt/node_ctrl',         'cloud/nodemgmt/node_ctrl',          'GET|POST')->allowCrossDoamin();
 
 Route::rule('videoplay_accelerate/query_accelerate_log', 		'cloud/videoplay/query_accelerate_log', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoplay_accelerate/query_videoplay_log', 		'cloud/videoplay/query_videoplay_log', 	'GET|POST')->allowCrossDomain();
@@ -414,6 +418,7 @@ Route::rule('file_download/export_accelerate_flow_file', 		'cloud/resource/expor
 Route::rule('file_download/export_accelerate_flow_table_file', 		'cloud/resource/export_accelerate_flow_table_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_backsource_flow_file', 		'cloud/resource/export_backsource_flow_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_dataflow_curve_file', 		'cloud/resource/export_dataflow_curve_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_topisp_accesscnt_curve_file', 		'cloud/resource/export_topisp_accesscnt_curve_file', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();
@@ -461,6 +466,8 @@ Route::rule('cloudterminal/actionlog', 		'cloud/terminal/actionlogList', 	'GET|P
 Route::rule('cloudterminal/setactionlog', 		'cloud/terminal/setactionlog', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('cloud/system/login', 										'cloud/system/login', 							'GET|POST')->allowCrossDomain();
+Route::rule('cloud/system/check_login', 										'cloud/system/check_login', 							'GET|POST')->allowCrossDomain();
+Route::rule('cloud/system/bind_login', 										'cloud/system/bind_login', 							'GET|POST')->allowCrossDomain();
 Route::rule('cloud/system/userctrl', 										'cloud/system/userctrl', 							'GET|POST')->allowCrossDomain();
 Route::rule('cloud/system/userinsert', 										'cloud/system/userinsert', 							'GET|POST')->allowCrossDomain();
 Route::rule('cloud/system/userdelete', 										'cloud/system/userdelete', 							'GET|POST')->allowCrossDomain();

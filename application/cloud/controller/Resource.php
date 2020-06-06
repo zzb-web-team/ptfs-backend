@@ -469,4 +469,9 @@ class Resource extends Common
         $data = input('post.');
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_dataflow_curve_file?'.http_build_query($data)]);
     }
+
+    public function export_topisp_accesscnt_curve_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_topisp_accesscnt_curve_file?'.http_build_query($data)]);
+    }
 }

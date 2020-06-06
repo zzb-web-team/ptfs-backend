@@ -213,4 +213,23 @@ class Nodemgmt extends Common
         return self::loadApiData("node_mgmt/filter_node", $param);
     }
 
+    public function query_for_ssh(){
+        $data = input('post.');
+        $param = [
+            'nodeId' => isset($data['nodeId']) ? $data['nodeId'] : '',
+            'p2pID' => isset($data['p2pID']) ? $data['p2pID']."" : '',
+            'localIP' => isset($data['localIP']) ? $data['localIP'] : '',
+            'localPort' => isset($data['localPort']) ? $data['localPort'] : 0,
+            "natIP" => isset($data['natIP']) ? $data['natIP'] : '',
+            "natPort" => isset($data['natPort']) ? $data['natPort'] : 0
+        ];
+        return self::loadApiData('node_mgmt/query_for_ssh',$param);
+    }
+
+    public function node_ctrl(){
+        $data = input('post.');
+        return self::loadApiData('node_mgmt/node_ctrl',$data);
+    }
+
+
 }
