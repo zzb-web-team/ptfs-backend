@@ -153,6 +153,8 @@ Route::rule('app/publishdist', 										'admin/app/publishdist', 							'GET|PO
 Route::rule('ptfs/report', 										'admin/report/api', 							'GET|POST')->allowCrossDomain();
 
 Route::rule('admin/system/login', 										'admin/system/login', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/check_login',                                   'admin/system/check_login',                     'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/bind_login',                                       'admin/system/bind_login',                       'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userctrl', 										'admin/system/userctrl', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userinsert', 										'admin/system/userinsert', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/userdelete', 										'admin/system/userdelete', 							'GET|POST')->allowCrossDomain();
@@ -170,6 +172,7 @@ Route::rule('admin/system/roledelete', 										'admin/system/roledelete', 				
 Route::rule('admin/system/rolelist', 										'admin/system/rolelist', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/getrolebyid', 										'admin/system/getrolebyid', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/system/rolelistfortop', 										'admin/system/rolelistfortop', 							'GET|POST')->allowCrossDomain();
+Route::rule('admin/system/qrcode',                                             'admin/system/qrcode',                                         'GET|POST')->allowCrossDomain();
 
 Route::rule('admin/ipfssystem/login', 										'admin/ipfssystem/login', 							'GET|POST')->allowCrossDomain();
 Route::rule('admin/ipfssystem/userctrl', 										'admin/ipfssystem/userctrl', 							'GET|POST')->allowCrossDomain();
@@ -278,6 +281,8 @@ Route::post('miner_earn/get_app_dev_con_val', 					'api/minerearn/get_app_dev_co
 Route::post('miner_earn/get_app_dev_con_list', 					'api/minerearn/get_app_dev_con_list')->allowCrossDomain();
 Route::post('miner_earn/get_app_dev_cp_val', 					'api/minerearn/get_app_dev_cp_val')->allowCrossDomain();
 Route::post('miner_earn/get_app_dev_cp_list', 					'api/minerearn/get_app_dev_cp_list')->allowCrossDomain();
+Route::post('miner_earn/get_sign_value', 					'api/minerearn/get_sign_value')->allowCrossDomain();
+
 
 Route::post('monitor/get_server', 								'api/monitor/getserver')->allowCrossDomain();
 Route::post('monitor/get_cur_process_info', 					'api/monitor/getcurprocessinfo')->allowCrossDomain();
@@ -362,6 +367,10 @@ Route::post('url_mgmt/modify_domain',      'cloud/urlmgmt/modify_domain')->allow
 Route::post('url_mgmt/change_domainstate',    'cloud/urlmgmt/change_domainstate')->allowCrossDomain();
 Route::post('url_mgmt/del_domain',           'cloud/urlmgmt/del_domain')->allowCrossDomain();
 Route::post('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain')->allowCrossDomain();
+Route::post('url_mgmt/query_url_for_admin',       'cloud/urlmgmt/query_url_for_admin')->allowCrossDomain();
+Route::post('url_mgmt/query_domain_for_admin',       'cloud/urlmgmt/query_domain_for_admin')->allowCrossDomain();
+Route::post('url_mgmt/url_export',       'cloud/urlmgmt/url_export')->allowCrossDomain();
+Route::post('url_mgmt/url_export_for_admin',       'cloud/urlmgmt/url_export_for_admin')->allowCrossDomain();
 
 
 Route::rule('node_mgmt/node_distribute', 		'cloud/nodemgmt/node_distribute', 	'GET|POST')->allowCrossDomain();
@@ -371,6 +380,7 @@ Route::rule('node_mgmt/query_rootnode', 		'cloud/nodemgmt/query_rootnode', 	'GET
 Route::rule('node_mgmt/resource_refresh', 		'cloud/nodemgmt/resource_refresh', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_relaysrv', 		'cloud/nodemgmt/query_relaysrv', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/refresh_state', 		'cloud/nodemgmt/refresh_state', 	'GET|POST')->allowCrossDomain();
+Route::rule('node_mgmt/refresh_state_admin', 		'cloud/nodemgmt/refresh_state_admin', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/uploadpfts', 		'cloud/nodemgmt/uploadpfts', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_nodefilter', 		'cloud/nodemgmt/query_nodefilter', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/filter_node', 		'cloud/nodemgmt/filter_node', 	'GET|POST')->allowCrossDomain();
@@ -396,6 +406,15 @@ Route::rule('videoaccess_statistic/query_topisp_accesscnt_curve', 		'cloud/resou
 Route::rule('videoplay_statistic/query_playtimes_conditions', 		'cloud/resource/query_playtimes_conditions', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoplay_statistic/query_playtimes_curve', 		'cloud/resource/query_playtimes_curve', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoplay_statistic/query_playdata_table', 		'cloud/resource/query_playdata_table', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_pv_uv_curve_file', 		'cloud/resource/export_pv_uv_curve_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_playdata_table_file', 		'cloud/resource/export_playdata_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_playtimes_curve_file', 		'cloud/resource/export_playtimes_curve_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_topregion_accesscnt_curve_file', 		'cloud/resource/export_topregion_accesscnt_curve_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_accelerate_flow_file', 		'cloud/resource/export_accelerate_flow_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_accelerate_flow_table_file', 		'cloud/resource/export_accelerate_flow_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_backsource_flow_file', 		'cloud/resource/export_backsource_flow_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_dataflow_curve_file', 		'cloud/resource/export_dataflow_curve_file', 	'GET|POST')->allowCrossDomain();
+
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();
 Route::rule('resource_usage/dataflow_curve', 		'cloud/resourceuser/dataflow_curve', 	'GET|POST')->allowCrossDomain();
@@ -407,6 +426,14 @@ Route::rule('grapefruit_analyse/app_version_dist_table', 		'cloud/videoplay/app_
 Route::rule('grapefruit_analyse/device_online_curve', 		'cloud/videoplay/device_online_curve', 	'GET|POST')->allowCrossDomain();
 Route::rule('grapefruit_analyse/device_online_table', 		'cloud/videoplay/device_online_table', 	'GET|POST')->allowCrossDomain();
 Route::rule('grapefruit_analyse/app_version_online_dist', 		'cloud/videoplay/app_version_online_dist', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/app_version_user', 		'cloud/videoplay/app_version_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/app_version_user_day', 		'cloud/videoplay/app_version_user_day', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_offline', 		'cloud/videoplay/device_offline', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_online', 		'cloud/videoplay/device_online', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_rom', 		'cloud/videoplay/device_rom', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_type', 		'cloud/videoplay/device_type', 	'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/app_version_all',     'cloud/videoplay/app_version_all',    'GET|POST')->allowCrossDomain();
+Route::rule('grapefruit_analyse/device_typerom_all',     'cloud/videoplay/device_typerom_all',    'GET|POST')->allowCrossDomain();
 
 
 Route::rule('clouduser/getcode', 		'cloud/user/getcode', 	'GET|POST')->allowCrossDomain();

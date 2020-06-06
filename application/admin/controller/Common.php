@@ -1,17 +1,18 @@
 <?php
 namespace app\admin\controller;
+
 use think\Controller;
 
 class Common extends Controller
 {
-	public function initialize()
+    public function initialize()
     {
         parent::initialize();
     }
 
     public static function loadApiData($method, $data)
     {
-    	//初始化
+        //初始化
         $curl = curl_init();
         //设置抓取的url
         curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl"));
@@ -24,7 +25,7 @@ class Common extends Controller
         //设置post数据
         $post_data['method'] = $method;
         $post_data['data'] = $data;
-        
+
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($post_data));
         //执行命令
         $response = curl_exec($curl);
@@ -46,29 +47,104 @@ class Common extends Controller
     public static function formatByte($number, $unit = 'GB')
     {
         if ($unit == 'KB') {
-            return round($number/1024, 3)."KB";
+            return round($number / 1024, 3) . "KB";
         }
         if ($unit == 'MB') {
-            return round($number/1024/1024, 3)."MB";
+            return round($number / 1024 / 1024, 3) . "MB";
         }
         if ($unit == 'GB') {
-            return round($number/1024/1024/1024, 3)."GB";
+            return round($number / 1024 / 1024 / 1024, 3) . "GB";
         }
-        return round($number/1024/1024/1024/1024, 3)."TB";
+        return round($number / 1024 / 1024 / 1024 / 1024, 3) . "TB";
     }
 
     public static function actionLog($action, $description, $beforevalue, $utype, $uid, $user)
     {
         $param = array(
-            "tb_name"   => 'tb_action_log',
-            "insert"    => [
+            "tb_name" => 'tb_action_log',
+            "insert" => [
                 [
-                    $action, $description, $beforevalue."", $utype, intval($uid), $user.""
-                ]
-            ]
+                    $action, $description, $beforevalue . "", $utype, intval($uid), $user . "",
+                ],
+            ],
         );
         return self::loadApiData("store/insert_table", $param);
-        
+
+    }
+
+    public static function getIp()
+    {
+        if (isset($_SERVER)) {
+            if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $realip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+                $realip = $_SERVER['HTTP_CLIENT_IP'];
+            } else {
+                $realip = $_SERVER['REMOTE_ADDR'];
+            }
+        } else {
+            if (getenv("HTTP_X_FORWARDED_FOR")) {
+                $realip = getenv("HTTP_X_FORWARDED_FOR");
+            } elseif (getenv("HTTP_CLIENT_IP")) {
+                $realip = getenv("HTTP_CLIENT_IP");
+            } else {
+                $realip = getenv("REMOTE_ADDR");
+            }
+        }
+        return $realip;
+    }
+
+    public static function judge_password($password){
+        $score = 0;
+        if(!empty($password)){ //接收的值
+            $str = $password;
+        } else{
+            $str = '';
+        }
+        if(preg_match("/[0-9]+/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[0-9]{3,}/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[a-z]+/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[a-z]{3,}/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[A-Z]+/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[A-Z]{3,}/",$str))
+        {
+            $score ++;
+        }
+        if(preg_match("/[_|\-|+|=|*|!|@|#|$|%|^|&|(|)]+/",$str))
+        {
+            $score += 2;
+        }
+        if(preg_match("/[_|\-|+|=|*|!|@|#|$|%|^|&|(|)]{3,}/",$str))
+        {
+            $score ++ ;
+        }
+        if(strlen($str) >= 10)
+        {
+            $score ++;
+        }
+        if($score>=1 && $score<=3){
+            return ['lv' => 1,'lvmsg' => '弱'];
+        }else if($score>=4 && $score<=6){
+            return ['lv' => 2,'lvmsg' => '中'];
+        }else if($score>=7){
+            return ['lv' => 3,'lvmsg' => '强'];
+        }
+
     }
 
 }

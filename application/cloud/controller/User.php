@@ -242,6 +242,9 @@ class User extends Common
         if (isset($return_data['result']['cols'][0])) {
             //登录成功
             $user = $return_data['result']['cols'][0];
+            if ($user['status'] == 1) {
+                return json(['status' => -900, 'err_code' => -900, 'msg' => '您的账号已被封禁']);
+            }
             $token = md5(time());
             Cache::store('redis')->set('cloud_user_token:'. $user['id'], $token);
             unset($user['password']);
@@ -294,6 +297,9 @@ class User extends Common
         if (isset($return_data['result']['cols'][0])) {
             //登录成功
             $user = $return_data['result']['cols'][0];
+            if ($user['status'] == 1) {
+                return json(['status' => -900, 'err_code' => -900, 'msg' => '您的账号已被封禁']);
+            }
             $token = md5(time());
             Cache::store('redis')->set('cloud_user_token:'. $user['id'], $token);
             unset($user['password']);
@@ -543,14 +549,33 @@ class User extends Common
             "col_value" => $insert,
             "where" => "id in (".implode(",", $data['id']).")",
         );
-        return self::loadApiData("store/update_table", $param);
+        $return_data = self::loadApiData("store/update_table", $param);
+        if (!$return_data) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
+        $param = array();
+        $param['nothing'] = 0;
+        for($i=0; $i<count($data['id']);$i++) {
+            $param['data_array'][] = ['buserid' => $data['id'][$i]."", 'status' => $data['status']];
+            if ($data['status'] == 0) {
+                if(Cache::store('redis')->has('ipfs:cloud:user_deny'. $data['id'][$i])){
+                    Cache::store('redis')->rm('ipfs:cloud:user_deny'. $data['id'][$i]);
+                }
+            } else {
+                Cache::store('redis')->set('ipfs:cloud:user_deny'. $data['id'][$i], 1);
+            }
+        }
+        return self::loadApiData('url_mgmt/update_user_state',$param);
     }
 
     private function sendemail($email, $code) 
     {
         //发送短信
         Cache::store('redis')->set('email_verify:'.$email, $code, 5 * 60);
-
         return true;
     } 
 
@@ -819,6 +844,9 @@ class User extends Common
         }
         if (Cache::store('redis')->get('cloud_user_token:'. $data['id'])!=$data['token']) {
             return json(['status' => -900, 'err_code' => -900, 'msg' =>'该用户已在其他地方登陆']);
+        }
+        if(Cache::store('redis')->has('ipfs:cloud:user_deny'. $data['id'])){
+            return json(['status' => -900, 'err_code' => -900, 'msg' =>'用户已被禁用']);
         }
         return json(['status' => 0, 'err_code' => 0, 'msg' =>'ok']);
 

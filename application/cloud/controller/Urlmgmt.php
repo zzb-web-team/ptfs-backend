@@ -287,23 +287,23 @@ class Urlmgmt extends Common
     public function change_state()
     {
         $data = input('post.');
-        $validation = new Validate([
+        //$validation = new Validate([
             // 'buser_id' => 'require',
             // 'state' => 'require',
             // 'data_count'  => 'require',
             // 'data_array'  => 'require',
-        ]);
+        // ]);
         //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
         $param = array(
             "buser_id" => isset($data['buser_id']) ? $data['buser_id'] : "",
             "state" => isset($data['state']) ? $data['state'] : "",
             "data_count" => isset($data['data_count']) ? $data['data_count'] :0,
             "data_array"  => isset($data['data_array']) ? $data['data_array'] : "",
         );
-        return self::loadApiData("url_mgmt/change_state", $param);
+        return self::loadApiData("url_mgmt/change_state", $data);
     }
 
     public function query_url()
@@ -350,21 +350,21 @@ class Urlmgmt extends Common
     public function delete_url()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'buser_id' => 'require',
-            'data_count'  => 'require',
-            'data_array'  => 'require',
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            'buser_id' => $data['buser_id'],
-            "data_count" => $data['data_count'],
-            "data_array"  => $data['data_array'],
-        );
-        return self::loadApiData("url_mgmt/delete_url", $param);
+        // $validation = new Validate([
+        //     'buser_id' => 'require',
+        //     'data_count'  => 'require',
+        //     'data_array'  => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     'buser_id' => $data['buser_id'],
+        //     "data_count" => $data['data_count'],
+        //     "data_array"  => $data['data_array'],
+        // );
+        return self::loadApiData("url_mgmt/delete_url", $data);
     }
 
     public function query_urllabel()
@@ -473,48 +473,48 @@ class Urlmgmt extends Common
 
     public function change_domainstate(){
         $data = input('post.');
-        $validation = new Validate([
-            'buser_id' => 'require',
-            'state' => 'require',
-            'data_count' => 'require',
-            'data_array' => 'require'
-        ]);
-         //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = [
-            'buser_id' => $data['buser_id'],
-            'state' => $data['state'],
-            'data_count' => $data['data_count'],
-            'data_array' => $data['data_array']
-        ];
-        return self::loadApiData("url_mgmt/change_domainstate",$param);
+        // $validation = new Validate([
+        //     'buser_id' => 'require',
+        //     'state' => 'require',
+        //     'data_count' => 'require',
+        //     'data_array' => 'require'
+        // ]);
+        //  //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = [
+        //     'buser_id' => $data['buser_id'],
+        //     'state' => $data['state'],
+        //     'data_count' => $data['data_count'],
+        //     'data_array' => $data['data_array']
+        // ];
+        return self::loadApiData("url_mgmt/change_domainstate",$data); 
     }
 
     public function del_domain(){
         $data = input('post.');
-        $validation = new Validate([
-            'buser_id' => 'require',
-            'data_count' => 'require',
-            'data_array' => 'require'
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = [
-            'buser_id' => $data['buser_id'],
-            'data_count' => $data['data_count'],
-            'data_array' => $data['data_array']
-        ];
-        return self::loadApiData("url_mgmt/del_domain",$param);
+        // $validation = new Validate([
+        //     'buser_id' => 'require',
+        //     'data_count' => 'require',
+        //     'data_array' => 'require'
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = [
+        //     'buser_id' => $data['buser_id'],
+        //     'data_count' => $data['data_count'],
+        //     'data_array' => $data['data_array']
+        // ];
+        return self::loadApiData("url_mgmt/del_domain",$data);
     }
 
     public function query_domain(){
         $data = input('post.');
         $validation = new Validate([
-            // 'buser_id' => 'require'
+            // 'buser_id' => 'require',
             // 'domain' => 'require',
             // 'state' => 'require',
             // 'start_time' => 'require',
@@ -538,4 +538,88 @@ class Urlmgmt extends Common
         return self::loadApiData("url_mgmt/query_domain",$param);
     }
 
+    public function query_url_for_admin(){
+        $data = input('post.');
+        // $validation = new Validate([
+        //     // 'buser_id' => 'require'
+        //     // 'domain' => 'require',
+        //     // 'state' => 'require',
+        //     // 'start_time' => 'require',
+        //     // 'end_time' => 'require',
+        //     // 'page' => 'require',
+        //     // 'order' => 'require'
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        $param = [
+            'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
+            'url_name' => isset($data['url_name']) ? $data['url_name'] : "",
+            'state' => isset($data['state']) ? $data['state'] : "",
+            'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
+            'end_time' => isset($data['end_time']) ? $data['end_time'] : 0,
+            'page' => isset($data['page']) ? $data['page'] : 0,
+            'order' => isset($data['order']) ? $data['order'] : 0
+        ];
+        return self::loadApiData("url_mgmt/query_url_for_admin",$param);
+    }
+
+    public function query_domain_for_admin(){
+        $data = input('post.');
+        // $validation = new Validate([
+        //     // 'buser_id' => 'require'
+        //     // 'domain' => 'require',
+        //     // 'state' => 'require',
+        //     // 'start_time' => 'require',
+        //     // 'end_time' => 'require',
+        //     // 'page' => 'require',
+        //     // 'order' => 'require'
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        $param = [
+            'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
+            'domain' => isset($data['domain']) ? $data['domain'] : "",
+            'state' => isset($data['state']) ? $data['state'] : "",
+            'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
+            'end_time' => isset($data['end_time']) ? $data['end_time'] : 0,
+            'order' => isset($data['order']) ? $data['order'] : 0,
+            'page' => isset($data['page']) ? $data['page'] : 0
+        ];
+        return self::loadApiData("url_mgmt/query_domain_for_admin",$param);
+    }
+
+    public function url_export(){
+        $data = input('post.');
+        $param = [
+            'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
+            'url_name' => isset($data['url_name']) ? $data['url_name'] : "",
+            'state' => isset($data['state']) ? $data['state'] : "",
+            'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
+            'end_time' => isset($data['end_time']) ? $data['end_time'] : 0,
+            'page' => isset($data['page']) ? $data['page'] : 0,
+            'order' => isset($data['order']) ? $data['order'] : 0
+        ];
+        return self::loadApiData("url_mgmt/url_export",$param);
+    }
+
+    public function url_export_for_admin(){
+        $data = input('post.');
+        // $param = [
+        //     'buser_id' => isset($data['buser_id']) ? $data['buser_id'] : "",
+        //     'url_name' => isset($data['url_name']) ? $data['url_name'] : "",
+        //     'state' => isset($data['state']) ? $data['state'] : "",
+        //     'start_time' => isset($data['start_time']) ? $data['start_time'] : 0,
+        //     'end_time' => isset($data['end_time']) ? $data['end_time'] : 0,
+        //     'page' => isset($data['page']) ? $data['page'] : 0,
+        //     'order' => isset($data['order']) ? $data['order'] : 0
+        // ];
+        return self::loadApiData("url_mgmt/url_export_for_admin",$data);
+        // $return_data = json_decode($return_data,true);
+        // $return_data['data']['down_load'] = config("ipfs.apiurl4").$return_data['data']['down_load'];
+        // return json($return_data);
+    }
 }

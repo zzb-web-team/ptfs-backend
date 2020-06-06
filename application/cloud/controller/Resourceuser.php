@@ -39,6 +39,7 @@ class Resourceuser extends Common
             'chanId'  => 'require',
             'fileName'  => 'require',
             'timeUnit'  => 'require',
+            'acce' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -50,8 +51,9 @@ class Resourceuser extends Common
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "timeUnit"  => $data['timeUnit'],
+            "acce" => isset($data['acce']) ? $data['acce'] : "*"
         );
-        $rs = self::testApiData("resource_usage/dataflow_curve", $param);
+        $rs = self::testApiData("resource_usage/dataflow_curve", $data);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
         }
