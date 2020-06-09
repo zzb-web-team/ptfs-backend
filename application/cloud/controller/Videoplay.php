@@ -277,7 +277,7 @@ class Videoplay extends Common
             "fileUrl"  => $data['fileUrl'],
             "userIp"  => $data['userIp'],
         );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'videoplay_accelerate/export_videoaccel_file?'.http_build_query($param)]);
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_videoaccel_file?'.http_build_query($param)]);
     }
 
     public function export_videoplay_file()
@@ -301,7 +301,7 @@ class Videoplay extends Common
             "fileId"  => $data['fileId'],
             "fileName"  => $data['fileName'],
         );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'videoplay_accelerate/export_videoplay_file?'.http_build_query($param)]);
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_videoplay_file?'.http_build_query($param)]);
     }
 
     public function app_version_user(){

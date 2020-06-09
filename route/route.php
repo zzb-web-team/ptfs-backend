@@ -349,7 +349,7 @@ Route::rule('cloud/uploadsdk', 		'cloud/filehtml/uploadsdk', 	'GET|POST')->allow
 Route::rule('cloud/savesdk', 		'cloud/filehtml/savesdk', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloud/sdklist', 		'cloud/filehtml/sdklist', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloud/editsdk', 		'cloud/filehtml/editsdk', 	'GET|POST')->allowCrossDomain();
-Route::post('cloud/back_data',      'cloud/filehtml/back_data')->allowCrossDomain();
+Route::rule('cloud/back_data',      'cloud/filehtml/back_data', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('url_mgmt/add_url', 		'cloud/urlmgmt/add_url', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/excel_url', 		'cloud/urlmgmt/excelurl', 	'GET|POST')->allowCrossDomain();
@@ -363,16 +363,16 @@ Route::rule('url_mgmt/delete_url', 		'cloud/urlmgmt/delete_url', 	'GET|POST')->a
 Route::rule('url_mgmt/query_urllabel', 		'cloud/urlmgmt/query_urllabel', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/excelurluser', 		'cloud/urlmgmt/excelurluser', 	'GET|POST')->allowCrossDomain();
 Route::rule('url_mgmt/getvideo', 		'cloud/urlmgmt/getvideo', 	'GET|POST')->allowCrossDomain();
-Route::post('url_mgmt/check_urlname',     'cloud/urlmgmt/check_urlname')->allowCrossDomain();
-Route::post('url_mgmt/add_domain',      'cloud/urlmgmt/add_domain')->allowCrossDomain();
-Route::post('url_mgmt/modify_domain',      'cloud/urlmgmt/modify_domain')->allowCrossDomain();
-Route::post('url_mgmt/change_domainstate',    'cloud/urlmgmt/change_domainstate')->allowCrossDomain();
-Route::post('url_mgmt/del_domain',           'cloud/urlmgmt/del_domain')->allowCrossDomain();
-Route::post('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain')->allowCrossDomain();
-Route::post('url_mgmt/query_url_for_admin',       'cloud/urlmgmt/query_url_for_admin')->allowCrossDomain();
-Route::post('url_mgmt/query_domain_for_admin',       'cloud/urlmgmt/query_domain_for_admin')->allowCrossDomain();
-Route::post('url_mgmt/url_export',       'cloud/urlmgmt/url_export')->allowCrossDomain();
-Route::post('url_mgmt/url_export_for_admin',       'cloud/urlmgmt/url_export_for_admin')->allowCrossDomain();
+Route::rule('url_mgmt/check_urlname',     'cloud/urlmgmt/check_urlname', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/add_domain',      'cloud/urlmgmt/add_domain', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/modify_domain',      'cloud/urlmgmt/modify_domain', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/change_domainstate',    'cloud/urlmgmt/change_domainstate', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/del_domain',           'cloud/urlmgmt/del_domain', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/query_domain',       'cloud/urlmgmt/query_domain', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/query_url_for_admin',       'cloud/urlmgmt/query_url_for_admin', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/query_domain_for_admin',       'cloud/urlmgmt/query_domain_for_admin', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/url_export',       'cloud/urlmgmt/url_export', 	'GET|POST')->allowCrossDomain();
+Route::rule('url_mgmt/url_export_for_admin',       'cloud/urlmgmt/url_export_for_admin', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('node_mgmt/node_distribute', 		'cloud/nodemgmt/node_distribute', 	'GET|POST')->allowCrossDomain();
