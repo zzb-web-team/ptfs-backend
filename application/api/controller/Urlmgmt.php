@@ -77,7 +77,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/add_url", $param);
+        return self::loadCloudData("url_mgmt/add_url", $param);
     }
 
     public function config_url_for_rest()
@@ -106,7 +106,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/config_url", $param);
+        return self::loadCloudData("url_mgmt/config_url", $param);
     }
 
     public function add_domain_for_rest()
@@ -135,7 +135,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/add_domain", $param);
+        return self::loadCloudData("url_mgmt/add_domain", $param);
     }
 
     public function modify_domain_for_rest()
@@ -164,7 +164,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/modify_domain", $param);
+        return self::loadCloudData("url_mgmt/modify_domain", $param);
     }
 
 }
