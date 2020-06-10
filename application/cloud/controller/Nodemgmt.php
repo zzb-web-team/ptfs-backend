@@ -21,7 +21,7 @@ class Nodemgmt extends Common
             "province" => $data['province'],
             "page"  => $data['page'],
         );
-        return self::loadApiData("node_mgmt/node_distribute", $param);
+        return self::loadCloudData("node_mgmt/node_distribute", $param);
     }
 
     public function query_node()
@@ -42,7 +42,7 @@ class Nodemgmt extends Common
        //     "province" => isset($data['province']) ? $data['province'] : "",
        //     "city" => isset($data['city']) ? $data['city'] : "",
        //  );
-        return self::loadApiData("node_mgmt/query_node", $data);
+        return self::loadCloudData("node_mgmt/query_node", $data);
     }
 
     public function query_resource()
@@ -74,7 +74,7 @@ class Nodemgmt extends Common
         //     'natIP' => $data['natIP'],
         //     'natPort' => $data['natPort']
         // ];
-        return self::loadApiData("node_mgmt/query_resource", $data);
+        return self::loadCloudData("node_mgmt/query_resource", $data);
     }
 
     public function query_rootnode()
@@ -92,7 +92,7 @@ class Nodemgmt extends Common
             'nodeId' => $data['nodeId'],
             'ip' => $data['ip']
         ];
-        return self::loadApiData("node_mgmt/query_rootnode", $param);
+        return self::loadCloudData("node_mgmt/query_rootnode", $param);
     }
 
     public function resource_refresh()
@@ -114,7 +114,7 @@ class Nodemgmt extends Common
             'area' => $data['area'],
             'url_name' => $data['url_name'],
         ];
-        return self::loadApiData("node_mgmt/resource_refresh", $param);
+        return self::loadCloudData("node_mgmt/resource_refresh", $param);
     }
 
     public function query_relaysrv()
@@ -123,7 +123,7 @@ class Nodemgmt extends Common
             'timestamp' => time()
         ];
 
-        return self::loadApiData("node_mgmt/query_relaysrv", $data);
+        return self::loadCloudData("node_mgmt/query_relaysrv", $data);
     }
 
      public function refresh_state()
@@ -149,12 +149,12 @@ class Nodemgmt extends Common
         //     'start_time' => $data['start_time'],
         //     'end_time' => $data['end_time'],
         // ];
-        return self::loadApiData("node_mgmt/refresh_state", $data);
+        return self::loadCloudData("node_mgmt/refresh_state", $data);
     }
 
     public function refresh_state_admin(){
         $data = input('post.');
-        return self::loadApiData("node_mgmt/refresh_state_admin",$data);
+        return self::loadCloudData("node_mgmt/refresh_state_admin",$data);
     }
 
      public function uploadpfts()
@@ -174,7 +174,7 @@ class Nodemgmt extends Common
             'type' => $data['type'],
             'uuid' => $data['uuid'],
         ];
-        return self::loadApiData("node_mgmt/uploadpfts", $param);
+        return self::loadCloudData("node_mgmt/uploadpfts", $param);
     }
 
      public function query_nodefilter()
@@ -192,7 +192,7 @@ class Nodemgmt extends Common
             'type' => $data['type'],
             'page' => $data['page'],
         ];
-        return self::loadApiData("node_mgmt/query_nodefilter", $param);
+        return self::loadCloudData("node_mgmt/query_nodefilter", $param);
     }
 
      public function filter_node()
@@ -210,7 +210,7 @@ class Nodemgmt extends Common
             'opt_flag' => $data['opt_flag'],
             'nodes' => $data['nodes'],
         ];
-        return self::loadApiData("node_mgmt/filter_node", $param);
+        return self::loadCloudData("node_mgmt/filter_node", $param);
     }
 
     public function query_for_ssh(){
@@ -223,12 +223,12 @@ class Nodemgmt extends Common
             "natIP" => isset($data['natIP']) ? $data['natIP'] : '',
             "natPort" => isset($data['natPort']) ? $data['natPort'] : 0
         ];
-        return self::loadApiData('node_mgmt/query_for_ssh',$param);
+        return self::loadCloudData("node_mgmt/query_for_ssh",$param);
     }
 
     public function node_ctrl(){
         $data = input('post.');
-        return self::loadApiData('node_mgmt/node_ctrl',$data);
+        return self::loadCloudData("node_mgmt/node_ctrl",$data);
     }
 
 

@@ -142,7 +142,7 @@ class User extends Common
             $param = array(
                 "userid" => $user['id']."",
             );
-            self::loadApiData("url_mgmt/add_user", $param);
+            self::loadCloudData("url_mgmt/add_user", $param);
             return json(['status' => 0, 'err_code' => 0, 'msg' => $user, 'token' => $token]);
         }
         return json($return_data);
@@ -569,7 +569,7 @@ class User extends Common
                 Cache::store('redis')->set('ipfs:cloud:user_deny'. $data['id'][$i], 1);
             }
         }
-        return self::loadApiData('url_mgmt/update_user_state',$param);
+        return self::loadCloudData('url_mgmt/update_user_state',$param);
     }
 
     private function sendemail($email, $code) 
@@ -884,14 +884,6 @@ class User extends Common
             return json(['status' => 1, 'err_code' => 0, 'msg' => '该渠道ID存在']);
         }
         return json(['status' => 0, 'err_code' => 0, 'msg' => '该渠道ID不存在']);
-    }
-
-    public function test()
-    {
-        if(isset($_COOKIE['user'])){
-            self::actionLog("冻结账号", "被冻结用户ID：1", $_COOKIE['user']);
-        };exit;
-        //return self::actionLog("冻结账号","被冻结用户ID：1","test");
     }
 
 }

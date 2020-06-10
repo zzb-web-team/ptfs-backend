@@ -22,7 +22,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/add_url", $param);
+        return self::loadCloudData("url_mgmt/add_url", $param);
     }
 
     public function addurl()
@@ -244,7 +244,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/check_label", $param);
+        return self::loadCloudData("url_mgmt/check_label", $param);
     }
 
     public function modify_label()
@@ -262,7 +262,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/modify_label", $param);
+        return self::loadCloudData("url_mgmt/modify_label", $param);
     }
 
     public function config_url()
@@ -281,7 +281,7 @@ class Urlmgmt extends Common
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
-        return self::loadApiData("url_mgmt/config_url", $param);
+        return self::loadCloudData("url_mgmt/config_url", $param);
     }
 
     public function change_state()
@@ -303,7 +303,7 @@ class Urlmgmt extends Common
             "data_count" => isset($data['data_count']) ? $data['data_count'] :0,
             "data_array"  => isset($data['data_array']) ? $data['data_array'] : "",
         );
-        return self::loadApiData("url_mgmt/change_state", $data);
+        return self::loadCloudData("url_mgmt/change_state", $data);
     }
 
     public function query_url()
@@ -325,7 +325,7 @@ class Urlmgmt extends Common
             "state" => isset($data['state']) ? $data['state'] : "",
             "order" => isset($data['order']) ? $data['order'] : 0,
         );
-        return self::loadApiData("url_mgmt/query_url", $param);
+        return self::loadCloudData("url_mgmt/query_url", $param);
     }
 
     public function query_config()
@@ -344,7 +344,7 @@ class Urlmgmt extends Common
             "url_name" => isset($data['url_name']) ? $data['url_name'] : "",
             "type" => isset($data['type']) ? $data['type'] : 0,
         );
-        return self::loadApiData("url_mgmt/query_config", $param);
+        return self::loadCloudData("url_mgmt/query_config", $param);
     }
 
     public function delete_url()
@@ -364,7 +364,7 @@ class Urlmgmt extends Common
         //     "data_count" => $data['data_count'],
         //     "data_array"  => $data['data_array'],
         // );
-        return self::loadApiData("url_mgmt/delete_url", $data);
+        return self::loadCloudData("url_mgmt/delete_url", $data);
     }
 
     public function query_urllabel()
@@ -384,7 +384,7 @@ class Urlmgmt extends Common
             "state" => isset($data['state']) ? $data['state'] : -1,
             "order" => isset($data['order']) ? $data['order'] : 0,
         );
-        return self::loadApiData("url_mgmt/query_urllabel", $param);
+        return self::loadCloudData("url_mgmt/query_urllabel", $param);
     }
 
     public function getvideo()
@@ -432,7 +432,7 @@ class Urlmgmt extends Common
             'data_count' => $data['data_count'],
             'data_array' => $data['data_array']
         ];
-        return self::loadApiData("url_mgmt/check_ualname",$param);
+        return self::loadCloudData("url_mgmt/check_ualname",$param);
     }
 
     public function add_domain(){
@@ -449,7 +449,7 @@ class Urlmgmt extends Common
             'data_count' => $data['data_count'],
             'data_array' => $data['data_array']
         ];
-        return self::loadApiData("url_mgmt/add_domain",$param);
+        return self::loadCloudData("url_mgmt/add_domain",$param);
     }
 
     public function modify_domain(){
@@ -468,7 +468,7 @@ class Urlmgmt extends Common
             'domain_id' => $data['domain_id'],
             'domain' => $data['domain']
         ];
-        return self::loadApiData("url_mgmt/modify_domain",$param);
+        return self::loadCloudData("url_mgmt/modify_domain",$param);
     }
 
     public function change_domainstate(){
@@ -489,7 +489,7 @@ class Urlmgmt extends Common
         //     'data_count' => $data['data_count'],
         //     'data_array' => $data['data_array']
         // ];
-        return self::loadApiData("url_mgmt/change_domainstate",$data); 
+        return self::loadCloudData("url_mgmt/change_domainstate",$data); 
     }
 
     public function del_domain(){
@@ -508,7 +508,7 @@ class Urlmgmt extends Common
         //     'data_count' => $data['data_count'],
         //     'data_array' => $data['data_array']
         // ];
-        return self::loadApiData("url_mgmt/del_domain",$data);
+        return self::loadCloudData("url_mgmt/del_domain",$data);
     }
 
     public function query_domain(){
@@ -535,7 +535,7 @@ class Urlmgmt extends Common
             'page' => isset($data['page']) ? $data['page'] : 0,
             'order' => isset($data['order']) ? $data['order'] : 0
         ];
-        return self::loadApiData("url_mgmt/query_domain",$param);
+        return self::loadCloudData("url_mgmt/query_domain",$param);
     }
 
     public function query_url_for_admin(){
@@ -562,7 +562,7 @@ class Urlmgmt extends Common
             'page' => isset($data['page']) ? $data['page'] : 0,
             'order' => isset($data['order']) ? $data['order'] : 0
         ];
-        return self::loadApiData("url_mgmt/query_url_for_admin",$param);
+        return self::loadCloudData("url_mgmt/query_url_for_admin",$param);
     }
 
     public function query_domain_for_admin(){
@@ -589,7 +589,7 @@ class Urlmgmt extends Common
             'order' => isset($data['order']) ? $data['order'] : 0,
             'page' => isset($data['page']) ? $data['page'] : 0
         ];
-        return self::loadApiData("url_mgmt/query_domain_for_admin",$param);
+        return self::loadCloudData("url_mgmt/query_domain_for_admin",$param);
     }
 
     public function url_export(){
@@ -603,7 +603,7 @@ class Urlmgmt extends Common
             'page' => isset($data['page']) ? $data['page'] : 0,
             'order' => isset($data['order']) ? $data['order'] : 0
         ];
-        return self::loadApiData("url_mgmt/url_export",$param);
+        return self::loadCloudData("url_mgmt/url_export",$param);
     }
 
     public function url_export_for_admin(){
@@ -617,7 +617,7 @@ class Urlmgmt extends Common
         //     'page' => isset($data['page']) ? $data['page'] : 0,
         //     'order' => isset($data['order']) ? $data['order'] : 0
         // ];
-        return self::loadApiData("url_mgmt/url_export_for_admin",$data);
+        return self::loadCloudData("url_mgmt/url_export_for_admin",$data);
         // $return_data = json_decode($return_data,true);
         // $return_data['data']['down_load'] = config("ipfs.apiurl4").$return_data['data']['down_load'];
         // return json($return_data);
