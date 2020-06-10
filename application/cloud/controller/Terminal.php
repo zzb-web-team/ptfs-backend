@@ -105,7 +105,7 @@ class Terminal extends Common
                 "chanid"   => $data['chanid']."",
                 "token"    => $token.""
             );
-            self::loadApiData("url_mgmt/add_terminal", $param);
+            self::loadCloudData("url_mgmt/add_terminal", $param);
             return json($return_data);
         //}
         // $param = array(
@@ -203,7 +203,7 @@ class Terminal extends Common
             "chanid" => $data['chanid']."",
             "token" => $data['token']."",
         );
-        return self::loadApiData("url_mgmt/del_terminal", $param);
+        return self::loadCloudData("url_mgmt/del_terminal", $param);
     }
 
     public function editterminal()
