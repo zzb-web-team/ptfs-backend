@@ -12,9 +12,7 @@ class Monitor extends Common
         $param = array(
             'ts'  => time(),
         );
-        $return_data = self::loadApiData("monitor/get_server", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_server", $param);
     }
 
     //获取当前进程状态信息
@@ -32,9 +30,7 @@ class Monitor extends Common
         $param = array(
             'server_id'  => $data['server_id'],
         );
-        $return_data = self::loadApiData("monitor/get_cur_process_info", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_cur_process_info", $param);
     }
 
     //获取当前服务器状态信息
@@ -52,9 +48,7 @@ class Monitor extends Common
         $param = array(
             'server_id'  => $data['server_id'],
         );
-        $return_data = self::loadApiData("monitor/get_cur_machine_info", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_cur_machine_info", $param);
     }
 
     //获取当前进程状态信息
@@ -76,9 +70,7 @@ class Monitor extends Common
             'day'  => $data['day'],
             'type_of_data'  => $data['type_of_data'],
         );
-        $return_data = self::loadApiData("monitor/get_all_process_info", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_all_process_info", $param);
     }
 
     //获取当前进程状态信息
@@ -100,9 +92,7 @@ class Monitor extends Common
             'day'  => $data['day'],
             'type_of_data'  => $data['type_of_data'],
         );
-        $return_data = self::loadApiData("monitor/get_all_machine_info", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_all_machine_info", $param);
     }
 
     public function getmachine()
@@ -153,9 +143,7 @@ class Monitor extends Common
             'type_of_data'  => $data['type_of_data'],
             'page' => isset($data['page']) ? $data['page'] : 0,
         );
-        $return_data = self::loadApiData("monitor/get_all_machine_info2", $param);
-        $return_data = json_decode($return_data, true);
-        return json($return_data);
+        return self::loadApiData("monitor/get_all_machine_info2", $param);
     }
 
 }

@@ -109,4 +109,62 @@ class Urlmgmt extends Common
         return self::loadApiData("url_mgmt/config_url", $param);
     }
 
+    public function add_domain_for_rest()
+    {
+        $data = input('post.');
+        $validation = new Validate([
+            'id' => 'require',
+            'token' => 'require',
+            'data_count'  => 'require',
+            'data_array'  => 'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        if (!Cache::store('redis')->has('url:token:'. $data['id'])) {
+            return json(['status' => -902, 'err_code' => -902,  'msg' => 'token已过期']);
+        }
+        if (Cache::store('redis')->get('url:token:'. $data['id'])!= $data['token']) {
+            return json(['status' => -903, 'err_code' => -903,  'msg' => 'token不正确']);
+        }
+        if ($data['data_count']>10) {
+            return json(['status' => -904, 'err_code' => -904,  'msg' => 'size too large']);
+        }
+        $param = array(
+            "data_count" => $data['data_count'],
+            "data_array"  => $data['data_array'],
+        );
+        return self::loadApiData("url_mgmt/add_domain", $param);
+    }
+
+    public function modify_domain_for_rest()
+    {
+        $data = input('post.');
+        $validation = new Validate([
+            'id' => 'require',
+            'token' => 'require',
+            'data_count'  => 'require',
+            'data_array'  => 'require',
+        ]);
+        //验证表单
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        if (!Cache::store('redis')->has('url:token:'. $data['id'])) {
+            return json(['status' => -902, 'err_code' => -902,  'msg' => 'token已过期']);
+        }
+        if (Cache::store('redis')->get('url:token:'. $data['id'])!= $data['token']) {
+            return json(['status' => -903, 'err_code' => -903,  'msg' => 'token不正确']);
+        }
+        if ($data['data_count']>10) {
+            return json(['status' => -904, 'err_code' => -904,  'msg' => 'size too large']);
+        }
+        $param = array(
+            "data_count" => $data['data_count'],
+            "data_array"  => $data['data_array'],
+        );
+        return self::loadApiData("url_mgmt/modify_domain", $param);
+    }
+
 }

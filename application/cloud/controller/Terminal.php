@@ -103,7 +103,8 @@ class Terminal extends Common
             $param = array(
                 "id" => $return_data['result']['cols'][0]['id']."",
                 "chanid"   => $data['chanid']."",
-                "token"    => $token.""
+                "token"    => $token."",
+                "name" => $data['name']."",
             );
             self::loadApiData("url_mgmt/add_terminal", $param);
             return json($return_data);

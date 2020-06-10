@@ -503,6 +503,8 @@ Route::rule('demo/delete' , 'demo/index/delete', 'GET|POST')->allowCrossDomain()
 Route::rule('cloudapi/get_token', 		'api/urlmgmt/get_token_for_rest', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/add_url', 		'api/urlmgmt/add_url_for_rest', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/config', 		'api/urlmgmt/config_url_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/add_domain', 		'api/urlmgmt/add_domain_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/modify_domain', 		'api/urlmgmt/modify_domain_for_rest', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
