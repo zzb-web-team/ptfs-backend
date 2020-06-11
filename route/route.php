@@ -512,6 +512,18 @@ Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCross
 Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/editip', 		'admin/system/editip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/deleteip', 		'admin/system/deleteip', 	'GET|POST')->allowCrossDomain();
+
+Route::rule('earnings/node_base_info',        'cloud/earning/node_base_info',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/node_state',           'cloud/earning/node_state',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/flow_state',             'cloud/earning/flow_state',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/bw_state',             'cloud/earning/bw_state',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/node_earnings',         'cloud/earning/node_earnings',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/node_earnings_detail',      'cloud/earning/node_earnings_detail',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/node_h',               'cloud/earning/node_h',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/node_h_detail',      'cloud/earning/node_h_detail',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/update_price_param',      'cloud/earning/update_price_param',       'GET|POST')->allowCrossDomain();
+Route::rule('earnings/get_price_param',      'cloud/earning/get_price_param',       'GET|POST')->allowCrossDomain();
+
 return [
 
 ];
