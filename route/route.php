@@ -475,21 +475,33 @@ Route::rule('cloud/system/userlist', 										'cloud/system/userlist', 							'
 Route::rule('cloud/system/userupdate', 										'cloud/system/userupdate', 							'GET|POST')->allowCrossDomain();
 
 
-Route::rule('ipfs_node_ip_data/ipfs_dataflow_query_conditions' , 'cloud/ipfs/ipfs_dataflow_query_conditions', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ip_usage_table' , 'cloud/ipfs/query_ip_usage_table', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ipfs_node_region_dist' , 'cloud/ipfs/query_ipfs_node_region_dist', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_curve' , 'cloud/ipfs/query_ipfs_dataflow_curve', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_table' , 'cloud/ipfs/query_ipfs_dataflow_table', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_avg_usage_curve' , 'cloud/ipfs/query_ipfs_dataflow_avg_usage_curve', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_avg_usage_table' , 'cloud/ipfs/query_ipfs_dataflow_avg_usage_table', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_store/query_ip_store_usage_table' , 'cloud/ipfs/query_ip_store_usage_table', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_store/query_ip_store_details_curve' , 'cloud/ipfs/query_ip_store_details_curve', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_store/query_ip_store_details_table' , 'cloud/ipfs/query_ip_store_details_table', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_store/query_ip_store_avg_usage_curve' , 'cloud/ipfs/query_ip_store_avg_usage_curve', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_ip_store/query_ip_store_avg_usage_table' , 'cloud/ipfs/query_ip_store_avg_usage_table', 'GET|POST')->allowCrossDomain();
-Route::rule('channel_details/query_total_dataflow' , 'cloud/ipfs/query_total_dataflow', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_monit/ipfs_region_summary' , 'cloud/ipfs/ipfs_region_summary', 'GET|POST')->allowCrossDomain();
-Route::rule('ipfs_node_monit/ipfs_basic_info' , 'cloud/ipfs/ipfs_basic_info', 'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/ipfs_dataflow_query_conditions' ,            'cloud/ipfs/ipfs_dataflow_query_conditions',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ip_usage_table' ,                    'cloud/ipfs/query_ip_usage_table',            'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ipfs_node_region_dist' ,                'cloud/ipfs/query_ipfs_node_region_dist', 'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_curve' ,                'cloud/ipfs/query_ipfs_dataflow_curve',           'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_table' ,              'cloud/ipfs/query_ipfs_dataflow_table',              'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_avg_usage_curve' ,     'cloud/ipfs/query_ipfs_dataflow_avg_usage_curve',            'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_data/query_ipfs_dataflow_avg_usage_table' ,         'cloud/ipfs/query_ipfs_dataflow_avg_usage_table',             'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_store/query_ip_store_usage_table' ,                'cloud/ipfs/query_ip_store_usage_table',                  'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_store/query_ip_store_details_curve' ,                 'cloud/ipfs/query_ip_store_details_curve',              'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_store/query_ip_store_details_table' ,               'cloud/ipfs/query_ip_store_details_table',                 'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_store/query_ip_store_avg_usage_curve' ,               'cloud/ipfs/query_ip_store_avg_usage_curve',             'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_ip_store/query_ip_store_avg_usage_table' ,              'cloud/ipfs/query_ip_store_avg_usage_table',               'GET|POST')->allowCrossDomain();
+Route::rule('channel_details/query_total_dataflow' ,                          'cloud/ipfs/query_total_dataflow',                     'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_region_summary' ,                      'cloud/ipfs/ipfs_region_summary',                       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_basic_info' ,                           'cloud/ipfs/ipfs_basic_info',                       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_bandwidth' ,                         'cloud/ipfs/ipfs_monit_bandwidth',                  'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_cpuusage' ,                        'cloud/ipfs/ipfs_monit_cpuusage',                      'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_etf' ,                          'cloud/ipfs/ipfs_monit_etf',                            'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_lt' ,                         'cloud/ipfs/ipfs_monit_lt',                          'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_memory' ,                          'cloud/ipfs/ipfs_monit_memory',                         'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_otf' ,                                'cloud/ipfs/ipfs_monit_otf',                    'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_ping_ms' ,                            'cloud/ipfs/ipfs_monit_ping_ms',                         'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_ping_ttl' ,                            'cloud/ipfs/ipfs_monit_ping_ttl',                         'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_rcnt' ,                            'cloud/ipfs/ipfs_monit_rcnt',                         'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_storage' ,                            'cloud/ipfs/ipfs_monit_storage',                         'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_tid' ,                            'cloud/ipfs/ipfs_monit_tid',                         'GET|POST')->allowCrossDomain();
+
 
 Route::rule('ipfs_node_monit/query_ipfs_version_download' , 'cloud/ipfs/query_ipfs_version_download', 'GET|POST')->allowCrossDomain();
 

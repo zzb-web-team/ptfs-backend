@@ -433,4 +433,58 @@ class Ipfs extends Common
 
     }
 
+    public function ipfs_monit_bandwidth(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_bandwidth",$data);
+    }
+
+    public function ipfs_monit_cpuusage(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_cpuusage",$data);
+    }
+
+    public function ipfs_monit_etf(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_etf",$data);
+    }
+
+    public function ipfs_monit_lt(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_lt",$data);
+    }
+
+    public function ipfs_monit_memory(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_memory",$data);
+    }
+
+    public function ipfs_monit_otf(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_otf",$data);
+    }
+
+    public function ipfs_monit_ping_ms(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_ping_ms",$data);
+    }
+
+    public function ipfs_monit_ping_ttl(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_ping_ttl",$data);
+    }
+
+    public function ipfs_monit_rcnt(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_rcnt",$data);
+    }
+
+    public function ipfs_monit_storage(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_storage",$data);
+    }
+
+    public function ipfs_monit_tid(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_tid",$data);
+    }
 }
