@@ -524,18 +524,22 @@ Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCross
 Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/editip', 		'admin/system/editip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/deleteip', 		'admin/system/deleteip', 	'GET|POST')->allowCrossDomain();
+<<<<<<< HEAD
 
 Route::rule('earnings/node_base_info',        'cloud/earning/node_base_info',       'GET|POST')->allowCrossDomain();
 Route::rule('earnings/node_state',           'cloud/earning/node_state',       'GET|POST')->allowCrossDomain();
 Route::rule('earnings/flow_state',             'cloud/earning/flow_state',       'GET|POST')->allowCrossDomain();
 Route::rule('earnings/bw_state',             'cloud/earning/bw_state',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/node_earnings',         'cloud/earning/node_earnings',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/node_earnings_detail',      'cloud/earning/node_earnings_detail',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/node_h',               'cloud/earning/node_h',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/node_h_detail',      'cloud/earning/node_h_detail',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/update_price_param',      'cloud/earning/update_price_param',       'GET|POST')->allowCrossDomain();
-Route::rule('earnings/get_price_param',      'cloud/earning/get_price_param',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/node_pf',         'cloud/earning/node_pf',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/node_pf_detail',      'cloud/earning/node_pf_detail',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/node_pv',               'cloud/earning/node_pv',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/node_pv_detail',      'cloud/earning/node_pv_detail',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/update_net_info',      'cloud/earning/update_net_info',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/get_net_info',      'cloud/earning/get_net_info',       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_profit/export_excel',      'cloud/earning/export_excel',       'GET|POST')->allowCrossDomain();
 
+=======
+>>>>>>> parent of b231fe7... 新增节点信息接口
 return [
 
 ];
