@@ -9,30 +9,30 @@ class Videoplay extends Common
     public function query_accelerate_log()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
-            'chanId'  => 'require',
-            'fileUrl'  => 'require',
-            'userIp'  => 'require',
-            'pageNo'  => 'require',
-            'pageSize'  => 'require',
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
-            "chanId"  => $data['chanId'],
-            "fileUrl"  => $data['fileUrl'],
-            "userIp"  => $data['userIp'],
-            "requestFlag" => isset($data['requestFlag']) ? $data['requestFlag'] : 2,
-            "pageNo"  => $data['pageNo'],
-            "pageSize"  => $data['pageSize'],
-        );
-        $rs = self::testApiData("videoplay_accelerate/query_accelerate_log", $param);
+        // $validation = new Validate([
+        //     'start_ts'  => 'require',
+        //     'end_ts'  => 'require',
+        //     'chanId'  => 'require',
+        //     'fileUrl'  => 'require',
+        //     'userIp'  => 'require',
+        //     'pageNo'  => 'require',
+        //     'pageSize'  => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        //     "chanId"  => $data['chanId'],
+        //     "fileUrl"  => $data['fileUrl'],
+        //     "userIp"  => $data['userIp'],
+        //     "requestFlag" => isset($data['requestFlag']) ? $data['requestFlag'] : 2,
+        //     "pageNo"  => $data['pageNo'],
+        //     "pageSize"  => $data['pageSize'],
+        // );
+        $rs = self::testApiData("videoplay_accelerate/query_accelerate_log", $data);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
         }
