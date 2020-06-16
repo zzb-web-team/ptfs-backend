@@ -103,6 +103,7 @@ class Urlmgmt extends Common
             return json(['status' => -904, 'err_code' => -904,  'msg' => 'size too large']);
         }
         $param = array(
+            "buser_id" => $data['id']."",
             "data_count" => $data['data_count'],
             "data_array"  => $data['data_array'],
         );
