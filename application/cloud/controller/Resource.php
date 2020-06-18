@@ -232,7 +232,9 @@ class Resource extends Common
             'chanId'  => 'require',
             'fileName'  => 'require',
             'isp'  => 'require',
-            'top'  => 'require'
+            'top'  => 'require',
+            'pageNo' => 'require',
+            'pageSize' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -245,7 +247,9 @@ class Resource extends Common
             "fileName"  => $data['fileName'],
             "isp"  => $data['isp'],
             "top"  => $data['top'],
-            "acce" => isset($data['acce']) ? $data['acce'] : ""
+            "acce" => isset($data['acce']) ? $data['acce'] : "",
+            "pageNo" => $data['pageNo'],
+            "pageSize" => $data['pageSize']
         );
         $rs = self::testApiData("videoaccess_statistic/query_topregion_accesscnt_curve", $param);
         if (!$rs) {
@@ -284,6 +288,8 @@ class Resource extends Common
             'fileName'  => 'require',
             'region'  => 'require',
             'top'  => 'require',
+            'pageNo' => 'require',
+            'pageSize' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -295,7 +301,9 @@ class Resource extends Common
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
-            "top"  => $data['top']
+            "top"  => $data['top'],
+            "pageNo" => $data['pageNo'],
+            "pageSize" => $data['pageSize']
         );
         $rs = self::testApiData("videoaccess_statistic/query_topisp_accesscnt_curve", $param);
         if (!$rs) {

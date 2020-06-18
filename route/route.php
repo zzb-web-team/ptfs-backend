@@ -388,6 +388,7 @@ Route::rule('node_mgmt/query_nodefilter', 		'cloud/nodemgmt/query_nodefilter', 	
 Route::rule('node_mgmt/filter_node', 		'cloud/nodemgmt/filter_node', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/query_for_ssh', 		'cloud/nodemgmt/query_for_ssh', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/node_ctrl',         'cloud/nodemgmt/node_ctrl',          'GET|POST')->allowCrossDoamin();
+Route::rule('node_mgmt/get_nodetype_enum',         'cloud/nodemgmt/get_nodetype_enum',          'GET|POST')->allowCrossDoamin();
 
 Route::rule('videoplay_accelerate/query_accelerate_log', 		'cloud/videoplay/query_accelerate_log', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoplay_accelerate/query_videoplay_log', 		'cloud/videoplay/query_videoplay_log', 	'GET|POST')->allowCrossDomain();
@@ -524,7 +525,6 @@ Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCross
 Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/editip', 		'admin/system/editip', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/deleteip', 		'admin/system/deleteip', 	'GET|POST')->allowCrossDomain();
-<<<<<<< HEAD
 
 Route::rule('earnings/node_base_info',        'cloud/earning/node_base_info',       'GET|POST')->allowCrossDomain();
 Route::rule('earnings/node_state',           'cloud/earning/node_state',       'GET|POST')->allowCrossDomain();
@@ -538,8 +538,6 @@ Route::rule('ipfs_profit/update_net_info',      'cloud/earning/update_net_info',
 Route::rule('ipfs_profit/get_net_info',      'cloud/earning/get_net_info',       'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_profit/export_excel',      'cloud/earning/export_excel',       'GET|POST')->allowCrossDomain();
 
-=======
->>>>>>> parent of b231fe7... 新增节点信息接口
 return [
 
 ];
