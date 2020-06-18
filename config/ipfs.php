@@ -8,6 +8,6 @@ return [
     "apiurl2"       => "http://39.100.131.247:1351/api/ptfs",
     "apiurl3"       => "http://39.100.131.247:1353/api/ptfs",
     // "apiurl4"      => "http://39.100.131.247:8090/"
-     "apiurl4"      => "http://10.0.0.155:8090/",
+     "apiurl4"      => "http://39.100.131.247:8090/",
      "cloudurl"       => "http://39.100.128.74:1357/api/ptfs",
 ];
