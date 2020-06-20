@@ -389,6 +389,7 @@ Route::rule('node_mgmt/filter_node', 		'cloud/nodemgmt/filter_node', 	'GET|POST'
 Route::rule('node_mgmt/query_for_ssh', 		'cloud/nodemgmt/query_for_ssh', 	'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/node_ctrl',         'cloud/nodemgmt/node_ctrl',          'GET|POST')->allowCrossDoamin();
 Route::rule('node_mgmt/get_nodetype_enum',         'cloud/nodemgmt/get_nodetype_enum',          'GET|POST')->allowCrossDoamin();
+Route::rule('node_mgmt/nodeinfo_export',         'cloud/nodemgmt/nodeinfo_export',          'GET|POST')->allowCrossDoamin();
 
 Route::rule('videoplay_accelerate/query_accelerate_log', 		'cloud/videoplay/query_accelerate_log', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoplay_accelerate/query_videoplay_log', 		'cloud/videoplay/query_videoplay_log', 	'GET|POST')->allowCrossDomain();
@@ -495,6 +496,7 @@ Route::rule('ipfs_node_monit/ipfs_monit_bandwidth' ,                         'cl
 Route::rule('ipfs_node_monit/ipfs_monit_cpuusage' ,                        'cloud/ipfs/ipfs_monit_cpuusage',                      'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_etf' ,                          'cloud/ipfs/ipfs_monit_etf',                            'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_lt' ,                         'cloud/ipfs/ipfs_monit_lt',                          'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_monit_itf' ,                          'cloud/ipfs/ipfs_monit_itf',                            'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_memory' ,                          'cloud/ipfs/ipfs_monit_memory',                         'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_otf' ,                                'cloud/ipfs/ipfs_monit_otf',                    'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_ping_ms' ,                            'cloud/ipfs/ipfs_monit_ping_ms',                         'GET|POST')->allowCrossDomain();

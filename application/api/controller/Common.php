@@ -162,5 +162,17 @@ class Common extends Controller
         return $this->setAccessToken($tel, $data);
     }
 
+     //子集放到父元素的children字段中
+     public function getTree($data,$id){
+        $tree = [];
+        foreach($data as $k=>$v){
+            if($v['pid'] == $id){
+                $v['children'] = $this->getTree($data,$v['id']);
+                $tree[] = $v;
+            }
+        }
+        return $tree;
+    }
+
 
 }

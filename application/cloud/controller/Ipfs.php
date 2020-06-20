@@ -448,6 +448,11 @@ class Ipfs extends Common
         return self::testApiData("ipfs_node_monit/ipfs_monit_etf",$data);
     }
 
+    public function ipfs_monit_itf(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_monit_itf",$data);
+    }
+
     public function ipfs_monit_lt(){
         $data = input('post.');
         return self::testApiData("ipfs_node_monit/ipfs_monit_lt",$data);

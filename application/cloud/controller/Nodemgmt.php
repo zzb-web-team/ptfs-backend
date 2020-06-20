@@ -236,4 +236,9 @@ class Nodemgmt extends Common
         return self::loadCloudData("node_mgmt/get_nodetype_enum",$data);
     }
 
+    public function nodeinfo_export(){
+        $data = input('post.');
+        return self::loadCloudData("node_mgmt/nodeinfo_export",$data);
+    }
+
 }

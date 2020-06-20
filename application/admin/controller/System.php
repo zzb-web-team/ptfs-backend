@@ -353,6 +353,7 @@ class System extends Common
             "insert" => $insert,
         );
         $result = self::loadApiData("store/insert_table", $param);
+        halt($result);
         if (!$result) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => 'IPFS服务错误']);
         }
@@ -360,8 +361,6 @@ class System extends Common
         if ($result['status'] != 0) {
             return json($result);
         }
-
-        //self::actionLog("新增", "新增用户", "-", "admin", $uid, $uname);
         return json($result);
     }
 
