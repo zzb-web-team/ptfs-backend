@@ -353,7 +353,6 @@ class System extends Common
             "insert" => $insert,
         );
         $result = self::loadApiData("store/insert_table", $param);
-        halt($result);
         if (!$result) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => 'IPFS服务错误']);
         }
