@@ -233,6 +233,7 @@ class Nodemgmt extends Common
 
     public function get_nodetype_enum(){
         $data = input('post.');
+        $data['phptimestamp'] = time();
         return self::loadCloudData("node_mgmt/get_nodetype_enum",$data);
     }
 
