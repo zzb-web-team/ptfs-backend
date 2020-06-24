@@ -305,6 +305,32 @@ Route::rule('oauth/order', 	'api/oauth/order', 	'GET|POST')->allowCrossDomain();
 Route::rule('oauth/gettoken', 		'api/oauth/gettoken', 	'GET|POST')->allowCrossDomain();
 Route::rule('oauth/orderlist', 		'api/oauth/orderlist', 	'GET|POST')->allowCrossDomain();
 
+Route::rule('system/userlist', 		'api/system/user_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/userctrl', 		'api/system/userctrl', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/adduser', 		'api/system/add_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/deluser', 		'api/system/del_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/updateuser', 		'api/system/update_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/searchuser', 		'api/system/search_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/departmentlist', 		'api/system/department_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/adddepartment', 		'api/system/add_department', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/updatedepartment', 		'api/system/update_department', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/deldepartment', 		'api/system/del_department', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/positionlist', 		'api/system/position_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/addposition', 		'api/system/add_position', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/updateposition', 		'api/system/update_position', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/delposition', 		'api/system/del_position', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/menulist', 		'api/system/menu_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/menulistuser', 		'api/system/menu_list_user', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/rolelist', 		'api/system/role_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/addrole', 		'api/system/add_role', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/roleinfo', 		'api/system/roleinfo', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/updaterole', 		'api/system/update_role', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/delrole', 		'api/system/del_role', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/searchrole', 		'api/system/search_role', 	'GET|POST')->allowCrossDomain();
+
+
+
+
 //Appmarket
 Route::rule('appmarket/verify', 		'admin/appmarket/verify', 	'GET|POST')->allowCrossDomain();
 Route::rule('appmarket/add_app', 		'admin/appmarket/add_app', 	'GET|POST')->allowCrossDomain();

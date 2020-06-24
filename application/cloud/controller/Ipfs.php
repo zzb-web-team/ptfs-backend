@@ -21,29 +21,29 @@ class Ipfs extends Common
     public function query_ip_usage_table()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
-            'ipfs_id'  => 'require',
-            'ipfs_ip'  => 'require',
-            'usage'  => 'require',
-            'pageNo'  => 'require',
-            'pageSize'  => 'require',
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
-            "ipfs_id"  => $data['ipfs_id'],
-            "ipfs_ip"  => $data['ipfs_ip'],
-            "usage"  => $data['usage'],
-            "pageNo"  => $data['pageNo'],
-            "pageSize"  => $data['pageSize'],
-        );
-        $rs = self::testApiData("ipfs_node_ip_data/query_ip_usage_table", $param);
+        // $validation = new Validate([
+        //     'start_ts'  => 'require',
+        //     'end_ts'  => 'require',
+        //     'ipfs_id'  => 'require',
+        //     'ipfs_ip'  => 'require',
+        //     'usage'  => 'require',
+        //     'pageNo'  => 'require',
+        //     'pageSize'  => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        //     "ipfs_id"  => $data['ipfs_id'],
+        //     "ipfs_ip"  => $data['ipfs_ip'],
+        //     "usage"  => $data['usage'],
+        //     "pageNo"  => $data['pageNo'],
+        //     "pageSize"  => $data['pageSize'],
+        // );
+        $rs = self::testApiData("ipfs_node_ip_data/query_ip_usage_table", $data);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
         }
@@ -190,29 +190,29 @@ class Ipfs extends Common
     public function query_ip_store_usage_table()
     {
         $data = input('post.');
-        $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
-            'ipfs_id'  => 'require',
-            'content_id'  => 'require',
-            'usage'  => 'require',
-            'pageNo'  => 'require',
-            'pageSize'  => 'require',
-        ]);
-        //验证表单
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
-            "ipfs_id"  => $data['ipfs_id'],
-            "content_id"  => $data['content_id'],
-            "usage"  => $data['usage'],
-            "pageNo"  => $data['pageNo'],
-            "pageSize"  => $data['pageSize'],
-        );
-        $rs = self::testApiData("ipfs_node_ip_store/query_ip_store_usage_table", $param);
+        // $validation = new Validate([
+        //     'start_ts'  => 'require',
+        //     'end_ts'  => 'require',
+        //     'ipfs_id'  => 'require',
+        //     'content_id'  => 'require',
+        //     'usage'  => 'require',
+        //     'pageNo'  => 'require',
+        //     'pageSize'  => 'require',
+        // ]);
+        // //验证表单
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        //     "ipfs_id"  => $data['ipfs_id'],
+        //     "content_id"  => $data['content_id'],
+        //     "usage"  => $data['usage'],
+        //     "pageNo"  => $data['pageNo'],
+        //     "pageSize"  => $data['pageSize'],
+        // );
+        $rs = self::testApiData("ipfs_node_ip_store/query_ip_store_usage_table", $data);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
         }
