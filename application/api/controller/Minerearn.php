@@ -195,6 +195,7 @@ class Minerearn extends Common
             "start_time"  => $data['start_time'],
             "end_time" => $data['end_time'],
             "login_type" => isset($data['login_type']) ? $data['login_type'] : 1,
+            "profit_type" => isset($data['profit_type']) ? $data['profit_type'] : 0,
         );
         $return_data = self::loadApiData("miner_earn/query_user_node_exchange_list", $param);
         $return_data = json_decode($return_data, true);

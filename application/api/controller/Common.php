@@ -174,5 +174,31 @@ class Common extends Controller
         return $tree;
     }
 
+    public function cachedb($tbname, $colname, $cachename,$where = '1')
+    {
+        $i = 0;
+        $result = [];
+        do {
+            $param = [
+                "page" => $i,
+                "page_size" => 10,
+                "tb_name" => $tbname,
+                "col_name" => $colname,
+                "where" => $where,
+                "order" => 'id desc',
+            ];
+            $menu = self::loadApiData("store/find_table", $param);
+            $return_data = json_decode($menu, true);
+            $i++;
+            if ($i > 0) {
+                $result = array_merge($result, $return_data['result']['cols']);
+            }
+        } while ($return_data['result']['les_count'] != 0 && !empty($menu));
+        $res = Cache::store('redis')->set($cachename, json_encode($result));
+        if ($res) {
+            return json_encode($result);
+        }
+    }
+
 
 }

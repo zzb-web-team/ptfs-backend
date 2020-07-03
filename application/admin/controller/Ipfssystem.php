@@ -1,5 +1,7 @@
 <?php
 namespace app\admin\controller;
+
+use app\api\controller\System;
 use think\Validate;
 use think\facade\Cache;
 
@@ -54,14 +56,32 @@ class Ipfssystem extends Common
                         Cache::store('redis')->set('ipfssystem:admin_token:' . $token, $user['id'], 60);
                         return json(['status' => 1, 'token' => $token, 'msg' => '请输入code', 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg']]);
                     } else {
-                        return json(['status' => 0, 'msg' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg'], 'google' => 0]);
+                        $update = ['last_login'];
+                        $insert = [time()];
+                        $param = array(
+                            "tb_name" => 'ipfssystem_user',
+                            "update" => $update,
+                            "col_value" => $insert,
+                            "where" => "id=" . $user['id'],
+                        );
+                        self::loadApiData("store/update_table", $param);
+                        return json(['status' => 0, 'data' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg'], 'google' => 0]);
                     }
                 } else if (Cache::store('redis')->get('ipfssystem:admin_status:' . $user['id'])) {
                     $token = md5(time() . '_jkhgasdgjkdsa');
                     Cache::store('redis')->set('ipfssystem:admin_token:' . $token, $user['id'], 60);
                     return json(['status' => 1, 'token' => $token, 'msg' => '请输入code', 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg']]);
                 } else {
-                    return json(['status' => 0, 'msg' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg'], 'google' => 0]);
+                    $update = ['last_login'];
+                        $insert = [time()];
+                        $param = array(
+                            "tb_name" => 'ipfssystem_user',
+                            "update" => $update,
+                            "col_value" => $insert,
+                            "where" => "id=" . $user['id'],
+                        );
+                        self::loadApiData("store/update_table", $param);
+                    return json(['status' => 0, 'data' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg'], 'google' => 0]);
                 }
             }
             return json(['status' => -900, 'msg' => '找不到该用户']);
@@ -106,6 +126,15 @@ class Ipfssystem extends Common
         $code = $google_auth->getCode($secret);
         $check_result = $google_auth->verifyCode($secret, $data['code'], 2);
         if ($check_result) {
+            $update = ['last_login'];
+            $insert = [time()];
+            $param = array(
+                "tb_name" => 'ipfssystem_user',
+                "update" => $update,
+                "col_value" => $insert,
+                "where" => "id=" . $user['id'],
+            );
+            self::loadApiData("store/update_table", $param);
             return json(['status' => 0, 'usermsg' => $user, 'msg' => '登陆成功', 'google' => 1]);
         } else {
             return json(['status' => -900, 'msg' => 'code错误']);
@@ -170,15 +199,15 @@ class Ipfssystem extends Common
             'page'  =>  'require',
         ]);
         $where = "1";
-        $where.= $data['search']=="" ? "" : " and (username = '".$data['search']."' or nickname = '".$data['search']."')";
+        $where.= $data['search']=="" ? "" : " and (username LIKE '%" . $data['search'] . "%' or nickname = '%".$data['search']."%')";
         $where.= $data['status']===null ? "" : " and status = ".$data['status'];
+        $where.= $data['position_id']===null ? "" : " and position_id = ".$data['position_id'];
         if (isset($data['start_ts'])) {
             $where.= $data['start_ts']=="" ? "" : " and time_create >= ".$data['start_ts'];
         }
         if (isset($data['end_ts'])) {
             $where.= $data['end_ts']=="" ? "" : " and time_create <= ".$data['end_ts'];
         }
-
         $order = isset($data['order']) ? $data['order'] : 'id desc';
         $param = array(
             "page" => isset($data['page']) ?  intval($data['page']) : 0,
@@ -188,8 +217,40 @@ class Ipfssystem extends Common
             "where"     => $where,
             "order"     => $order,
         );
-        return self::loadApiData("store/find_table", $param);
-
+        $return_data = self::loadApiData("store/find_table", $param);
+        $result = json_decode($return_data,true);
+        if (Cache::store('redis')->has('ipfs_alldepartment')) {
+            $return_data1 = Cache::store('redis')->get('ipfs_alldepartment');
+        } else {
+            $return_data1 = parent::cachedb('ipfs_department', "*", 'ipfs_alldepartment');
+        }
+        $result1 = json_decode($return_data1,true);
+        if (Cache::store('redis')->has('ipfs_allposition')) {
+            $return_data2 = Cache::store('redis')->get('ipfs_allposition');
+        } else {
+            $return_data2 = parent::cachedb('ipfs_position', "*", 'ipfs_allposition');
+        }
+        $result2 = json_decode($return_data2,true);
+        foreach($result['result']['cols'] as $k => $v){
+            foreach($result1 as $m){
+                if($m['id'] == $v['department_id']){
+                    $v['department_name'] = $m['name'];
+                    $v['pdepartment_id'] = $m['pid'];
+                    foreach($result1 as $z){
+                        if($m['pid'] == $z['id']){
+                            $v['pdepartment_name'] = $z['name'];
+                        }
+                    }
+                }
+            }
+            foreach($result2 as $n){
+                if($n['id'] == $v['position_id']){
+                    $v['position_name'] = $n['name'];
+                }
+            }
+            $result['result']['cols'][$k] = $v;
+        }
+        return json($result);
     }
 
     public function userctrl()
@@ -262,6 +323,7 @@ class Ipfssystem extends Common
         if ($result['status'] != 0) {
             return json($result);
         }
+        parent::cachedb('ipfssystem_user',"*","ipfs_alluser");
         // $uid = isset($_COOKIE['id']) ? $_COOKIE['id'] : 0;
         // $uname = isset($_COOKIE['user']) ? $_COOKIE['user'] : "本地测试用户";
         // if ($data['type'] == 1 ) {
@@ -302,6 +364,7 @@ class Ipfssystem extends Common
         if ($result['status'] != 0) {
             return json($result);
         }
+        parent::cachedb('ipfssystem_user',"*","ipfs_alluser");
         // $uid = isset($_COOKIE['id']) ? $_COOKIE['id'] : 0;
         // $uname = isset($_COOKIE['user']) ? $_COOKIE['user'] : "本地测试用户";
         // self::actionLog("删除", "删除系统用户", $data['id'], "admin", $uid, $uname);
@@ -318,6 +381,9 @@ class Ipfssystem extends Common
             'password'  =>  'require',
             'password2'  =>  'require',
             'role_id' =>  'require',
+            'position_id' => 'require',
+            'department_id' => 'require',
+            'sex' => 'require',
             'name' =>  'require',
             'phone' =>  'require',
             'status' =>  'require',
@@ -341,9 +407,13 @@ class Ipfssystem extends Common
             $data['nickname'],
             md5($data['password']),
             $data['role_id'],
+            $data['position_id'],
+            $data['department_id'],
             $data['name'],
+            $data['sex'],
             $data['phone'],
             $data['status'],
+            0,
             intval($uid),
             $uname,
         ];
@@ -362,8 +432,7 @@ class Ipfssystem extends Common
         if ($result['status'] != 0) {
             return json($result);
         }
-        
-        //self::actionLog("新增", "新增用户", "-", "admin", $uid, $uname);
+        parent::cachedb('ipfssystem_user',"*","ipfs_alluser");
         return json($result);
     }
 
@@ -375,7 +444,10 @@ class Ipfssystem extends Common
             'id'  =>  'require',
             'username' => 'require',
             'role_id' => 'require',
+            'position_id' => 'require',
+            'department_id' => 'require',
             'name' =>  'require',
+            'sex' => 'require',
             'phone' =>  'require',
             'status' =>  'require',
             'uid' => 'require',
@@ -392,19 +464,22 @@ class Ipfssystem extends Common
         //$uname = isset($_COOKIE['ipfs_user']) ? $_COOKIE['ipfs_user'] : (isset($_COOKIE['adminuser']) ? $_COOKIE['adminuser'] : "-");
         $uid = $data['uid'];
         $uname = $data['uname'];
-        if($data['password']) {
+        if(isset($data['password'])) {
             if ($data['password'] != $data['password2']) {
                  return json(['status' => -900, 'err_code' => -900,  'msg' => '两次密码不一致']);
             }
             $update = [
-                "username", "nickname", "password", "role_id", "name" , "phone", "status", "uid_update", "user_update"
+                "username", "nickname", "password", "role_id", "department_id", "position_id", "name" , "sex", "phone", "status",  "uid_update", "user_update"
             ];
             $insert = [
                 $data['username'],
                 $data['nickname'],
                 md5($data['password']),
                 $data['role_id'],
+                $data['department_id'],
+                $data['position_id'],
                 $data['name'],
+                $data['sex'],
                 $data['phone'],
                 $data['status'],
                 intval($uid),
@@ -413,13 +488,16 @@ class Ipfssystem extends Common
 
         } else {
             $update = [
-                "username", "nickname", "role_id", "name" , "phone", "status", "uid_update", "user_update"
+                "username", "nickname", "role_id", "department_id", "position_id", "name" ,"sex", "phone", "status", "uid_update", "user_update"
             ];
             $insert = [
                 $data['username'],
                 $data['nickname'],
                 $data['role_id'],
+                $data['department_id'],
+                $data['position_id'],
                 $data['name'],
+                $data['sex'],
                 $data['phone'],
                 $data['status'],
                 intval($uid),
@@ -441,7 +519,7 @@ class Ipfssystem extends Common
         if ($result['status'] != 0) {
             return json($result);
         }
-        
+        parent::cachedb('ipfssystem_user',"*","ipfs_alluser");
         //self::actionLog("修改", "修改用户", $data['id'], "admin", $uid, $uname);
         return json($result);
     }
@@ -1038,6 +1116,11 @@ class Ipfssystem extends Common
         unset($list[$res]);
         Cache::store('redis')->set('ipfs:ip:list', json_encode($list));
         return json(['status' => 0, 'err_code' => 0,  'err_msg' => 'success']); 
+    }
+
+    public function flush_ip(){
+        $result = Cache::store('redis')->rm('ipfs:ip:list');
+        return json(['status' => 0, 'err_code' => 0,  'err_msg' => $result]); 
     }
 
 }
