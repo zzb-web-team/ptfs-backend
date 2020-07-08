@@ -348,6 +348,51 @@ class System extends Common
         if (!$validation->check($data)) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
         }
+        if (Cache::store('redis')->has('ipfs_allmenu')) {
+            $return_data2 = Cache::store('redis')->get('ipfs_allmenu');
+        } else {
+            $return_data2 = parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        }
+        $return_data2 = json_decode($return_data2, true);
+        $param = array(
+            "page" => 0,
+            "page_size" => 10,
+            "tb_name" => 'ipfs_role',
+            "col_name" => "*",
+            "where" => 'id = ' . $data['roleid'],
+            "order" => 'id desc',
+        );
+        $result = self::loadApiData("store/find_table", $param);
+        $result = json_decode($result,true);
+        if($result['result']['cols'][0]['type'] == 0){
+            foreach(array_reverse($return_data2) as $k=>$v){
+                if ($v['read_status'] == 1) {
+                    $v['roleR'] = 1;
+                }
+
+                if ($v['update_status'] == 1) {
+                    $v['roleU'] = 1;
+                }
+
+                if ($v['delete_status'] == 1) {
+                    $v['roleD'] = 1;
+                }
+
+                if ($v['insert_status'] == 1) {
+                    $v['roleC'] = 1;
+                }
+
+                if ($v['import_status'] == 1) {
+                    $v['roleI'] = 1;
+                }
+
+                if ($v['export_status'] == 1) {
+                    $v['roleE'] = 1;
+                }
+                $return_data2[$k] = $v;
+            }
+            return json(['status' => 0,'data' => parent::getTree($return_data2,0)]);
+        }
         if (Cache::store('redis')->has('ipfs_allroleinfo')) {
             $return_data = Cache::store('redis')->get('ipfs_allroleinfo');
         } else {
@@ -360,12 +405,7 @@ class System extends Common
                 $roleinfolist[] = $v;
             }
         }
-        if (Cache::store('redis')->has('ipfs_allmenu')) {
-            $return_data2 = Cache::store('redis')->get('ipfs_allmenu');
-        } else {
-            $return_data2 = parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
-        }
-        $return_data2 = json_decode($return_data2, true);
+        
         $newarr = [];
         foreach ($roleinfolist as $k => $v) {
             $newarr = $this->getparent($v['menuid'], $return_data2);
@@ -399,7 +439,7 @@ class System extends Common
                         $v['roleE'] = $n['roleE'];
                     }
 
-                }
+                } 
             }
             $newarr[$k] = $v;
         }
@@ -540,24 +580,29 @@ class System extends Common
             $return_data = parent::cachedb('ipfs_department', "*", 'ipfs_alldepartment');
         }
         $result = json_decode($return_data, true);
-        $newarr = [];
         if (Cache::store('redis')->has('ipfs_alluser')) {
             $user = Cache::store('redis')->get('ipfs_alluser');
         } else {
             $user = parent::cachedb('ipfssystem_user', "*", 'ipfs_alluser');
         }
         $user = json_decode($user, true);
-        $roleidlist = [];
-        foreach ($result as $k => $v) {
-            $roleidlist[$k] = $v['id'];
-        }
-        foreach ($result as $k => $v) {
+        $newarr = [];
+        foreach ($result as  $v) {
             foreach ($user as $m => $n) {
                 if ($n['department_id'] == $v['id'] && $n['role_id'] == 0) {
+                    $newarr[] = $v;
+                    $newarr = $this->getparent($v['id'],$result);
+                }
+            }
+        }
+        $newarr = array_unique($newarr,SORT_REGULAR);
+        foreach($newarr as $k=>$v){
+            foreach($user as $n){
+                if ($n['department_id'] == $v['id'] && $n['role_id'] == 0){
                     $v['user'][] = ["id" => $n["id"], "label" => $n['username']];
                 }
             }
-            $newarr[] = $v;
+            $newarr[$k] = $v;
         }
         if (!$user) {
             return json(['status' => -900, 'msg' => 'ipfs服务出错']);
@@ -636,39 +681,20 @@ class System extends Common
         return json(['status' => 0, 'msg' => $infolist]);
     }
 
-    // public function add_roleinfo(){
-    //     $data = input('post.');
-    //     $validation = new Validate([
-    //         'roleid' => 'require',
-    //         'data' => 'require'
-    //     ]);
-    //     //验证表单
-    //     if (!$validation->check($data)) {
-    //         return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
-    //     }
-    //     $insert = [];
-    //     $insert[] = [
-    //         $data['name'],
-    //     ];
-    //     $param = array(
-    //         "tb_name" => 'ipfs_roleinfo',
-    //         "insert" => $insert,
-    //     );
-    //     $result = self::loadApiData("store/insert_table", $param);
-
-    // }
 
     public function update_role()
     {
         $data = input('post.');
         $validation = new Validate([
             'roleid' => 'require',
-            'name' => 'require',
+            'name' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
         }
+        $userid = isset($data['userid']) ? $data['userid'] : "";
+        $data['description'] = isset($data['description']) ? $data['description'] : "";
         $update = ['name', 'description'];
         $insert = [$data['name'], $data['description']];
         $param = array(
@@ -678,7 +704,17 @@ class System extends Common
             "where" => "id=" . $data['roleid'],
         );
         $result = self::loadApiData("store/update_table", $param);
-        if (!$result) {
+        $update1 = ['role_id'];
+        $insert1 = [$data['roleid']];
+        $param1 = [
+            "tb_name" => 'ipfssystem_user',
+            "update" => $update1,
+            "col_value" => $insert1,
+            "where" => "id in (" . $userid . ")",
+        ];
+        $result1 = self::loadApiData("store/update_table", $param1);
+        parent::cachedb('ipfssystem_user',"*","ipfs_alluser");
+        if (!$result || !$result1) {
             return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
         }
         return $result;
@@ -705,7 +741,6 @@ class System extends Common
             } else {
                 $temp[$list[$i]['menuid']] = $tp;
             }
-
         }
         $param = [
             "tb_name" => 'ipfs_roleinfo',
@@ -779,31 +814,6 @@ class System extends Common
         return json($result);
     }
 
-    public function search_role()
-    {
-        $data = input('post.');
-        $validation = new Validate([
-            'name' => 'require',
-        ]);
-        //验证表单
-        if (!$validation->check($data)) {
-            return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "page" => isset($data['page']) ? intval($data['page']) : 0,
-            "page_size" => 10,
-            "tb_name" => 'ipfs_role',
-            "col_name" => "*",
-            "where" => "name = '" . $data['name'] . "'",
-            "order" => 'id desc',
-        );
-        $return_data = self::loadApiData("store/find_table", $param);
-        if (!$return_data) {
-            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
-        }
-        return $return_data;
-    }
-
     public function getparent($id, $data)
     {
         static $parent = [];
@@ -839,8 +849,8 @@ class System extends Common
         return json(['status' => 0, 'err_code' => 0,  'err_msg' => $result]); 
     }
 
-    public function flushmenu(){
-            $result = Cache::store('redis')->rm('ipfs_allmenu');
+    public function flushuser(){
+            $result = Cache::store('redis')->rm('ipfs_alluser');
             return json(['status' => 0, 'err_code' => 0,  'err_msg' => $result]); 
     }
 

@@ -305,12 +305,6 @@ Route::rule('oauth/order', 	'api/oauth/order', 	'GET|POST')->allowCrossDomain();
 Route::rule('oauth/gettoken', 		'api/oauth/gettoken', 	'GET|POST')->allowCrossDomain();
 Route::rule('oauth/orderlist', 		'api/oauth/orderlist', 	'GET|POST')->allowCrossDomain();
 
-Route::rule('system/userlist', 		'api/system/user_list', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/userctrl', 		'api/system/userctrl', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/adduser', 		'api/system/add_user', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/deluser', 		'api/system/del_user', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/updateuser', 		'api/system/update_user', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/searchuser', 		'api/system/search_user', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/departmentlist', 		'api/system/department_list', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/gettopdepartment', 		'api/system/get_topdepartment', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/adddepartment', 		'api/system/add_department', 	'GET|POST')->allowCrossDomain();
@@ -329,7 +323,6 @@ Route::rule('system/updaterole', 		'api/system/update_role', 	'GET|POST')->allow
 Route::rule('system/updateroleinfo', 		'api/system/update_roleinfo', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/delrole', 		'api/system/del_role', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/userlistaddrole', 		'api/system/userlist_addrole', 	'GET|POST')->allowCrossDomain();
-Route::rule('system/searchrole', 		'api/system/search_role', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/getuserdepartment', 		'api/system/getuserdepartment', 	'GET|POST')->allowCrossDomain();
 
 
