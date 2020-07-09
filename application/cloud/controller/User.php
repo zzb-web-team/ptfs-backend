@@ -499,27 +499,30 @@ class User extends Common
         for ($i=0;$i<count($datalist);$i++) {
             $chanid[] =  $datalist[$i]['id']."";
         }
-        $param = array(
-            "chanId" => $chanid,
-        );
-        $rs = self::testApiData("channel_details/query_total_dataflow", $param);
-        if (!$rs) {
-            return json(['status' => -5, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
-        }
-        $rs = json_decode($rs, true);
-
-
-        if ($rs['status'] != 0) {
-            return json($rs);
-        }
-        for($i = 0; $i<count($rs['data']['tableList']);$i++) {
-            for ($j=0;$j<count($datalist);$j++) {
-                if($datalist[$j]['id'] == $rs['data']['tableList'][$i]['chanId']) {
-                    $datalist[$j]['dataFlow'] = $rs['data']['tableList'][$i]['dataFlow'];
+        if (count($chanid)>0) {
+            $param = array(
+                "chanId" => $chanid,
+            );
+            $rs = self::testApiData("channel_details/query_total_dataflow", $param);
+            if (!$rs) {
+                return json(['status' => -5, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
+            }
+            $rs = json_decode($rs, true);
+    
+    
+            if ($rs['status'] != 0) {
+                return json($rs);
+            }
+            for($i = 0; $i<count($rs['data']['tableList']);$i++) {
+                for ($j=0;$j<count($datalist);$j++) {
+                    if($datalist[$j]['id'] == $rs['data']['tableList'][$i]['chanId']) {
+                        $datalist[$j]['dataFlow'] = $rs['data']['tableList'][$i]['dataFlow'];
+                    }
                 }
             }
+            $return_data['result']['cols'] = $datalist;
         }
-        $return_data['result']['cols'] = $datalist;
+        
         return json($return_data);
 
     }
