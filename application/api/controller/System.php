@@ -193,7 +193,7 @@ class System extends Common
         $return_data = json_decode($return_data,true);
         foreach ($data['ids'] as $k => $v) {
             $departmentid = array_column($return_data,'department_id');
-            if(array_search($v['id'],$departmentid)){
+            if(array_search($v['id'],$departmentid) !== false){
                 return json(['status' => 1,'msg' => '所选部门下存在用户,禁止删除!']);
             }
             $param = array(
@@ -317,7 +317,7 @@ class System extends Common
         $return_data = json_decode($return_data,true);
         foreach ($data['ids'] as $k => $v) {
             $positionid = array_column($return_data,'position_id');
-            if(array_search($v['id'],$positionid)){
+            if(array_search($v['id'],$positionid) !== false){
                 return json(['status' => 1,'msg' => '所选职位下存在用户,禁止删除!']);
             }
             $param = [
@@ -343,6 +343,7 @@ class System extends Common
         $data = input('post.');
         $validation = new Validate([
             'roleid' => 'require',
+            'userid' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {
@@ -352,6 +353,9 @@ class System extends Common
             $return_data2 = Cache::store('redis')->get('ipfs_allmenu');
         } else {
             $return_data2 = parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        }
+        if($data['roleid'] == 0){
+            return json(['status' => 1,'msg' => '受限用户']);
         }
         $return_data2 = json_decode($return_data2, true);
         $param = array(
@@ -364,7 +368,7 @@ class System extends Common
         );
         $result = self::loadApiData("store/find_table", $param);
         $result = json_decode($result,true);
-        if($result['result']['cols'][0]['type'] == 0){
+        if((count($result['result']['cols']) && $result['result']['cols'][0]['type'] == 0) || $data['userid'] == 1){
             foreach(array_reverse($return_data2) as $k=>$v){
                 if ($v['read_status'] == 1) {
                     $v['roleR'] = 1;
@@ -777,6 +781,9 @@ class System extends Common
         $validation = new Validate([
             'roleid' => 'require'
         ]);
+        if($data['roleid'] == 1){
+            return json(['status' => 1,'msg' => '最高权限组禁止删除']);
+        }
         //验证表单
         if (!$validation->check($data)) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
@@ -844,8 +851,8 @@ class System extends Common
         return $temp;
     }
 
-    public function flushdepartment(){
-        $result = Cache::store('redis')->rm('ipfs_alldepartment');
+    public function flushmenu(){
+        $result = Cache::store('redis')->rm('ipfs_allmenu');
         return json(['status' => 0, 'err_code' => 0,  'err_msg' => $result]); 
     }
 

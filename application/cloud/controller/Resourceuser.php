@@ -84,6 +84,7 @@ class Resourceuser extends Common
             "timeUnit"  => $data['timeUnit'],
             "pageNo"  => $data['pageNo'],
             "pageSize"  => $data['pageSize'],
+            "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         $rs = self::testApiData("resource_usage/dataflow_table", $param);
         if (!$rs) {
