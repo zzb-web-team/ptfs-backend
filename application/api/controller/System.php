@@ -343,7 +343,7 @@ class System extends Common
         $data = input('post.');
         $validation = new Validate([
             'roleid' => 'require',
-            'userid' => 'require'
+            'id' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {
@@ -368,7 +368,7 @@ class System extends Common
         );
         $result = self::loadApiData("store/find_table", $param);
         $result = json_decode($result,true);
-        if((count($result['result']['cols']) && $result['result']['cols'][0]['type'] == 0) || $data['userid'] == 1){
+        if((count($result['result']['cols']) && $result['result']['cols'][0]['type'] == 0) || $data['id'] == 1){
             foreach(array_reverse($return_data2) as $k=>$v){
                 if ($v['read_status'] == 1) {
                     $v['roleR'] = 1;
@@ -497,9 +497,21 @@ class System extends Common
             $return_data4 = parent::cachedb('ipfs_menu',"*", 'ipfs_allmenu');
         }
         $result4 = json_decode($return_data4, true);
+        if (Cache::store('redis')->has('ipfs_alldepartment')) {
+            $return_data5 = Cache::store('redis')->get('ipfs_alldepartment');
+        } else {
+            $return_data5 = parent::cachedb('ipfs_department',"*", 'ipfs_alldepartment');
+        }
+        $result5 = json_decode($return_data5, true);
         foreach ($result4 as $k => $m) {
             $result4[$k]['label'] = $m['name'];
             unset($result4[$k]['name']);
+        }
+        $pdepartmentid = [];
+        foreach($result5 as $p){
+            if($p['pid'] == 0){
+                $pdepartmentid[$p['id']] = $p['name'];
+            }
         }
         $menulist = parent::getTree($result4, 0);
         foreach ($result['result']['cols'] as $k => $v) {
@@ -507,7 +519,16 @@ class System extends Common
             $v['roleinfo'] = [];
             foreach ($result2 as $n) {
                 if ($n['role_id'] == $v['id']) {
-                    $v['user'][] = ["id" => $n['id'], "label" => $n['username']];
+                    foreach($result5 as $d){
+                        if($n['department_id'] == $d['id']){
+                            if($n['department_id'] == 0){
+                                $v['user'][] = ["id" => $n['id'], "label" => $n['username'], "departmentid" => 0,'pdepartmentid' => 0,'departmentname' => "",'pdepartmentname' => ""];
+                            }else{ 
+                                $pdepartmentname = $pdepartmentid[$d['pid']];
+                                $v['user'][] = ["id" => $n['id'], "label" => $n['username'], "departmentid" => $n['department_id'],'pdepartmentid' => $d['pid'],'departmentname' => $d['name'],'pdepartmentname' =>$pdepartmentname];
+                            }
+                        }
+                    }
                 }
             }
             foreach ($result3 as $r) {
@@ -691,7 +712,8 @@ class System extends Common
         $data = input('post.');
         $validation = new Validate([
             'roleid' => 'require',
-            'name' => 'require'
+            'name' => 'require',
+            'userid' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {

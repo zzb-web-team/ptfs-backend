@@ -303,7 +303,8 @@ class Resource extends Common
             "region"  => $data['region'],
             "top"  => $data['top'],
             "pageNo" => $data['pageNo'],
-            "pageSize" => $data['pageSize']
+            "pageSize" => $data['pageSize'],
+            "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         $rs = self::testApiData("videoaccess_statistic/query_topisp_accesscnt_curve", $param);
         if (!$rs) {
