@@ -82,7 +82,7 @@ class Common extends Controller
         $curl = curl_init();
         //设置抓取的url
         //curl_setopt($curl, CURLOPT_URL, "http://10.0.0.140:8090/".$method);
-        curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl4").$method);
+        curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl5").$method);
         //设置头文件的信息作为数据流输出
         curl_setopt($curl, CURLOPT_HEADER, 1);
         //设置获取的信息以文件流的形式返回，而不是直接输出。
@@ -119,7 +119,7 @@ class Common extends Controller
         $curl = curl_init();
         //设置抓取的url
         //curl_setopt($curl, CURLOPT_URL, "http://10.0.0.140:8090/".$method);
-        curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl4").$method);
+        curl_setopt($curl, CURLOPT_URL, config("ipfs.apiurl5").$method);
         //设置头文件的信息作为数据流输出
         curl_setopt($curl, CURLOPT_HEADER, 1);
         //设置获取的信息以文件流的形式返回，而不是直接输出。
