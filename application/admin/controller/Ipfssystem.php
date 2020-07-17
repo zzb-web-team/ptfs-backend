@@ -421,7 +421,7 @@ class Ipfssystem extends Common
         if ($data['password'] != $data['password2']) {
             return json(['status' => -900, 'msg' => '两次密码不一致']);
         }
-        $data['phone']  = isset($data['phone']) ? $data['phone'] : "";
+        $data['phone']  = isset($data['phone']) ? strval($data['phone']) : "";
         $insert = array();
         //$uid = isset($_COOKIE['id']) ? $_COOKIE['id'] : 0;
         //$uname = isset($_COOKIE['user']) ? $_COOKIE['user'] : "本地测试用户";

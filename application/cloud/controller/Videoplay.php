@@ -270,14 +270,14 @@ class Videoplay extends Common
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
-        $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
-            "chanId"  => $data['chanId'],
-            "fileUrl"  => $data['fileUrl'],
-            "userIp"  => $data['userIp'],
-        );
-        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_videoaccel_file?'.http_build_query($param)]);
+        // $param = array(
+        //     "start_ts" => $data['start_ts'],
+        //     "end_ts"  => $data['end_ts'],
+        //     "chanId"  => $data['chanId'],
+        //     "fileUrl"  => $data['fileUrl'],
+        //     "userIp"  => $data['userIp'],
+        // );
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_videoaccel_file?'.http_build_query($data)]);
     }
 
     public function export_videoplay_file()
