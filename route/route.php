@@ -425,6 +425,11 @@ Route::rule('resource_manage/accelerate_flow', 		'cloud/resource/accelerate_flow
 Route::rule('resource_manage/accelerate_flow_table', 		'cloud/resource/accelerate_flow_table', 	'GET|POST')->allowCrossDomain();
 Route::rule('resource_manage/backsource_flow_query_conditions', 		'cloud/resource/backsource_flow_query_conditions', 	'GET|POST')->allowCrossDomain();
 Route::rule('resource_manage/backsource_flow', 		'cloud/resource/backsource_flow', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_usage/manage_dataflow_curve', 		'cloud/resource/manage_dataflow_curve', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_usage/manage_dataflow_table', 		'cloud/resource/manage_dataflow_table', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/sdk_flow', 		'cloud/resource/sdk_flow', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/sdk_flow_control', 		'cloud/resource/sdk_flow_control', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/sdk_flow_table', 		'cloud/resource/sdk_flow_table', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoaccess_statistic/pv_uv_query_conditions', 		'cloud/resource/pv_uv_query_conditions', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoaccess_statistic/pv_uv_curve', 		'cloud/resource/pv_uv_curve', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoaccess_statistic/region_query_conditions', 		'cloud/resource/region_query_conditions', 	'GET|POST')->allowCrossDomain();
@@ -443,6 +448,11 @@ Route::rule('file_download/export_accelerate_flow_table_file', 		'cloud/resource
 Route::rule('file_download/export_backsource_flow_file', 		'cloud/resource/export_backsource_flow_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_dataflow_curve_file', 		'cloud/resource/export_dataflow_curve_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_topisp_accesscnt_curve_file', 		'cloud/resource/export_topisp_accesscnt_curve_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_sdk_flow_table_file', 		'cloud/resource/export_sdk_flow_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_sdk_flow_table_user_file', 		'cloud/resource/export_sdk_flow_table_user_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_sdk_flow_control_file', 		'cloud/resource/export_sdk_flow_control_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_sdk_flow_control_user_file', 		'cloud/resource/export_sdk_flow_control_user_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_manage_dataflow_table_file', 		'cloud/resource/export_manage_dataflow_table_file', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();
@@ -514,6 +524,7 @@ Route::rule('ipfs_node_ip_store/query_ip_store_avg_usage_table' ,              '
 Route::rule('channel_details/query_total_dataflow' ,                          'cloud/ipfs/query_total_dataflow',                     'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_region_summary' ,                      'cloud/ipfs/ipfs_region_summary',                       'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_basic_info' ,                           'cloud/ipfs/ipfs_basic_info',                       'GET|POST')->allowCrossDomain();
+Route::rule('ipfs_node_monit/ipfs_avg_usage' ,                         'cloud/ipfs/ipfs_avg_usage',                  'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_bandwidth' ,                         'cloud/ipfs/ipfs_monit_bandwidth',                  'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_cpuusage' ,                        'cloud/ipfs/ipfs_monit_cpuusage',                      'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/ipfs_monit_etf' ,                          'cloud/ipfs/ipfs_monit_etf',                            'GET|POST')->allowCrossDomain();
