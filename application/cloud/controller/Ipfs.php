@@ -52,9 +52,7 @@ class Ipfs extends Common
 
     public function query_ipfs_node_region_dist()
     {
-        $param = array(
-            "token" => 's',
-        );
+        $param = input('post.');
         $rs = self::testApiData("ipfs_node_ip_data/query_ipfs_node_region_dist", $param);
         if (!$rs) {
             return json(['status' => -900, 'err_code' => -900,  'msg' => 'IPFS服务错误']);
@@ -431,6 +429,11 @@ class Ipfs extends Common
         ];
         return json(['status' => 0, 'data' => $data]);
 
+    }
+
+    public function ipfs_avg_usage(){
+        $data = input('post.');
+        return self::testApiData("ipfs_node_monit/ipfs_avg_usage",$data);
     }
 
     public function ipfs_monit_bandwidth(){
