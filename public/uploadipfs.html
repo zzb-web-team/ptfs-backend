@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<input id="f" class="" type="file" name="file"> 
+<br>
+进度条 <span id="per">0</span>%
+<br>
+<div style="width: 60%;height: 16px;background-color: #FCFCFC">
+    <div style="width: 0%;height: 16px;background-color: red" id="loading"></div>
+</div>
+一级渠道<input type="text" id="channel1">
+<br>
+二级渠道<input type="text" id="channel2">
+<br>
+<input type="button" value="点击上传"  onclick="upFile()">
+<br>
+结果 <br>
+<div id="result"></div>
+</body>
+<script>
+var upFile = function () {
+    var file = document.getElementById('f');
+    var f = file.files[0];
+
+    if (f.name.indexOf("ipfs_")<0) {
+        alert('文件名格式不正确');
+        return false;
+    }
+    if (f.name.slice(-4) !='.zip') {
+        alert('文件名格式不正确');
+        return false;
+    }
+
+    if (!document.getElementById('channel1').value) {
+        alert('一级渠道不能为空');
+        return false;
+    }
+
+    if (!document.getElementById('channel2').value) {
+        alert('二级渠道不能为空');
+        return false;
+    }
+
+    //alert(f.name.substring(5, f.name.indexOf('.zip')));
+    //alert(f.name);
+    var totalSize = f.size;
+    var len = 2 * 1024 * 1024;
+    var tota_temp = Math.ceil(totalSize / len);
+    var start = 0;
+    var end = start + len;
+    var index = 1;
+    var channel1 = document.getElementById('channel1').value
+    var channel2 = document.getElementById('channel2').value
+    
+var blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice;
+
+var fileReader = new FileReader();
+    function sliceandpost()
+    {
+        
+            //if (start >= totalSize)return;
+            //if (index >= tota_temp)return;
+            
+            
+            var temp = f.slice(start, end);
+            var formData = new FormData();
+                formData.append('file', temp);
+                formData.append('fileName', f.name);
+                formData.append('num', index);
+                formData.append('start', start);
+                formData.append('end', end);
+                formData.append('totalSize', totalSize);
+                formData.append('total', tota_temp);
+                formData.append('channel1', channel1);
+                formData.append('channel2', channel2);
+                var url = '/admin/uploadipfs';
+                xhr = new XMLHttpRequest();
+                xhr.onreadystatechange=onchange;
+                xhr.open('POST', url);
+                xhr.send(formData);
+                
+            function onchange()
+            {
+                // 4 = "loaded"
+                if(xhr.readyState==4){
+                    // 200 = "OK"
+                    if(xhr.status==200){
+                        //var headers =  JSON.parse(xhr.responseText);
+                        var headers =  JSON.parse(xhr.response);
+                            console.log(headers);
+                        //分片上传成功
+                        if(headers.status==0){
+                            index = index + 1;
+                            // 改变下一次截取的位置
+                            start = end;
+                            end = start + len;
+                            // 因为截取可能超过totalSize，判断最后一次截取是否大于totalSize如果大于就直接让end等于totalSize
+                            if (end > totalSize) {
+                                end = totalSize;
+                            }
+                            document.getElementById("loading").style.width = Math.floor(index/tota_temp*100) +"%";
+                            document.getElementById('per').innerHTML= Math.floor(index/tota_temp*100)
+                            sliceandpost();
+                            
+                        }else if (headers.status == 1) {
+                            document.getElementById('result').innerHTML= headers.msg
+                            return;
+                        } else {
+
+                        }
+                        
+                    }else{
+                        alert("Problem retrieving XML data:" + xhr.statusText);
+                    }
+                    
+                }
+            }   
+    }
+    sliceandpost();
+        
+}
+</script>
+</html>
