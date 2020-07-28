@@ -403,12 +403,16 @@ class Ipfs extends Common
 
     public function query_ipfs_version_download()
     {
+        $where = "1";
+        $where .= isset($_GET['channel1']) ? " and channel1 = '".$_GET['channel1']."'" : " and channel1 is null";
+        $where .= isset($_GET['channel2']) ? " and channel2 = '".$_GET['channel2']."'" : " and channel2 is null";
+        $where .= isset($_GET['version']) ? " and action = '".$_GET['version']."'" : "";
         $param = array(
             "page"      => 0,
             "page_size" => 10,
             "tb_name"   => 'tb_action_log',
             "col_name"  => "*",
-            "where"     => '',
+            "where"     => $where,
             "order"     => 'id desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
@@ -423,6 +427,8 @@ class Ipfs extends Common
             return json($return_data);
         }
         $data = [
+            'channel1' => $return_data['result']['cols'][0]['channel1'],
+            'channel2' => $return_data['result']['cols'][0]['channel2'],
             'version' => $return_data['result']['cols'][0]['action'],
             'url' => $return_data['result']['cols'][0]['description'],
             'md5' => $return_data['result']['cols'][0]['username'],

@@ -306,6 +306,8 @@ class Upload extends Common{
         $validation = new Validate([
             'num'=>'require',
             'total'=>'require',
+            'channel1'=>'require',
+            'channel2'=>'require',
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -339,7 +341,7 @@ class Upload extends Common{
                     "tb_name"   => 'tb_action_log',
                     "insert"    => [
                         [
-                            $version, request()->domain().'/download/ipfs/'. $name, md5_file('./download/ipfs/'. $name)
+                            $data['channel1'], $data['channel2'], $version, request()->domain().'/download/ipfs/'. $name, md5_file('./download/ipfs/'. $name)
                         ]
                     ]
                 );
