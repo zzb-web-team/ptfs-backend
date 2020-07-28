@@ -35,6 +35,7 @@ Route::rule('overview/publishuser', 								'admin/rom/publishuser', 								'GE
 Route::rule('overview/publishlist', 							'admin/rom/publishlist', 							'GET|POST')->allowCrossDomain();
 Route::rule('overview/uploadpfts', 								'admin/rom/uploadpfts', 							'GET|POST')->allowCrossDomain();
 Route::rule('overview/rollback', 								'admin/rom/rollback', 								'GET|POST')->allowCrossDomain();
+Route::rule('overview/uploadmd5', 								'admin/rom/uploadMD5', 								'GET|POST')->allowCrossDomain();
 Route::rule('romupload/complete', 								'admin/rom/complete', 								'GET|POST')->allowCrossDomain();
 Route::rule('overview/versionlist', 								'admin/rom/versionlist', 								'GET|POST')->allowCrossDomain();
 Route::rule('device/devicelist', 								'admin/device/devicelist', 						    'GET|POST')->allowCrossDomain();

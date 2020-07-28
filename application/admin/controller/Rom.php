@@ -8,13 +8,16 @@ class Rom extends Common
     {
         $data = input('post.');
         $page = isset($data['page']) ? $data['page'] : 0;
+        $where = "1";
+        $where .= $data['rom_type'] == -1 ? "" : " and rom_type = " . $data['rom_type'];
+        $where .= $data['time_start']===null ? "" : " and time_create BETWEEN " . $data['time_start'] . " and " .$data['time_end'];
         $param = array(
             "page"      => $page,
             "page_size" => 10,
             "tb_name"   => 'tb_rom_update_info',
-            "col_name"  => ["id","equip_type","rom_version","version_name","rom_url","rom_size","md5","hashid","rom_desc","push_mod","time_create","time_update","status","ptfs_file_upload_status"],
-            "where"     => '',
-            "order"     => 'number desc,equip_type desc',
+            "col_name"  => ["id","equip_type","rom_version","version_name","rom_url","rom_size","md5","hashid","rom_desc","push_mod","rom_type","time_create","time_update","status","ptfs_file_upload_status"],
+            "where"     => $where,
+            "order"     => 'id desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
         $return_data = json_decode($return_data, true);
@@ -47,6 +50,7 @@ class Rom extends Common
                 $data[$version]['rom_url'][]        = $return_data['result']['cols'][$i]['rom_url'];
                 $data[$version]['version_name'][]   = $return_data['result']['cols'][$i]['version_name'];
                 $data[$version]['ptfs_file_upload_status'][]   = $return_data['result']['cols'][$i]['ptfs_file_upload_status'];
+                $data[$version]['rom_type'][] = $return_data['result']['cols'][$i]['rom_type'];
             }
             $list = array();
             if (count($data)>0) {
@@ -107,6 +111,34 @@ class Rom extends Common
         return json($return_data);
     }
 
+    public function uploadMD5(){
+        $data = input('post.');
+        $validation = new Validate([
+            'md5'   => 'require',
+            'rom_version' => 'require',
+            'rom_type' => 'require'
+        ]);
+         //验证表单
+         if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $insert = []; 
+        for($i=0;$i<count($data['md5']);$i++){
+        $insert[] = [
+            $data['rom_version'],$data['rom_type'],$data['md5'][$i]['md5'],$data['md5'][$i]['path']
+        ];
+        }
+        $param = array(
+            "tb_name"   => 'tb_rom_process_md5_info',
+            "insert"    => $insert
+        );
+        $return_data = self::loadApiData("store/insert_table", $param);
+        if(!$return_data){
+            return json(['status' => -900,'msg'=>'服务器错误']);
+        }
+        return $return_data;
+    }
+
     public function updateMod()
     {
         $data = input('post.');
@@ -138,6 +170,7 @@ class Rom extends Common
         $data = input('post.');
         $validation = new Validate([
              'rom_version'  =>  'require',
+             'rom_type' => 'require'
             ]
         );
         //验证表单
@@ -146,7 +179,7 @@ class Rom extends Common
         }
         $param = array(
             "tb_name"   => 'tb_rom_update_info',
-            "where"     => "rom_version='".$data['rom_version']."'",
+            "where"     => "rom_version='".$data['rom_version']."' and rom_type = " . $data['rom_type'],
         );
         $return_data = self::loadApiData("store/delete_record", $param);
         $return_data = json_decode($return_data, true);
@@ -156,14 +189,14 @@ class Rom extends Common
         //删除该版本下的灰度数据
         $param = array(
             "tb_name"   => 'tb_rom_publish_log',
-            "where"     => "version_group='".$data['rom_version']."' and push_type='灰度发布'",
+            "where"     => "version_group='" . $data['rom_version'] . "' and push_type='灰度发布'",
         );
         return $return_data = self::loadApiData("store/delete_record", $param);
         $return_data = json_decode($return_data, true);
         if ($return_data['status']!=0) {
             return json($return_data);
         }
-        return self::actionLog("删除ROM升级", $data['rom_version'], "临时用户".time());
+        // return self::actionLog("删除ROM升级", $data['rom_version'], "临时用户".time());
         
     }
 
@@ -181,6 +214,7 @@ class Rom extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $insert = array();
+
         for ($i=0;$i<count($data['data']);$i++) {
             $number = $this->versiontonumber($data['data'][$i]['rom_version']);
             // try {
@@ -197,7 +231,7 @@ class Rom extends Common
             //}
             
             $insert[] = [
-                $data['data'][$i]['equip_type'], $data['data'][$i]['rom_version'], $data['data'][$i]['version_name'], $data['data'][$i]['rom_url'], $data['data'][$i]['rom_size'], $data['data'][$i]['md5'], $hashid, $data['data'][$i]['rom_desc'], $data['data'][$i]['push_mod'], 0, $number, 0
+                $data['data'][$i]['equip_type'], $data['data'][$i]['rom_version'], $data['data'][$i]['version_name'], $data['data'][$i]['rom_url'], $data['data'][$i]['rom_size'], $data['data'][$i]['md5'], $hashid, $data['data'][$i]['rom_desc'], $data['data'][$i]['push_mod'], 0, $number, 0,$data['data'][$i]['dev_type']
             ];
         }
         if (!$insert) {
@@ -255,7 +289,7 @@ class Rom extends Common
 
     public function getversionbak()
     {
-        $param = array(
+        $param = array( 
             "page" => 0,
             "page_size" => 10,
             "tb_name"  => 'tb_rom_update_info',
@@ -339,7 +373,7 @@ class Rom extends Common
                     "col_value" => [
                         $data['rom_version'], 1, $data['timing'], 2, 1, $number
                     ],
-                    "where" => "dev_type=".intval($data['dev_type'])." and number>".$number,
+                    "where" => "dev_type=".intval($data['dev_type'])." and number>=".$number,
                 );
                 return self::loadApiData("store/update_table", $param);
             }
@@ -417,28 +451,28 @@ class Rom extends Common
             "tb_name"  => 'tb_rom_update_info',
             "col_name" => ["rom_version", "ptfs_file_upload_status","id"],
             "col_alias" => ["distinct(rom_version) as rom_version", "sum(ptfs_file_upload_status) as ptfs_file_upload_status", "count(id) as id"],
-            "where" => $where,
+            "where" => $where . " and rom_type = " . $data['dev_type'],
             "group" => 'rom_version',
         );
         return self::loadApiData("store/find_table_ex", $param);
 
-        $return_data = json_decode($return_data, true);
-        if ($return_data['status']!=0) {
-            return json($return_data);
-        }
-        $data = $return_data['result']['cols'];
-        $list = array();
-        for($i=0;$i<count($data);$i++) {
-            $list[$i]['rom_version'] = $data[$i]['rom_version'];
-            if ($data[$i]['ptfs_file_upload_status'] == $data[$i]['id']) {
-                $list[$i]['ptfs_file_upload_status'] = 1;
-            } else {
-                $list[$i]['ptfs_file_upload_status'] = 0;
-            }
-        }
-        $return_data['result']['cols'] = $list;
-        $return_data['result']['high_version'] = $high_version;
-        return json($return_data);
+        // $return_data = json_decode($return_data, true);
+        // if ($return_data['status']!=0) {
+        //     return json($return_data);
+        // }
+        // $data = $return_data['result']['cols'];
+        // $list = array();
+        // for($i=0;$i<count($data);$i++) {
+        //     $list[$i]['rom_version'] = $data[$i]['rom_version'];
+        //     if ($data[$i]['ptfs_file_upload_status'] == $data[$i]['id']) {
+        //         $list[$i]['ptfs_file_upload_status'] = 1;
+        //     } else {
+        //         $list[$i]['ptfs_file_upload_status'] = 0;
+        //     }
+        // }
+        // $return_data['result']['cols'] = $list;
+        // $return_data['result']['high_version'] = $high_version;
+        // return json($return_data);
     }
 
     // public function publish()
@@ -735,7 +769,7 @@ class Rom extends Common
             "page_size" => 10,
             "tb_name"  => 'ipfs_xyj_rom_publish',
             "col_name" => "*",
-            "where" => "dev_type=".intval($data['dev_type'])." and ((status = 1 and act_type = 1) or act_type = 2) and push_type = '正式发布'",
+            "where" => "dev_type=".intval($data['dev_type'])." and ((status = 1 and act_type = 1) or (status = 0 and act_type = 2)) and push_type = '正式发布'",
             "order" => 'number desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
@@ -762,7 +796,7 @@ class Rom extends Common
             "page_size" => 10,
             "tb_name"  => 'ipfs_xyj_rom_publish',
             "col_name" => "*",
-            "where" => "dev_type=".intval($data['dev_type'])." and ((status = 1 and act_type = 1) or act_type = 2) and push_type = '灰度发布' and number>".$number,
+            "where" => "dev_type=".intval($data['dev_type'])." and ((status = 1 and act_type = 1) or (status = 0 and act_type = 2)) and push_type = '灰度发布' and number>".$number,
             "order" => 'number desc,id desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
@@ -943,7 +977,7 @@ class Rom extends Common
             $dev_type = 0;
         } else {
             $check = substr($sn, 3, 1);
-            $dev_type = $check == 1 ? 1: 0;
+            $dev_type = $check == 'x' ? 4: $check;
         }
 
         $param = array(
@@ -951,7 +985,7 @@ class Rom extends Common
             "page_size" => 10,
             "tb_name"  => 'ipfs_xyj_rom_publish',
             "col_name" => ["number"],
-            "where" => "dev_type=".intval($dev_type)." and ((status = 1 and act_type = 1) or act_type = 2) and push_type = '正式发布'",
+            "where" => "dev_type=".intval($dev_type)." and ((status = 1 and act_type = 1) or (status = 0 and act_type = 2)) and push_type = '正式发布'",
             "order" => 'number desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
@@ -1013,7 +1047,26 @@ class Rom extends Common
         $data =  $return_data['result']['cols'];
         
         //header("Content-type: text/xml;chatset=utf-8");
-        $type = $dev_type == 1 ? 'AMS805' : 'RK3328';
+        // $type = $dev_type == 1 ? 'AMS805' : 'RK3328';
+        switch($dev_type){
+            case 0:
+                $type = '西柚机';
+            break;
+            case 1:
+                $type = '玩客云';
+            break;
+            case 2:
+                $type = '小米盒子4C';
+            break;
+            case 3:
+                $type = '小米盒子4';
+            break;
+            case 4:
+                $type = 'PC版西柚机';
+            break;
+            default:
+                $type = '全部';
+        } 
         $xml = '<equipment_config type="'.$type.'" high_version="'.$data[0]['rom_version'].'" update_flag="1">';
         for($i=0;$i<count($data);$i++) {
             $version_name=explode('_', $data[$i]['version_name']);
