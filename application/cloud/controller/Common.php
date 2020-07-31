@@ -109,7 +109,10 @@ class Common extends Controller
         }
         //关闭URL请求
         curl_close($curl);
-        writelog("zhangwenyuan--", $method, $data, $body);
+        writelog("java--", $method, $data, $body);
+        if (!$body) {
+            return json_encode(['status' => -900, 'msg' => '数据中心服务请求失败']);
+        }
         return $body;
     }
 
