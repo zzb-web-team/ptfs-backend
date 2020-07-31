@@ -125,7 +125,7 @@ class Rom extends Common
         $insert = []; 
         for($i=0;$i<count($data['md5']);$i++){
         $insert[] = [
-            $data['rom_version'],$data['rom_type'],$data['md5'][$i]['md5'],$data['md5'][$i]['path']
+            $data['rom_version'],$data['rom_type'],$data['md5'][$i]['path'],$data['md5'][$i]['md5']
         ];
         }
         $param = array(
@@ -361,50 +361,32 @@ class Rom extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $number = $this->versiontonumber($data['rom_version']);
-        if ($data['atonce'] == 1) {
-            if (!$data['push_key']) {
 
-                //全网撤回
-                $param = array(
-                    "tb_name"   => 'ipfs_xyj_rom_publish',
-                    "update"    => [
-                        "rom_version", "atonce", "timing", "act_type", "status", "number"
-                    ],
-                    "col_value" => [
-                        $data['rom_version'], 1, $data['timing'], 2, 1, $number
-                    ],
-                    "where" => "dev_type=".intval($data['dev_type'])." and number>=".$number,
-                );
-                return self::loadApiData("store/update_table", $param);
+        if (!$data['push_key']) {
+            $param = array(
+                "page" => 0,
+                "page_size" => 10,
+                "tb_name"  => 'ipfs_xyj_rom_publish',
+                "col_name" => "*",
+                "where" => "status = 1 and act_type = 1 and dev_type = ".intval($data['dev_type'])." and push_type = '正式发布'",
+                "order" => 'id desc',
+            );
+            $return_data =  self::loadApiData("store/find_table", $param);
+            $return_data = json_decode($return_data,true);
+            if(count($return_data['result']['cols']) == 1){
+                return json(['status' => 1,'msg' => '当前已是最低版本,无法撤回']);
             }
+
+            //全网撤回
             $param = array(
                 "tb_name"   => 'ipfs_xyj_rom_publish',
                 "update"    => [
                     "rom_version", "atonce", "timing", "act_type", "status", "number"
                 ],
                 "col_value" => [
-                    $data['rom_version'], 1, $data['timing'], 2, 1, $number
+                    $data['rom_version'], $data['atonce'], $data['timing'], 2, $data['atonce'], $number
                 ],
-                "where" => "id=".intval($data['id']),
-            );
-            $return_data = self::loadApiData("store/update_table", $param);
-            if (!$return_data) {
-                return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
-            }
-
-            $return_data = json_decode($return_data, true);
-            if ($return_data['status'] != 0) {
-                return json($return_data);
-            }
-            $param = array(
-                "tb_name"   => 'ipfs_xyj_rom_publish_user',
-                "update"    => [
-                    "number"
-                ],
-                "col_value" => [
-                    $number
-                ],
-                "where" => "push_key='".$data['push_key']."'",
+                "where" => "dev_type=".intval($data['dev_type'])." and push_type = '正式发布' and number>=".$number ,
             );
             return self::loadApiData("store/update_table", $param);
         }
@@ -412,12 +394,31 @@ class Rom extends Common
         $param = array(
             "tb_name"   => 'ipfs_xyj_rom_publish',
             "update"    => [
-                "rom_version", "atonce", "timing", "act_type", "status"
+                "rom_version", "atonce", "timing", "act_type", "status", "number"
             ],
             "col_value" => [
-                $data['rom_version'], 0, $data['timing'], 2, 0
+                $data['rom_version'], $data['atonce'], $data['timing'], 2, $data['atonce'], $number
             ],
             "where" => "id=".intval($data['id']),
+        );
+        $return_data = self::loadApiData("store/update_table", $param);
+        if (!$return_data) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+
+        $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
+        $param = array(
+            "tb_name"   => 'ipfs_xyj_rom_publish_user',
+            "update"    => [
+                "number"
+            ],
+            "col_value" => [
+                $number
+            ],
+            "where" => "push_key='".$data['push_key']."'",
         );
         return self::loadApiData("store/update_table", $param);
 
@@ -977,9 +978,9 @@ class Rom extends Common
             $dev_type = 0;
         } else {
             $check = substr($sn, 3, 1);
-            $dev_type = $check == 'x' ? 4: $check;
+            $dev_type = strtolower($check) == 'x' ? 4: $check;
         }
-
+       
         $param = array(
             "page" => isset($data['page']) ? $data['page'] : 0,
             "page_size" => 10,
@@ -1001,7 +1002,6 @@ class Rom extends Common
         } else {
             $number = $return_data['result']['cols'][0]['number'];
         }
-
         //查询用户灰度版本
         $param = array(
             "page" => 0,
@@ -1030,7 +1030,7 @@ class Rom extends Common
             "page_size" => 10,
             "tb_name"  => 'tb_rom_update_info',
             "col_name" => "*",
-            "where" => "number=".$number,
+            "where" => "rom_type=".$dev_type." and number=".$number,
             "order" => 'equip_type asc,version_name asc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
@@ -1042,7 +1042,7 @@ class Rom extends Common
             return json($return_data);
         }
         if (!isset($return_data['result']['cols'][0])) {
-            return json(['status' => -900, 'err_code' => -900, 'msg' => '暂无发布版本']);
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '未查询到安装包']);
         }
         $data =  $return_data['result']['cols'];
         
@@ -1066,7 +1066,8 @@ class Rom extends Common
             break;
             default:
                 $type = '全部';
-        } 
+        }
+       
         $xml = '<equipment_config type="'.$type.'" high_version="'.$data[0]['rom_version'].'" update_flag="1">';
         for($i=0;$i<count($data);$i++) {
             $version_name=explode('_', $data[$i]['version_name']);

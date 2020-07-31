@@ -431,6 +431,13 @@ Route::rule('resource_usage/manage_dataflow_table', 		'cloud/resource/manage_dat
 Route::rule('resource_manage/sdk_flow', 		'cloud/resource/sdk_flow', 	'GET|POST')->allowCrossDomain();
 Route::rule('resource_manage/sdk_flow_control', 		'cloud/resource/sdk_flow_control', 	'GET|POST')->allowCrossDomain();
 Route::rule('resource_manage/sdk_flow_table', 		'cloud/resource/sdk_flow_table', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/ipfs_flow_curve', 		'cloud/resource/ipfs_flow_curve', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/ipfs_flow_table', 		'cloud/resource/ipfs_flow_table', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/query_accelcnt_ranking', 		'cloud/resource/query_accelcnt_ranking', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/query_dataflow_ranking', 		'cloud/resource/query_dataflow_ranking', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/video_info_statistics', 		'cloud/resource/video_info_statistics', 	'GET|POST')->allowCrossDomain();
+Route::rule('resource_manage/video_exception_statistics', 		'cloud/resource/video_exception_statistics', 	'GET|POST')->allowCrossDomain();
+
 Route::rule('videoaccess_statistic/pv_uv_query_conditions', 		'cloud/resource/pv_uv_query_conditions', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoaccess_statistic/pv_uv_curve', 		'cloud/resource/pv_uv_curve', 	'GET|POST')->allowCrossDomain();
 Route::rule('videoaccess_statistic/region_query_conditions', 		'cloud/resource/region_query_conditions', 	'GET|POST')->allowCrossDomain();
@@ -454,6 +461,7 @@ Route::rule('file_download/export_sdk_flow_table_user_file', 		'cloud/resource/e
 Route::rule('file_download/export_sdk_flow_control_file', 		'cloud/resource/export_sdk_flow_control_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_sdk_flow_control_user_file', 		'cloud/resource/export_sdk_flow_control_user_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_manage_dataflow_table_file', 		'cloud/resource/export_manage_dataflow_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_ipfs_flow_table_file', 		'cloud/resource/export_ipfs_flow_table_file', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();

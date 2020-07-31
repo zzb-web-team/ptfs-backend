@@ -509,6 +509,36 @@ class Resource extends Common
         return self::testApiData("resource_manage/sdk_flow_table",$data);
     }
 
+    public function ipfs_flow_curve(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/ipfs_flow_curve",$data);
+    }
+
+    public function ipfs_flow_table(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/ipfs_flow_table",$data);
+    }
+
+    public function query_accelcnt_ranking(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/query_accelcnt_ranking",$data);
+    }
+
+    public function query_dataflow_ranking(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/query_dataflow_ranking",$data);
+    }
+
+    public function video_info_statistics(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/video_info_statistics",$data);
+    }
+
+    public function video_exception_statistics(){
+        $data = input('post.');
+        return self::testApiData("resource_manage/video_exception_statistics",$data);
+    }
+
     public function export_sdk_flow_table_file(){
         $data = input('post.');
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_sdk_flow_table_file?'.http_build_query($data)]);
@@ -533,4 +563,10 @@ class Resource extends Common
         $data = input('post.');
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_manage_dataflow_table_file?'.http_build_query($data)]);
     }
+
+    public function export_ipfs_flow_table_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_ipfs_flow_table_file?'.http_build_query($data)]);
+    }
+    
 }

@@ -359,8 +359,7 @@ class PtfsStorage extends Common
         //表单验证规则
         $validation = new Validate([
              'login_token'  => 'require',
-             'dev_sn'  => 'require',
-             'extra_info'  => 'require',
+             'dev_sn'  => 'require'
             ]
         );
         //验证表单
@@ -376,6 +375,8 @@ class PtfsStorage extends Common
             'ctrl_type' => intval($data['extra_info']['ctrl_type']),
             'extra_info'  => $data['extra_info'],
             "login_type" => isset($data['login_type']) ? $data['login_type'] : 1,
+            "pid" => isset($data['pid']) ? $data['pid'] : 0,
+            "pname" => isset($data['pname']) ? $data['pname'] : ''
         );
         $return_data = self::loadApiData("miner_ctrl/ctrl_node_state", $param);
         $return_data = json_decode($return_data, true);
