@@ -21,6 +21,7 @@ class Upload extends Common{
             'num'=>'require',
             'total'=>'require',
             'fileName' => 'require',
+            'rom_type' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -45,20 +46,20 @@ class Upload extends Common{
         }
 
         $filename = $name."_".$data['num'];
-        $rs = $file->move('./download/'.$version, $filename);//图片保存路径
+        $rs = $file->move('./download/'.$version.'/'.$data['rom_type'], $filename);//图片保存路径
         if ($rs) {
             if ($data['total'] == $data['num']) {
                 //合并处理
                 for($i= 1;$i<=$data['total'];$i++){
-                    $path = './download/'.$version .'/'. $name . "_". $i;
+                    $path = './download/'.$version .'/'.$data['rom_type'].'/'. $name . "_". $i;
                     if ($i == 1) {
-                        file_put_contents('./download/'.$version .'/'. $name, file_get_contents($path));
+                        file_put_contents('./download/'.$version .'/'.$data['rom_type'].'/'.$name, file_get_contents($path));
                     } else {
-                        file_put_contents('./download/'.$version .'/'. $name, file_get_contents($path), FILE_APPEND);
+                        file_put_contents('./download/'.$version .'/'. $data['rom_type'].'/'.$name, file_get_contents($path), FILE_APPEND);
                     }
                     unlink($path);//删除合并过的文件
                 }
-                return json(['status' => 1, 'msg' => '上传成功', 'url' => request()->domain().'/download/'.$version."/". $name, 'type' => $type, 'version' => $version, 'size' => filesize('./download/'.$version .'/'. $name), 'name' => $name, 'md5' => md5_file('./download/'.$version .'/'. $name), 'hashid' => '']);
+                return json(['status' => 1, 'msg' => '上传成功', 'url' => request()->domain().'/download/'.$version."/". $data['rom_type'].'/'.$name, 'type' => $type, 'version' => $version, 'size' => filesize('./download/'.$version .'/'.$data['rom_type'].'/'. $name), 'name' => $name, 'md5' => md5_file('./download/'.$version .'/'.$data['rom_type'].'/'. $name), 'hashid' => '']);
             } else {
                 return json(['status' => 0, 'err_code' => 0,  'msg' => '上传成功']);
             }
