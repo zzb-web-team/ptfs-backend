@@ -416,7 +416,7 @@ class Rom extends Common
                 "number"
             ],
             "col_value" => [
-                $number
+                0
             ],
             "where" => "push_key='".$data['push_key']."'",
         );
@@ -667,6 +667,9 @@ class Rom extends Common
                 if ($return_data['status'] != 0) {
                     return json($return_data);
                 }
+                if ($data[$i]['act_type'] == 2) {
+                    $number = 0;
+                }
                 $param = array(
                     "tb_name"   => 'ipfs_xyj_rom_publish_user',
                     "update"    => [
@@ -889,83 +892,117 @@ class Rom extends Common
     {
         $data = input('get.');
         $sn = isset($data['sn']) ? $data['sn'] : "";
-        $mac = isset($data['mac']) ? $data['mac'] : "";
-        //查询最新版本
+        //$mac = isset($data['mac']) ? $data['mac'] : "";
+        if (!$sn) {
+            $dev_type = 0;
+        } else {
+            $check = substr($sn, 3, 1);
+            $dev_type = strtolower($check) == 'x' ? 4: $check;
+        }
+       
         $param = array(
-            "page" => 0,
+            "page" => isset($data['page']) ? $data['page'] : 0,
             "page_size" => 10,
-            "tb_name"  => 'tb_rom_update_info',
-            "col_name" => ["rom_version", "push_mod"],
-            "where" => 'status = 1',
+            "tb_name"  => 'ipfs_xyj_rom_publish',
+            "col_name" => ["number"],
+            "where" => "dev_type=".intval($dev_type)." and ((status = 1 and act_type = 1) or (status = 0 and act_type = 2)) and push_type = '正式发布'",
             "order" => 'number desc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
+        if (!$return_data) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
+        }
         $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
+        if (!isset($return_data['result']['cols'][0])) {
+            $number = 0;
+        } else {
+            $number = $return_data['result']['cols'][0]['number'];
+        }
+
+
         //查询用户灰度版本
         $param = array(
             "page" => 0,
             "page_size" => 10,
-            "tb_name"  => 'tb_rom_publish_log',
-            "col_name" => ["version_group", "push_mod"],
-            "where" => "(node_hash = '".$sn."' or node_hash = '".$mac."') and push_type='灰度发布'",
-            "order" => 'id desc',
+            "tb_name"  => 'ipfs_xyj_rom_publish_user',
+            "col_name" => ["number"],
+            "where" => "snormac = '".$sn."' and number>".$number,
+            "order" => 'number desc',
         );
-        $return_data2 = self::loadApiData("store/find_table", $param);
-        $return_data2 = json_decode($return_data2, true);
-        $sn_version = '0';
-        $sn_mod = "HTTPS";
-        if ($return_data2['status'] == 0 && count($return_data2['result']['cols'])>0){
-            $sn_version = $return_data2['result']['cols'][0]['version_group'];
-            $sn_mod = $return_data2['result']['cols'][0]['push_mod'];
+        $return_data = self::loadApiData("store/find_table", $param);
+        if (!$return_data) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
         }
-        $high_version = '0';
-        $high_mod = "HTTPS";
-        if ($return_data['status'] == 0 && count($return_data['result']['cols'])>0){
-            $high_version = $return_data['result']['cols'][0]['rom_version'];
-            $high_mod = $return_data['result']['cols'][0]['push_mod'];
-        } 
-        //显示版本
-        $show_version = $this->versiontonumber($sn_version)>$this->versiontonumber($high_version) ? $sn_version : $high_version;
-        $show_mod = $this->versiontonumber($sn_version)>$this->versiontonumber($high_version) ? $sn_mod : $high_mod;
-        if (!$show_version) {
-            return '';
+        $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
+        if (isset($return_data['result']['cols'][0])) {
+            $number = $return_data['result']['cols'][0]['number'];
+        }
+                echo $number;exit;
+        if ($number == 0) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '暂无发布版本']);
         }
         $param = array(
             "page" => 0,
             "page_size" => 10,
             "tb_name"  => 'tb_rom_update_info',
-            "col_name" => ["equip_type","rom_version","version_name","rom_url","hashid","rom_size","md5","rom_desc","push_mod"],
-            "where" => "rom_version='".$show_version."'",
+            "col_name" => "*",
+            "where" => "rom_type=".$dev_type." and number=".$number,
             "order" => 'equip_type asc,version_name asc',
         );
         $return_data = self::loadApiData("store/find_table", $param);
-        $return_data = json_decode($return_data, true);
-        if ($return_data['status'] == 0) {
-            $data =  $return_data['result']['cols'];
-            
-            header("Content-type: text/xml;chatset=utf-8");
-            
-            $xml = '<equipment_config type="ROCK64" high_version="'.$show_version.'" update_flag="-update_flag-">';
-            for($i=0;$i<count($data);$i++) {
-                $version_name=explode('_', $data[$i]['version_name']);
-                $cur_version = $version_name[0];
-                if ($data[$i]['equip_type'] == 'full') {
-                    $xml .='<version name="high_version" cur_version="'.$show_version.'" url="'.str_replace('47.99.193.140', $_SERVER['HTTP_HOST'], $data[$i]['rom_url']).'" hash_id="'.$data[$i]['hashid'].'" size="'.$data[$i]['rom_size'].'" md5="'.$data[$i]['md5'].'" desc="'.str_replace("&", " ", $data[$i]['rom_desc']).'"/>';
-                } else {
-                    $xml .='<version name="'.$cur_version.'" cur_version="'.$cur_version.'" url="'.str_replace('47.99.193.140', $_SERVER['HTTP_HOST'], $data[$i]['rom_url']).'" hash_id="'.$data[$i]['hashid'].'" size="'.$data[$i]['rom_size'].'" md5="'.$data[$i]['md5'].'" desc="'.str_replace("&", " ", $data[$i]['rom_desc']).'"/>';
-                }
-            }
-            $update_flag = 1;
-            if ($show_mod == "PTFS") {
-                $update_flag = 2;
-            }
-            $xml .='</equipment_config>';
-            $xml = str_replace("-update_flag-", $update_flag, $xml);
-            print $xml; //输出 XML
-
-            exit;
+        if (!$return_data) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '服务器可能开小差去了']);
         }
-        return json($return_data);
+        $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
+        if (!isset($return_data['result']['cols'][0])) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => '未查询到安装包']);
+        }
+        $data =  $return_data['result']['cols'];
+        
+        //header("Content-type: text/xml;chatset=utf-8");
+        // $type = $dev_type == 1 ? 'AMS805' : 'RK3328';
+        switch($dev_type){
+            case 0:
+                $type = '西柚机';
+            break;
+            case 1:
+                $type = '玩客云';
+            break;
+            case 2:
+                $type = '小米盒子4C';
+            break;
+            case 3:
+                $type = '小米盒子4';
+            break;
+            case 4:
+                $type = 'PC版西柚机';
+            break;
+            default:
+                $type = '全部';
+        }
+       
+        $xml = '<equipment_config type="'.$type.'" high_version="'.$data[0]['rom_version'].'" update_flag="1">';
+        for($i=0;$i<count($data);$i++) {
+            $version_name=explode('_', $data[$i]['version_name']);
+            $cur_version = $version_name[0];
+            if ($data[$i]['equip_type'] == 'full') {
+                $xml .='<version name="high_version" cur_version="'.$cur_version.'" url="'.$data[$i]['rom_url'].'" hash_id="'.$data[$i]['hashid'].'" size="'.$data[$i]['rom_size'].'" md5="'.$data[$i]['md5'].'" desc="'.str_replace("&", " ", $data[$i]['rom_desc']).'"/>';
+            } else {
+                $xml .='<version name="'.$cur_version.'" cur_version="'.$cur_version.'" url="'.$data[$i]['rom_url'].'" hash_id="'.$data[$i]['hashid'].'" size="'.$data[$i]['rom_size'].'" md5="'.$data[$i]['md5'].'" desc="'.str_replace("&", " ", $data[$i]['rom_desc']).'"/>';
+            }
+        }
+        $xml .='</equipment_config>';
+        print $xml; //输出 XML
+        exit;
         
     }
 
