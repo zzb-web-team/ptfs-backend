@@ -45,6 +45,10 @@ Route::rule('device_manage/device_cnt_overview', 								'admin/device/device_cn
 Route::rule('dev_status/query_detail_info_list', 								'admin/device/query_detail_info_list', 						    'GET|POST')->allowCrossDomain();
 Route::rule('dev_status/query_node_info', 								'admin/device/query_node_info', 						    'GET|POST')->allowCrossDomain();
 Route::rule('dev_status/query_general_info_list', 								'admin/device/query_general_info_list', 						    'GET|POST')->allowCrossDomain();
+Route::rule('dev_status/rom_info_change_notice', 								'admin/device/rom_info_change_notice', 						    'GET|POST')->allowCrossDomain();
+Route::rule('dev_status/query_dev_pid_general_list', 								'admin/device/query_dev_pid_general_list', 						    'GET|POST')->allowCrossDomain();
+Route::rule('dev_status/query_dev_pid_detail_list', 								'admin/device/query_dev_pid_detail_list', 						    'GET|POST')->allowCrossDomain();
+Route::rule('dev_status/query_dev_pid_history_list', 								'admin/device/query_dev_pid_history_list', 						    'GET|POST')->allowCrossDomain();
 
 Route::rule('packet/queryPacket', 								'admin/packet/queryPacket', 								'GET|POST')->allowCrossDomain();
 Route::rule('packet/savePacket', 								'admin/packet/savePacket', 								'GET|POST')->allowCrossDomain();
@@ -462,6 +466,8 @@ Route::rule('file_download/export_sdk_flow_control_file', 		'cloud/resource/expo
 Route::rule('file_download/export_sdk_flow_control_user_file', 		'cloud/resource/export_sdk_flow_control_user_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_manage_dataflow_table_file', 		'cloud/resource/export_manage_dataflow_table_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_ipfs_flow_table_file', 		'cloud/resource/export_ipfs_flow_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_accelcnt_ranking_table_file', 		'cloud/resource/export_accelcnt_ranking_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_dataflow_ranking_table_file', 		'cloud/resource/export_dataflow_ranking_table_file', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();

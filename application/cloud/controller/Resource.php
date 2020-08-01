@@ -568,5 +568,15 @@ class Resource extends Common
         $data = input('post.');
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_ipfs_flow_table_file?'.http_build_query($data)]);
     }
+
+    public function export_accelcnt_ranking_table_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_accelcnt_ranking_table_file?'.http_build_query($data)]);
+    }
+
+    public function export_dataflow_ranking_table_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_dataflow_ranking_table_file?'.http_build_query($data)]);
+    }
     
 }

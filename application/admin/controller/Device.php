@@ -249,4 +249,89 @@ class Device extends Common
         return json($return_data);
     }
 
+    public function rom_info_change_notice()
+    {
+        $data = input('post.');
+        $validation = new Validate([
+            'rom_version'  => 'require',
+            'pid_name'  => 'require',
+            'pid_md5'  => 'require',
+            'page' => 'require'
+        ]);
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "rom_version" => $data['rom_version'],
+            "pid_name" => $data['pid_name'],
+            "pid_md5" => $data['pid_md5'],
+            "page" => $data['page']
+        );
+        $return_data = self::loadApiData("dev_status/rom_info_change_notice", $param);
+        return $return_data;
+    }
+
+    public function query_dev_pid_general_list(){
+        $data = input('post.');
+        $validation = new Validate([
+            // 'dev_sn'  => 'require',
+            'online_status'  => 'require',
+            'page'  => 'require'
+        ]);
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "dev_sn" => isset($data['dev_sn']) ? $data['dev_sn'] : "",
+            "online_status" => $data['online_status'],
+            "page" => $data['page']
+        );
+        $return_data = self::loadApiData("dev_status/query_dev_pid_general_list", $param);
+        return $return_data;
+    }
+
+    public function query_dev_pid_detail_list(){
+        $data = input('post.');
+        $validation = new Validate([
+            'dev_sn'  => 'require',
+            'page'  => 'require'
+        ]);
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "dev_sn" => $data['dev_sn'],
+            "page" => $data['page']
+        );
+        $return_data = self::loadApiData("dev_status/query_dev_pid_detail_list", $param);
+        return $return_data;
+    }
+
+    public function query_dev_pid_history_list(){
+        $data = input('post.');
+        $validation = new Validate([
+            'dev_sn'  => 'require',
+            'md5_type'  => 'require',
+            'start_time'  => 'require',
+            'end_time'  => 'require',
+            'page'  => 'require',
+            'order'  => 'require'
+
+        ]);
+        if(!$validation->check($data)){
+            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "dev_sn" => $data['dev_sn'],
+            "md5_type" => $data['md5_type'],
+            "start_time" => $data['start_time'],
+            "end_time" => $data['end_time'],
+            "page" => $data['page'],
+            "order" => $data['order'],
+        );
+        $return_data = self::loadApiData("dev_status/query_dev_pid_history_list", $param);
+        return $return_data;
+    }
+
+
 }
