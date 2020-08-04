@@ -309,27 +309,27 @@ class Device extends Common
 
     public function query_dev_pid_history_list(){
         $data = input('post.');
-        $validation = new Validate([
-            'dev_sn'  => 'require',
-            'md5_type'  => 'require',
-            'start_time'  => 'require',
-            'end_time'  => 'require',
-            'page'  => 'require',
-            'order'  => 'require'
+        // $validation = new Validate([
+        //     'dev_sn'  => 'require',
+        //     'md5_type'  => 'require',
+        //     'start_time'  => 'require',
+        //     'end_time'  => 'require',
+        //     'page'  => 'require',
+        //     'order'  => 'require'
 
-        ]);
-        if(!$validation->check($data)){
-            return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
-        }
-        $param = array(
-            "dev_sn" => $data['dev_sn'],
-            "md5_type" => $data['md5_type'],
-            "start_time" => $data['start_time'],
-            "end_time" => $data['end_time'],
-            "page" => $data['page'],
-            "order" => $data['order'],
-        );
-        $return_data = self::loadApiData("dev_status/query_dev_pid_history_list", $param);
+        // ]);
+        // if(!$validation->check($data)){
+        //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
+        // }
+        // $param = array(
+        //     "dev_sn" => $data['dev_sn'],
+        //     "md5_type" => $data['md5_type'],
+        //     "start_time" => $data['start_time'],
+        //     "end_time" => $data['end_time'],
+        //     "page" => $data['page'],
+        //     "order" => $data['order'],
+        // );
+        $return_data = self::loadApiData("dev_status/query_dev_pid_history_list", $data);
         return $return_data;
     }
 

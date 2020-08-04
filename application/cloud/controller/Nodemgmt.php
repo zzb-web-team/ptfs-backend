@@ -242,4 +242,14 @@ class Nodemgmt extends Common
         return self::loadCloudData("node_mgmt/nodeinfo_export",$data);
     }
 
+    public function node_countinfo(){
+        $data = input('post.');
+        return self::loadCloudData("node_mgmt/node_countinfo",$data);
+    }
+
+    public function nodesinfo_byarea(){
+        $data = input('post.');
+        return self::loadCloudData("node_mgmt/nodesinfo_byarea",$data);
+    }
+
 }
