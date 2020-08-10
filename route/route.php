@@ -419,6 +419,7 @@ Route::rule('node_mgmt/get_nodetype_enum',         'cloud/nodemgmt/get_nodetype_
 Route::rule('node_mgmt/nodeinfo_export',         'cloud/nodemgmt/nodeinfo_export',          'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/node_countinfo',         'cloud/nodemgmt/node_countinfo',          'GET|POST')->allowCrossDomain();
 Route::rule('node_mgmt/nodesinfo_byarea',         'cloud/nodemgmt/nodesinfo_byarea',          'GET|POST')->allowCrossDomain();
+Route::rule('node_mgmt/query_resource_nodes',         'cloud/nodemgmt/query_resource_nodes',          'GET|POST')->allowCrossDomain();
 
 
 Route::rule('videoplay_accelerate/query_accelerate_log', 		'cloud/videoplay/query_accelerate_log', 	'GET|POST')->allowCrossDomain();

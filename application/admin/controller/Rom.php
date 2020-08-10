@@ -186,6 +186,16 @@ class Rom extends Common
         if ($return_data['status'] != 0) {
             return json($return_data);
         }
+        //删除上传MD5数据
+        $param = [
+            "tb_name" => 'tb_rom_process_md5_info',
+            "where" => "rom_version='".$data['rom_version']."' and rom_type = " . $data['rom_type']
+        ];
+        $return_data = self::loadApiData("store/delete_record", $param);
+        $return_data = json_decode($return_data, true);
+        if ($return_data['status'] != 0) {
+            return json($return_data);
+        }
         //删除该版本下的灰度数据
         $param = array(
             "tb_name"   => 'tb_rom_publish_log',
@@ -1015,7 +1025,7 @@ class Rom extends Common
             $dev_type = 0;
         } else {
             $check = substr($sn, 3, 1);
-            $dev_type = strtolower($check) == 'x' ? 4: $check;
+            $dev_type = strtolower($check) == 'x' ? 88: $check;
         }
        
         $param = array(
@@ -1098,7 +1108,7 @@ class Rom extends Common
             case 3:
                 $type = '小米盒子4';
             break;
-            case 4:
+            case 88:
                 $type = 'PC版西柚机';
             break;
             default:

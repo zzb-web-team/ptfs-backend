@@ -252,4 +252,9 @@ class Nodemgmt extends Common
         return self::loadCloudData("node_mgmt/nodesinfo_byarea",$data);
     }
 
+    public function query_resource_nodes(){
+        $data = input('post.');
+        return self::loadCloudData("node_mgmt/query_resource_nodes",$data);
+    }
+
 }

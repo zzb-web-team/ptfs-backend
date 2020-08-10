@@ -797,8 +797,7 @@ class System extends Common
         $data = input('post.');
         $validation = new Validate([
             'roleid' => 'require',
-            'name' => 'require',
-            'userid' => 'require',
+            'name' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {
