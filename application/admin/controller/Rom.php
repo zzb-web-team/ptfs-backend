@@ -136,6 +136,11 @@ class Rom extends Common
         if(!$return_data){
             return json(['status' => -900,'msg'=>'服务器错误']);
         }
+        $param = [
+            'rom_version' => $data['rom_version'],
+            'rom_type' => $data['rom_type']
+        ];
+        $return_data = self::loadApiData("dev_status/rom_info_change_notice",$param);
         return $return_data;
     }
 
@@ -373,19 +378,19 @@ class Rom extends Common
         $number = $this->versiontonumber($data['rom_version']);
 
         if (!$data['push_key']) {
-            $param = array(
-                "page" => 0,
-                "page_size" => 10,
-                "tb_name"  => 'ipfs_xyj_rom_publish',
-                "col_name" => "*",
-                "where" => "status = 1 and act_type = 1 and dev_type = ".intval($data['dev_type'])." and push_type = '正式发布'",
-                "order" => 'id desc',
-            );
-            $return_data =  self::loadApiData("store/find_table", $param);
-            $return_data = json_decode($return_data,true);
-            if(count($return_data['result']['cols']) == 1){
-                return json(['status' => 1,'msg' => '当前已是最低版本,无法撤回']);
-            }
+            // $param = array(
+            //     "page" => 0,
+            //     "page_size" => 10,
+            //     "tb_name"  => 'ipfs_xyj_rom_publish',
+            //     "col_name" => "*",
+            //     "where" => "status = 1 and act_type = 1 and dev_type = ".intval($data['dev_type'])." and push_type = '正式发布'",
+            //     "order" => 'id desc',
+            // );
+            // $return_data =  self::loadApiData("store/find_table", $param);
+            // $return_data = json_decode($return_data,true);
+            // if(count($return_data['result']['cols']) == 1){
+            //     return json(['status' => 1,'msg' => '当前已是最低版本,无法撤回']);
+            // }
 
             //全网撤回
             $param = array(

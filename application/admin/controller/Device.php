@@ -170,8 +170,6 @@ class Device extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_time'  => 'require',
-            'end_time'  => 'require',
             'query_type'  => 'require',
             'alarm_type' => 'require',
             //'node_id' => 'require',
@@ -182,8 +180,8 @@ class Device extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_time" => $data['start_time'],
-            "end_time" => $data['end_time'],
+            "start_time" => isset($data['start_time']) ? $data['start_time'] : "",
+            "end_time" => isset($data['end_time']) ? $data['end_time'] : "",
             "query_type" => $data['query_type'],
             "dev_sn" => $data['dev_sn'],
             "node_id" => $data['node_id'],
@@ -242,6 +240,7 @@ class Device extends Common
             "alarm_type" => $data['alarm_type'],
             "online_status" => $data['online_status'],
             "page" => $data['page'],
+            "order" => isset($data['order']) ? $data['order'] : 0
         );
 
         $return_data = self::loadApiData("dev_status/query_general_info_list", $param);

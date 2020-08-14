@@ -32,26 +32,26 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
             'isp'  => 'require',
-            'time_unit'  => 'require'
+            'timeUnit'  => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
             "isp"  => $data['isp'],
-            "time_unit"  => $data['time_unit'],
+            "timeUnit"  => $data['timeUnit'],
             "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         $rs = self::testApiData("resource_manage/accelerate_flow", $data);
@@ -65,8 +65,8 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
@@ -79,8 +79,8 @@ class Resource extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
@@ -121,26 +121,26 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
             'isp'  => 'require',
-            'time_unit'  => 'require'
+            'timeUnit'  => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
             "isp"  => $data['isp'],
-            "time_unit"  => $data['time_unit'],
+            "timeUnit"  => $data['timeUnit'],
             "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         $rs = self::testApiData("resource_manage/backsource_flow", $param);
@@ -174,27 +174,29 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
             'isp'  => 'require',
-            'time_unit'  => 'require'
+            'timeUnit'  => 'require',
+            'terminalName' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
             "isp"  => $data['isp'],
-            "time_unit"  => $data['time_unit'],
-            "acce" => isset($data['acce']) ? $data['acce'] : ""
+            "timeUnit"  => $data['timeUnit'],
+            "acce" => isset($data['acce']) ? $data['acce'] : "",
+            "terminalName" => $data['terminalName']
         );
         $rs = self::testApiData("videoaccess_statistic/pv_uv_curve", $param);
         if (!$rs) {
@@ -227,8 +229,8 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'isp'  => 'require',
@@ -241,8 +243,8 @@ class Resource extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "isp"  => $data['isp'],
@@ -282,8 +284,8 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
@@ -296,8 +298,8 @@ class Resource extends Common
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
@@ -337,26 +339,26 @@ class Resource extends Common
     {
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
+            'startTs'  => 'require',
+            'endTs'  => 'require',
             'chanId'  => 'require',
             'fileName'  => 'require',
             'region'  => 'require',
             'isp'  => 'require',
-            'time_unit'  => 'require',
+            'timeUnit'  => 'require',
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => $data['chanId'],
             "fileName"  => $data['fileName'],
             "region"  => $data['region'],
             "isp"  => $data['isp'],
-            "time_unit"  => $data['time_unit'],
+            "timeUnit"  => $data['timeUnit'],
             "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         $rs = self::testApiData("videoplay_statistic/query_playtimes_curve", $param);
@@ -370,8 +372,8 @@ class Resource extends Common
     {
         $data = input('post.');
         // $validation = new Validate([
-        //     'start_ts'  => 'require',
-        //     'end_ts'  => 'require',
+        //     'startTs'  => 'require',
+        //     'endTs'  => 'require',
         //     'chanId'  => 'require',
         //     'fileName'  => 'require',
         //     'region'  => 'require',
@@ -384,8 +386,8 @@ class Resource extends Common
         //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         // }
         // $param = array(
-        //     "start_ts" => $data['start_ts'],
-        //     "end_ts"  => $data['end_ts'],
+        //     "startTs" => $data['startTs'],
+        //     "endTs"  => $data['endTs'],
         //     "chanId"  => $data['chanId'],
         //     "fileName"  => $data['fileName'],
         //     "region"  => $data['region'],
@@ -404,22 +406,22 @@ class Resource extends Common
     public function export_pv_uv_curve_file(){
         $data = input('post.');
         $validation = new Validate([
-            'start_ts'  => 'require',
-            'end_ts'  => 'require',
-            'time_unit'  => 'require'
+            'startTs'  => 'require',
+            'endTs'  => 'require',
+            'timeUnit'  => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
             return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         }
         $param = array(
-            "start_ts" => $data['start_ts'],
-            "end_ts"  => $data['end_ts'],
+            "startTs" => $data['startTs'],
+            "endTs"  => $data['endTs'],
             "chanId"  => isset($data['chanId']) ? $data['chanId'] : "*",
             "fileName"  => isset($data['fileName']) ? $data['fileName'] : "*",
             "region"  => isset($data['region']) ? $data['region'] : "*",
             "isp"  => isset($data['isp']) ? $data['isp'] :"*",
-            "time_unit"  => $data['time_unit'],
+            "timeUnit"  => $data['timeUnit'],
             "acce" => isset($data['acce']) ? $data['acce'] : ""
         );
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_pv_uv_curve_file?'.http_build_query($data)]);
@@ -429,21 +431,21 @@ class Resource extends Common
     public function export_playdata_table_file(){
         $data = input('post.');
         // $validation = new Validate([
-        //     'start_ts'  => 'require',
-        //     'end_ts'  => 'require'
+        //     'startTs'  => 'require',
+        //     'endTs'  => 'require'
         // ]);
         // //验证表单
         // if(!$validation->check($data)){
         //     return json(['status' => -900, 'err_code' => -900,  'msg' => $validation->getError()]);
         // }
         // $param = array(
-        //     "start_ts" => $data['start_ts'],
-        //     "end_ts"  => $data['end_ts'],
+        //     "startTs" => $data['startTs'],
+        //     "endTs"  => $data['endTs'],
         //     "chanId"  => isset($data['chanId']) ? $data['chanId'] : "*",
         //     "fileName"  => isset($data['fileName']) ? $data['fileName'] : "*",
         //     "region"  => isset($data['region']) ? $data['region'] : "*",
         //     "isp"  => isset($data['isp']) ? $data['isp'] :"*",
-        //     "time_unit"  => $data['time_unit'],
+        //     "timeUnit"  => $data['timeUnit'],
         //     "acce" => isset($data['acce']) ? $data['acce'] : ""
         // );
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_playdata_table_file?'.http_build_query($data)]);
