@@ -35,7 +35,7 @@ class System extends Common
             if (isset($return_data['result']['cols'][0])) {
                 $user = $return_data['result']['cols'][0];
                 if (md5($data['password']) != $user['password']) {
-                    return json(['status' => -900, 'msg' => '密码错误']);
+                    return json(['status' => -900, 'msg' => '账户名或密码错误']);
                 }
                 if ($user['status'] == 1) {
                     return json(['status' => -900, 'msg' => '用户已被禁用']);
@@ -65,7 +65,7 @@ class System extends Common
                     return json(['status' => 0, 'msg' => $user, 'passlv' => $result['lv'], 'lvmsg' => $result['lvmsg'], 'google' => 0]);
                 }
             }
-            return json(['status' => -900, 'msg' => '找不到该用户']);
+            return json(['status' => -900, 'msg' => '账户名或密码错误']);
         }
         return json($return_data);
     }
