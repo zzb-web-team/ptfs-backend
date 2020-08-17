@@ -331,7 +331,8 @@ Route::rule('system/updateroleinfo', 		'api/system/update_roleinfo', 	'GET|POST'
 Route::rule('system/delrole', 		'api/system/del_role', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/userlistaddrole', 		'api/system/userlist_addrole', 	'GET|POST')->allowCrossDomain();
 Route::rule('system/getuserdepartment', 		'api/system/getuserdepartment', 	'GET|POST')->allowCrossDomain();
-
+Route::rule('system/insert_rouji_log',        'api/system/insert_rouji_log',      'GET|POST')->allowCrossDomain();
+Route::rule('system/rouji_log_list',        'api/system/rouji_log_list',      'GET|POST')->allowCrossDomain();
 
 
 //Appmarket

@@ -936,6 +936,63 @@ class System extends Common
         return json($result);
     }
 
+    public function insert_rouji_log(){
+        $data = input('post.');
+        $validation = new Validate([
+            'From IP' => 'require',
+            'Request URL' => 'require',
+            'Error Code' => 'require',
+            'Error Msg' => 'require'
+        ]);
+        //验证表单
+        if (!$validation->check($data)) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
+        }
+        $msg = $data['Error Msg'];
+        $msg_arr = explode("|",$msg);
+        $insert[] = [
+            $data['Error Code'],
+            $data['From IP'],
+            $msg_arr[0],
+            $msg_arr[1],
+            $msg_arr[2],
+            intval($msg_arr[3]),
+            $msg_arr[4],
+            $msg_arr[5],
+            $msg_arr[6]
+        ];
+        $param = array(
+            "tb_name" => 'ipfs_rouji_log',
+            "insert" => $insert,
+        );
+        $result = self::loadApiData("store/insert_table", $param);
+        if (!$result) {
+            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        return $result;
+    }
+
+    public function rouji_log_list(){
+        $data = input('post.');
+        $where = "1";
+        $order = $data['order'] == 0 ? "id asc" : "id desc";
+        $where .= $data['time_start'] == "" || $data['time_end'] == "" ? "" : " and time_create BETWEEN " . $data['time_start'] . " and " .$data['time_end'];
+        $where .= $data['code'] == "" ? "" : " and code = " . $data['code'];
+        $param = array(
+            "page" => isset($data['page']) ? intval($data['page']) : 0,
+            "page_size" => 10,
+            "tb_name" => 'ipfs_rouji_log',
+            "col_name" => "*",
+            "where" => $where,
+            "order" => $order,
+        );
+        $result = self::loadApiData("store/find_table", $param);
+        if (!$result) {
+            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        return $result;
+    }
+
     public function getparent($id, $data)
     {
         static $parent = [];
