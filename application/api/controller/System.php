@@ -956,8 +956,8 @@ class System extends Common
             $msg_arr[1],
             $msg_arr[2],
             intval($msg_arr[3]),
-            $msg_arr[4],
             $msg_arr[5],
+            $msg_arr[4],
             $msg_arr[6]
         ];
         $param = array(
@@ -991,6 +991,113 @@ class System extends Common
         }
         return $result;
     }
+
+    public function menu_list(){
+        if (Cache::store('redis')->has('ipfs_allmenu')) {
+            $return_data = Cache::store('redis')->get('ipfs_allmenu');
+        } else {
+            $return_data = parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        }
+        $return_data = json_decode($return_data,true);
+        return json(parent::getTree($return_data,0));
+    }
+
+    public function add_menu(){
+        $data = input('post.');
+        $insert[] = [
+            $data['pid'],
+            $data['name'],
+            $data['read_status'],
+            $data['update_status'],
+            $data['delete_status'],
+            $data['insert_status'],
+            $data['import_status'],
+            $data['export_status'],
+            $data['path'],
+            $data['component'],
+            $data['icon'],
+            $data['hidden']
+        ];
+        $param = array(
+            "tb_name" => 'ipfs_menu',
+            "insert" => $insert,
+        );
+        $result = self::loadApiData("store/insert_table", $param);
+        if(!$result){
+            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        return $result;
+    }
+
+    public function update_menu(){
+        $data = input('post.');
+        $update = [
+            'pid',
+            'name',
+            'read_status',
+            'update_status',
+            'delete_status',
+            'insert_status',
+            'import_status',
+            'export_status',
+            'path',
+            'component',
+            'icon',
+            'hidden'
+        ];
+        $insert = [
+            $data['pid'],
+            $data['name'],
+            $data['read_status'],
+            $data['update_status'],
+            $data['delete_status'],
+            $data['insert_status'],
+            $data['import_status'],
+            $data['export_status'],
+            $data['path'],
+            $data['component'],
+            $data['icon'],
+            $data['hidden']
+        ];
+        $param = array(
+            "tb_name" => 'ipfs_menu',
+            "update" => $update,
+            "col_value" => $insert,
+            "where" => "id = " . $data['id'],
+        );
+        $result = self::loadApiData("store/update_table", $param);
+        if(!$result){
+            return json(['status' => -900, 'msg' => '服务器可能开小差去了']);
+        }
+        parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        return $result;
+
+    }
+
+    public function delete_menu(){
+        $data = input('post.');
+        $param = array(
+            "page" => 0,
+            "page_size" => 10,
+            "tb_name" => 'ipfs_menu',
+            "col_name" => "*",
+            "where" => "pid = " . $data['id'],
+            "order" => "id desc",
+        );
+        $result = self::loadApiData("store/find_table", $param);
+        $result = json_decode($result,true);
+        if($result['result']['cols']){
+            return json(['status' => 1,'msg' =>'此菜单下有二级菜单,禁止删除']);
+        }
+        $param = [
+            "tb_name" => 'ipfs_menu',
+            "where" => "id=" . $data['id'],
+        ];
+        $result = self::loadApiData("store/delete_record", $param);
+    }
+
+    
 
     public function getparent($id, $data)
     {
