@@ -236,7 +236,8 @@ class Resource extends Common
             'isp'  => 'require',
             'top'  => 'require',
             'pageNo' => 'require',
-            'pageSize' => 'require'
+            'pageSize' => 'require',
+            'terminalName' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -251,7 +252,8 @@ class Resource extends Common
             "top"  => $data['top'],
             "acce" => isset($data['acce']) ? $data['acce'] : "",
             "pageNo" => $data['pageNo'],
-            "pageSize" => $data['pageSize']
+            "pageSize" => $data['pageSize'],
+            "terminalName" => $data['terminalName']
         );
         $rs = self::testApiData("videoaccess_statistic/query_topregion_accesscnt_curve", $param);
         if (!$rs) {
@@ -291,7 +293,8 @@ class Resource extends Common
             'region'  => 'require',
             'top'  => 'require',
             'pageNo' => 'require',
-            'pageSize' => 'require'
+            'pageSize' => 'require',
+            'terminalName' => 'require'
         ]);
         //验证表单
         if(!$validation->check($data)){
@@ -306,7 +309,8 @@ class Resource extends Common
             "top"  => $data['top'],
             "pageNo" => $data['pageNo'],
             "pageSize" => $data['pageSize'],
-            "acce" => isset($data['acce']) ? $data['acce'] : ""
+            "acce" => isset($data['acce']) ? $data['acce'] : "",
+            "terminalName" => $data['terminalName']
         );
         $rs = self::testApiData("videoaccess_statistic/query_topisp_accesscnt_curve", $param);
         if (!$rs) {

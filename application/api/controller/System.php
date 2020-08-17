@@ -1094,6 +1094,7 @@ class System extends Common
             "tb_name" => 'ipfs_menu',
             "where" => "id=" . $data['id'],
         ];
+        parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
         $result = self::loadApiData("store/delete_record", $param);
     }
 
