@@ -939,20 +939,19 @@ class System extends Common
     public function insert_rouji_log(){
         $data = input('post.');
         $validation = new Validate([
-            'From IP' => 'require',
-            'Request URL' => 'require',
-            'Error Code' => 'require',
-            'Error Msg' => 'require'
+            'code' => 'require',
+            'msg' => 'require'
         ]);
         //验证表单
         if (!$validation->check($data)) {
             return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
         }
-        $msg = $data['Error Msg'];
+        $msg = $data['msg'];
         $msg_arr = explode("|",$msg);
+        $ip = $this->request->ip();
         $insert[] = [
-            $data['Error Code'],
-            $data['From IP'],
+            $data['code'],
+            $ip,
             $msg_arr[0],
             $msg_arr[1],
             $msg_arr[2],
