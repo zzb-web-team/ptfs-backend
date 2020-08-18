@@ -333,6 +333,10 @@ Route::rule('system/userlistaddrole', 		'api/system/userlist_addrole', 	'GET|POS
 Route::rule('system/getuserdepartment', 		'api/system/getuserdepartment', 	'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/save_error_log',        'api/system/insert_rouji_log',      'GET|POST')->allowCrossDomain();
 Route::rule('ipfs_node_monit/error_log_list',        'api/system/rouji_log_list',      'GET|POST')->allowCrossDomain();
+Route::rule('system/addmenu', 		'api/system/add_menu', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/menulist', 		'api/system/menu_list', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/deletemenu', 		'api/system/delete_menu', 	'GET|POST')->allowCrossDomain();
+Route::rule('system/updatemenu', 		'api/system/update_menu', 	'GET|POST')->allowCrossDomain();
 
 
 //Appmarket

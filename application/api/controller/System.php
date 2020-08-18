@@ -73,25 +73,6 @@ class System extends Common
         return json($result);
     }
 
-    public function get_alldepartment()
-    {
-        $where = '1';
-        $param = array(
-            "page" => 0,
-            "page_size" => 200,
-            "tb_name" => 'ipfs_department',
-            "col_name" => "*",
-            "where" => $where,
-            "order" => 'id desc',
-        );
-        $result = self::loadApiData("store/find_table", $param);
-        if (!$result) {
-            return json(['status' => -900, 'msg' => '服务器开小差去了']);
-        }
-        $result = Cache::store('redis')->set('ipfs_alldepartment', $result);
-
-    }
-
     public function get_topdepartment()
     {
         $param = array(
@@ -1004,6 +985,31 @@ class System extends Common
 
     public function add_menu(){
         $data = input('post.');
+        $validation = new Validate([
+            'pid' => 'require',
+            'name' => 'require',
+            'path' => 'require',
+            'component' => 'require',
+            'icon' => 'require',
+            'hidden' => 'require'
+        ]);
+        //验证表单
+        if (!$validation->check($data)) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
+        }
+        $param = array(
+            "page" => 0,
+            "page_size" => 10,
+            "tb_name" => 'ipfs_menu',
+            "col_name" => "*",
+            "where" => 'id = ' . $data['pid'],
+            "order" => 'id desc',
+        );
+        $result = self::loadApiData("store/find_table", $param);
+        $result = json_decode($result,true);
+        if(empty($result['result']['cols']) && $data['pid'] != 0 ){
+            return json(['status' => -900,'msg' => '不存在此父级菜单']);
+        }
         $insert[] = [
             $data['pid'],
             $data['name'],
@@ -1032,6 +1038,18 @@ class System extends Common
 
     public function update_menu(){
         $data = input('post.');
+        $validation = new Validate([
+            'pid' => 'require',
+            'name' => 'require',
+            'path' => 'require',
+            'component' => 'require',
+            'icon' => 'require',
+            'hidden' => 'require'
+        ]);
+        //验证表单
+        if (!$validation->check($data)) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
+        }
         $update = [
             'pid',
             'name',
@@ -1077,27 +1095,37 @@ class System extends Common
 
     public function delete_menu(){
         $data = input('post.');
-        $param = array(
-            "page" => 0,
-            "page_size" => 10,
-            "tb_name" => 'ipfs_menu',
-            "col_name" => "*",
-            "where" => "pid = " . $data['id'],
-            "order" => "id desc",
-        );
-        $result = self::loadApiData("store/find_table", $param);
-        $result = json_decode($result,true);
-        if($result['result']['cols']){
-            return json(['status' => 1,'msg' =>'此菜单下有二级菜单,禁止删除']);
+        $validation = new Validate([
+            'id' => 'require',
+        ]);
+        //验证表单
+        if (!$validation->check($data)) {
+            return json(['status' => -900, 'err_code' => -900, 'msg' => $validation->getError()]);
+        }
+        $dataarr = explode(',',$data['id']);
+        foreach($dataarr as $k=>$v){
+            $param = array(
+                "page" => 0,
+                "page_size" => 10,
+                "tb_name" => 'ipfs_menu',
+                "col_name" => "*",
+                "where" => "pid = " . $v[$k],
+                "order" => "id desc",
+            );
+            $result = self::loadApiData("store/find_table", $param);
+            $result = json_decode($result,true);
+            if($result['result']['cols']){
+                return json(['status' => 1,'msg' =>'此菜单下有子级菜单,禁止删除']);
+            }
         }
         $param = [
             "tb_name" => 'ipfs_menu',
-            "where" => "id=" . $data['id'],
+            "where" => "id in (" . $data['id'] . ")",
         ];
-        parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
         $result = self::loadApiData("store/delete_record", $param);
+        parent::cachedb('ipfs_menu', "*", 'ipfs_allmenu');
+        return $result;
     }
-
     
 
     public function getparent($id, $data)
