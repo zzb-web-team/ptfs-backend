@@ -958,6 +958,7 @@ class System extends Common
         $order = $data['order'] == 0 ? "id asc" : "id desc";
         $where .= $data['time_start'] == "" || $data['time_end'] == "" ? "" : " and time_create BETWEEN " . $data['time_start'] . " and " .$data['time_end'];
         $where .= $data['code'] == "" ? "" : " and code = " . $data['code'];
+        $where .= $data['ip'] == "" ? "" : " and ip LIKE '%" . $data['ip'] . "%'";
         $param = array(
             "page" => isset($data['page']) ? intval($data['page']) : 0,
             "page_size" => 10,
@@ -990,7 +991,6 @@ class System extends Common
             'name' => 'require',
             'path' => 'require',
             'component' => 'require',
-            'icon' => 'require',
             'hidden' => 'require'
         ]);
         //验证表单
@@ -1021,7 +1021,7 @@ class System extends Common
             $data['export_status'],
             $data['path'],
             $data['component'],
-            $data['icon'],
+            isset($data['icon']) ? $data['icon'] : "",
             $data['hidden']
         ];
         $param = array(
@@ -1043,7 +1043,6 @@ class System extends Common
             'name' => 'require',
             'path' => 'require',
             'component' => 'require',
-            'icon' => 'require',
             'hidden' => 'require'
         ]);
         //验证表单
@@ -1075,7 +1074,7 @@ class System extends Common
             $data['export_status'],
             $data['path'],
             $data['component'],
-            $data['icon'],
+            isset($data['icon']) ? $data['icon'] : "",
             $data['hidden']
         ];
         $param = array(

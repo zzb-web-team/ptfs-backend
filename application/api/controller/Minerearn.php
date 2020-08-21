@@ -582,4 +582,8 @@ class Minerearn extends Common
         return self::loadApiData("miner_earn/get_sign_value",$data);
     }
 
+    public function set_earn_dot_value(){
+        $data = input('post.');
+        return self::loadApiData("miner_earn/set_earn_dot_value",$data);
+    }
 }

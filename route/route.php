@@ -291,7 +291,7 @@ Route::rule('miner_earn/get_app_dev_con_list', 					'api/minerearn/get_app_dev_c
 Route::rule('miner_earn/get_app_dev_cp_val', 					'api/minerearn/get_app_dev_cp_val', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_earn/get_app_dev_cp_list', 					'api/minerearn/get_app_dev_cp_list', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_earn/get_sign_value', 					'api/minerearn/get_sign_value', 	'GET|POST')->allowCrossDomain();
-
+Route::rule('miner_earn/set_earn_dot_value', 					'api/minerearn/set_earn_dot_value', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('monitor/get_server', 								'api/monitor/getserver', 	'GET|POST')->allowCrossDomain();
 Route::rule('monitor/get_cur_process_info', 					'api/monitor/getcurprocessinfo', 	'GET|POST')->allowCrossDomain();
