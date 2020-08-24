@@ -929,6 +929,9 @@ class System extends Common
         }
         $msg = $data['msg'];
         $msg_arr = explode("|",$msg);
+        if(count($msg_arr) < 7){
+            return json(['status' => -900,'msg' => '格式错误']);
+        }
         $ip = $this->request->ip();
         $insert[] = [
             $data['code'],
@@ -957,7 +960,7 @@ class System extends Common
         $where = "1";
         $order = $data['order'] == 0 ? "id asc" : "id desc";
         $where .= $data['time_start'] == "" || $data['time_end'] == "" ? "" : " and time_create BETWEEN " . $data['time_start'] . " and " .$data['time_end'];
-        $where .= $data['code'] == "" ? "" : " and code = " . $data['code'];
+        $where .= $data['code'] == "" ? "" : " and code = '" . $data['code'] . "'";
         $where .= $data['ip'] == "" ? "" : " and ip LIKE '%" . $data['ip'] . "%'";
         $param = array(
             "page" => isset($data['page']) ? intval($data['page']) : 0,
