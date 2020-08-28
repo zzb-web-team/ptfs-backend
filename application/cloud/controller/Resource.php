@@ -584,5 +584,15 @@ class Resource extends Common
         $data = input('post.');
         return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_dataflow_ranking_table_file?'.http_build_query($data)]);
     }
+
+    public function export_video_info_statistics_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_video_info_statistics_file?'.http_build_query($data)]);
+    }
+
+    public function export_video_exception_statistics_file(){
+        $data = input('post.');
+        return json(['status' => 0, 'err_code' => 0,  'msg' => config("ipfs.apiurl4").'file_download/export_video_exception_statistics_file?'.http_build_query($data)]);
+    }
     
 }

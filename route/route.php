@@ -479,6 +479,8 @@ Route::rule('file_download/export_manage_dataflow_table_file', 		'cloud/resource
 Route::rule('file_download/export_ipfs_flow_table_file', 		'cloud/resource/export_ipfs_flow_table_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_accelcnt_ranking_table_file', 		'cloud/resource/export_accelcnt_ranking_table_file', 	'GET|POST')->allowCrossDomain();
 Route::rule('file_download/export_dataflow_ranking_table_file', 		'cloud/resource/export_dataflow_ranking_table_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_video_info_statistics_file', 		'cloud/resource/export_video_info_statistics_file', 	'GET|POST')->allowCrossDomain();
+Route::rule('file_download/export_video_exception_statistics_file', 		'cloud/resource/export_video_exception_statistics_file', 	'GET|POST')->allowCrossDomain();
 
 
 Route::rule('resource_usage/query_conditions', 		'cloud/resourceuser/query_conditions', 	'GET|POST')->allowCrossDomain();
