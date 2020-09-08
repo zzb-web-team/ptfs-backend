@@ -231,9 +231,10 @@ Route::rule('miner_ctrl/edit_device_basicinfo', 				'api/ptfsstorage/edit_device
 Route::rule('miner_ctrl/device_cnt_overview', 					'api/ptfsstorage/device_cnt_overview', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_ctrl/delete_device_basicinfo', 				'api/ptfsstorage/delete_device_basicinfo', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_ctrl/change_device_bind_state2', 				'api/ptfsstorage/changedevicebindstate2', 	'GET|POST')->allowCrossDomain();
-Route::rule('miner_ctrl/ctrl_node_state2', 						'api/ptfsstorage/ctrlnodestate2', 	'GET|POST')->allowCrossDomain();
+Route::rule('miner_ctrl/ctrl_node_state2', 		 				'api/ptfsstorage/ctrlnodestate2', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_ctrl/query_binded_user_cnt', 						'api/ptfsstorage/query_binded_user_cnt', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_ctrl/chg_device_state', 						'api/ptfsstorage/chg_device_state', "GET|POST")->allowCrossDomain();
+Route::rule('miner_ctrl/query_bind_node_id_list_by_user_id_php', 					'api/minerearn/query_bind_node_id_list_by_user_id_php', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('miner_ctrl/query_node_dynamic_info', 					'api/minerearn/query_node_dynamic_info', 	'GET|POST')->allowCrossDomain();
 Route::rule('miner_ctrl/create_help_cat_info', 					'api/minerearn/create_help_cat_info', 	'GET|POST')->allowCrossDomain();

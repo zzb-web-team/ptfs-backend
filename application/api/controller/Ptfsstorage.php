@@ -602,6 +602,11 @@ class PtfsStorage extends Common
         return self::loadApiData("miner_ctrl/chg_device_state", $data);
     }
 
+    public function query_bind_node_id_list_by_user_id_php(){
+        $data = input('post.');
+        return self::loadApiData(("miner_ctrl/query_bind_node_id_list_by_user_id_php"),$data);
+    }
+
 
     
 }
