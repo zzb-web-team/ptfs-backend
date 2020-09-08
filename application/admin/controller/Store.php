@@ -11,4 +11,10 @@ class Store extends Common
         return self::loadApiData("store/insert_table", $data);
     }
 
+    public function find_table()
+    {
+        $data = input('post.');
+        return self::loadApiData("store/find_table", $data);
+    }
+
 }

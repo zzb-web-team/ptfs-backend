@@ -65,6 +65,7 @@ Route::rule('packet/otaversion', 								'admin/packet/otaversion', 								'GET
 Route::rule('packet/uploadtxt', 									'admin/packet/uploadtxt', 								'GET|POST')->allowCrossDomain();
 
 Route::rule('store/insert_table', 									'admin/store/insert_table', 								'GET|POST')->allowCrossDomain();
+Route::rule('store/find_table', 									'admin/store/find_table', 								'GET|POST')->allowCrossDomain();
 
 Route::rule('overview/querySummary', 							'admin/overview/querySummary', 						'GET|POST')->allowCrossDomain();
 Route::rule('overview/queryOnlineNodeHistgraph', 				'admin/overview/queryOnlineNodeHistgraph', 			'GET|POST')->allowCrossDomain();
