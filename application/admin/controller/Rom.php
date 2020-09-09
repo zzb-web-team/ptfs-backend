@@ -15,7 +15,7 @@ class Rom extends Common
             "page"      => $page,
             "page_size" => 10,
             "tb_name"   => 'tb_rom_update_info',
-            "col_name"  => ["id","equip_type","rom_version","version_name","rom_url","rom_size","md5","hashid","rom_desc","push_mod","rom_type","time_create","time_update","status","ptfs_file_upload_status"],
+            "col_name"  => "*",
             "where"     => $where,
             "order"     => 'id desc',
         );

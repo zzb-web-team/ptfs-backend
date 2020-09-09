@@ -1,9 +1,9 @@
 <?php
-namespace app\api\controller;
+namespace app\cloud\controller;
 use think\facade\Cache;
 use think\Validate;
 
-class Urlmgmt extends Common
+class Urlmgmt2 extends Common
 {
 	 public function get_token_for_rest()
     {

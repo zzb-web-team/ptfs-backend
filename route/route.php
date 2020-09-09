@@ -578,13 +578,13 @@ Route::rule('demo/add' , 'demo/index/add', 'GET|POST')->allowCrossDomain();
 Route::rule('demo/edit' , 'demo/index/edit', 'GET|POST')->allowCrossDomain();
 Route::rule('demo/delete' , 'demo/index/delete', 'GET|POST')->allowCrossDomain();
 
-Route::rule('cloudapi/get_token', 		'api/urlmgmt/get_token_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/add_url', 		'api/urlmgmt/add_url_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/config', 		'api/urlmgmt/config_url_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/add_domain', 		'api/urlmgmt/add_domain_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/modify_domain', 		'api/urlmgmt/modify_domain_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/query_domain', 		'api/urlmgmt/query_domain_for_rest', 	'GET|POST')->allowCrossDomain();
-Route::rule('cloudapi/query_url', 		'api/urlmgmt/query_url_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/get_token', 		'cloud/urlmgmt2/get_token_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/add_url', 		'cloud/urlmgmt2/add_url_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/config', 		'cloud/urlmgmt2/config_url_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/add_domain', 		'cloud/urlmgmt2/add_domain_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/modify_domain', 		'cloud/urlmgmt2/modify_domain_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/query_domain', 		'cloud/urlmgmt2/query_domain_for_rest', 	'GET|POST')->allowCrossDomain();
+Route::rule('cloudapi/query_url', 		'cloud/urlmgmt2/query_url_for_rest', 	'GET|POST')->allowCrossDomain();
 
 Route::rule('cloudapi/iplist', 		'admin/system/iplist', 	'GET|POST')->allowCrossDomain();
 Route::rule('cloudapi/addip', 		'admin/system/addip', 	'GET|POST')->allowCrossDomain();
